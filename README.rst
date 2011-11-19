@@ -7,7 +7,10 @@ Currently the data is in assets/xml/guidelines.xml but ideally they should be do
 
 * Search
 * Favourites/ Recent
-* Download ALL
 * Refresh (i.e remove all downloaded and refetch)
 * Show with an icon which have already been downloaded
 
+
+Implemented in 1.1 
+
+* Download ALL
