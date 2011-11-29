@@ -12,8 +12,8 @@ public class DownloadPDF {
 	private final int SOCKET_TIMEOUT = 30000;
 	
 	public void DownloadFrom( String url, String target) throws IOException {
-		URL url = new URL(url);
-        URLConnection connection = url.openConnection();
+		URL murl = new URL(url);
+        URLConnection connection = murl.openConnection();
         byte[] buff = new byte[5 * 1024];
         int len;
 
