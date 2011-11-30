@@ -109,9 +109,10 @@ public boolean onCreateOptionsMenu(Menu menu)
 		    ad.setButton("Go", new DialogInterface.OnClickListener() {  
 		        @Override  
 		        public void onClick(DialogInterface dialog, int which) {  
-		           for ( String s : guidelines.GetKeys() ) {
-		               download(s);
-		           }
+	//	           for ( String s : guidelines.GetKeys() ) {
+	//	               download(s);
+			    new AsyncDownload().execute(guidelines.GetKeys());
+//		           }
 /*		           download("Acutely ill patients in hospital");		   
 		 		   download("Alcohol dependence and harmful alcohol use");
 		 		   download("Alcohol-use disorders: physical complications");
@@ -341,12 +342,17 @@ public boolean onCreateOptionsMenu(Menu menu)
 		return sdcard.getAbsolutePath() + File.separator+ "nice_guidance" + File.separator;		
 	}
 	
-	public boolean download(String guideline) {
+	public boolean download(String guideline) { 
 		//What is public stays public
 		AsyncTask myDownload = new AsyncDownload().execute(guideline);
-	//	Boolean success =  myDownload.get();
-	//	return success.booleanValue();
-		return true;
+		try{
+			Boolean success = (Boolean) myDownload.get();
+			return success.booleanValue();
+		}catch(InterruptedException e){
+			return false;
+		}catch(java.util.concurrent.ExecutionException f){
+			return false;
+		}
 /*		String url = guidelines.Get(guideline);
 		String hash  = MD5_Hash(url);
 
@@ -371,24 +377,31 @@ public boolean onCreateOptionsMenu(Menu menu)
 	private class AsyncDownload extends AsyncTask<String, String, Boolean> {
 		protected void onPreExecute() {
 			Toast.makeText(getApplicationContext(),
-					"Accessing or downloading file",
+					"Accessing / downloading",
 					Toast.LENGTH_SHORT).show();
 		}
-		protected Boolean doInBackground(String... guideline) {
-			String url = guidelines.Get(guideline[0]);
-			String hash = MD5_Hash(url);
-			String targetFile = pathToStorage(hash + ".pdf");
-			File file = new File(targetFile);
-			if (! file.exists() ) {
-				DownloadPDF p = new DownloadPDF();
-				try {
-					p.DownloadFrom(url, targetFile);
-					publishProgress("Downloaded " + guideline[0] + " successfully");
-				} catch (Exception exc){
-					publishProgress("Failed to download the PDF " + exc.toString());
-					return Boolean.FALSE;
+		protected Boolean doInBackground(String... guidelinelist) {
+			int count = guidelinelist.length;
+			Boolean singlesuccess = Boolean.FALSE; // if called on a single file the pdf viewer may be opened
+			for (int i = 0; i < count; i++){
+				String url = guidelines.Get(guidelinelist[i]);
+				String hash = MD5_Hash(url);
+				String targetFile = pathToStorage(hash + ".pdf");
+				File file = new File(targetFile);
+				if (! file.exists() ) {
+					DownloadPDF p = new DownloadPDF();
+					try {
+						p.DownloadFrom(url, targetFile);
+						publishProgress("Downloaded " + guidelinelist[i] + " successfully");
+						singlesuccess = Boolean.TRUE;
+					} catch (Exception exc){
+						publishProgress("Failed to download the PDF " + exc.toString());
+					}
+				} else {
+					singlesuccess = Boolean.TRUE;
 				}
 			}
+			if (count == 1) return singlesuccess;
 			return Boolean.TRUE;
 		}
 		protected void onProgressUpdate(String... progress) {
