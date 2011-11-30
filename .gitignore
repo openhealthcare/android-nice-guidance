@@ -1,2 +1,8 @@
 bin/
+build.properties
+build.xml
+default.properties
+local.properties
 gen/
+proguard.cfg
+project.properties
