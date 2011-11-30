@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.lang.Boolean;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.Menu; 
+import android.os.AsyncTask;
 
 
 public class NICEApp extends ListActivity {
@@ -323,7 +325,12 @@ public boolean onCreateOptionsMenu(Menu menu)
 	}
 	
 	public boolean download(String guideline) {
-		String url = guidelines.Get(guideline);
+		//What is public stays public
+		AsyncTask myDownload = new AsyncDownload().execute(guideline);
+	//	Boolean success =  myDownload.get();
+	//	return success.booleanValue();
+		return true;
+/*		String url = guidelines.Get(guideline);
 		String hash  = MD5_Hash(url);
 
 		String targetFile= pathToStorage( hash + ".pdf" );					
@@ -342,6 +349,36 @@ public boolean onCreateOptionsMenu(Menu menu)
                         Toast.LENGTH_LONG).show();
                 		return false;
 			}}
-		return true;	
+		return true;	*/
 	}
+	private class AsyncDownload extends AsyncTask<String, String, Boolean> {
+		protected void onPreExecute() {
+			Toast.makeText(getApplicationContext(),
+					"Accessing or downloading file",
+					Toast.LENGTH_SHORT).show();
+		}
+		protected Boolean doInBackground(String... guideline) {
+			String url = guidelines.Get(guideline[0]);
+			String hash = MD5_Hash(url);
+			String targetFile = pathToStorage(hash + ".pdf");
+			File file = new File(targetFile);
+			if (! file.exists() ) {
+				DownloadPDF p = new DownloadPDF();
+				try {
+					p.DownloadFrom(url, targetFile);
+					publishProgress("Downloaded " + guideline[0] + " successfully");
+				} catch (Exception exc){
+					publishProgress("Failed to download the PDF " + exc.toString());
+					return Boolean.FALSE;
+				}
+			}
+			return Boolean.TRUE;
+		}
+		protected void onProgressUpdate(String... progress) {
+			Toast.makeText(getApplicationContext(),
+					progress[0],
+					Toast.LENGTH_SHORT).show();
+		}
+	}
+
 }
