@@ -54,6 +54,7 @@ public class NICEApp extends ListActivity {
 	private static final int FEEDBACK_ID = 2;
 	private static final int ABOUT_ID = 3;
 	private static final int GETALL_ID = 4;
+	private static boolean downloadLock = false;
 	GuidelineData guidelines;
 	ArrayAdapter<String> arrad;
 	ArrayAdapter<String> adapter = null;
@@ -294,23 +295,10 @@ public boolean onCreateOptionsMenu(Menu menu)
 					
 					String targetFile= pathToStorage( hash + ".pdf" );					
 					File file = new File(targetFile);
-					
-					download(key);
+					new AsyncDownload().execute(key);
+					//download(key);
 					// Hash it and look for it on disk, if not on disk then download locally
 					
-                    Uri path = Uri.fromFile(file);
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setDataAndType(path, "application/pdf");
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                    try {
-                        startActivity(intent);
-                    } 
-                    catch (ActivityNotFoundException e) {
-                        Toast.makeText(getApplicationContext(), 
-                            "No Application Available to View PDF files", 
-                            Toast.LENGTH_LONG).show();
-                    }
 			}		   
 	  });
 
@@ -390,6 +378,11 @@ public boolean onCreateOptionsMenu(Menu menu)
 				String targetFile = pathToStorage(hash + ".pdf");
 				File file = new File(targetFile);
 				if (! file.exists() ) {
+					if (downloadLock) {
+						publishProgress("Please wait for previous files to download");
+						return Boolean.FALSE;
+					}
+					downloadLock = true;
 					DownloadPDF p = new DownloadPDF();
 					try {
 						p.DownloadFrom(url, targetFile);
@@ -398,9 +391,29 @@ public boolean onCreateOptionsMenu(Menu menu)
 					} catch (Exception exc){
 						publishProgress("Failed to download the PDF " + exc.toString());
 					}
+					downloadLock = false;
 				} else {
 					singlesuccess = Boolean.TRUE;
 				}
+			}
+			if (count == 1  && singlesuccess && ! downloadLock ) {
+				String url = guidelines.Get(guidelinelist[0]);
+				String hash = MD5_Hash(url);
+				String targetFile = pathToStorage(hash + ".pdf");
+				File file = new File(targetFile);
+                    		Uri path = Uri.fromFile(file);
+                    		Intent intent = new Intent(Intent.ACTION_VIEW);
+                    		intent.setDataAndType(path, "application/pdf");
+                    		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                    		try {
+                        		startActivity(intent);
+                    		} 
+                    		catch (ActivityNotFoundException e) {
+                        		Toast.makeText(getApplicationContext(), 
+                            		"No Application Available to View PDF files", 
+                            		Toast.LENGTH_LONG).show();
+                    		}
 			}
 			if (count == 1) return singlesuccess;
 			return Boolean.TRUE;
