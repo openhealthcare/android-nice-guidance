@@ -9,8 +9,9 @@ Currently the data is in assets/xml/guidelines.xml but ideally they should be do
 * Favourites/ Recent
 * Refresh (i.e remove all downloaded and refetch)
 * Show with an icon which have already been downloaded
-
-
-Implemented in 1.1 
-
 * Download ALL
+
+Implemented ready for 1.2
+
+Neil McPhail implemented async download.
+
