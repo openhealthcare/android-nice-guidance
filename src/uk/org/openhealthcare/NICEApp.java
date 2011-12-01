@@ -54,6 +54,7 @@ public class NICEApp extends ListActivity {
 	private static final int FEEDBACK_ID = 2;
 	private static final int ABOUT_ID = 3;
 	private static final int GETALL_ID = 4;
+	private static final int SEARCH_ID = 5;
 	private static boolean downloadLock = false;
 	GuidelineData guidelines;
 	ArrayAdapter<String> arrad;
@@ -78,6 +79,8 @@ public boolean onCreateOptionsMenu(Menu menu)
 	.setIcon(android.R.drawable.ic_menu_info_details);
 	menu.add(PREFERENCES_GROUP_ID, GETALL_ID, 0, "download all")
 	.setIcon(android.R.drawable.ic_menu_save);
+	menu.add(PREFERENCES_GROUP_ID, SEARCH_ID, 0, "search")
+	.setIcon(android.R.drawable.ic_menu_search);
 
 	return true;
 	} 
@@ -118,6 +121,11 @@ public boolean onCreateOptionsMenu(Menu menu)
 		    });  
 		    ad.show();  
 		   
+		   return true;
+
+	    case SEARCH_ID:
+
+		   onSearchRequested();
 		   return true;
 			}
 		   
