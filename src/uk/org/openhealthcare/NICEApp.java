@@ -1,5 +1,6 @@
 /*
 *    Copyright (C) 2011  Open Health Care, R.Jones, Dr. VJ Joshi
+*    Additions Copyright (C) 2011 Neil McPhail
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -22,6 +23,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.lang.Boolean;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,6 +43,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.Menu; 
+import android.os.AsyncTask;
 
 
 public class NICEApp extends ListActivity {
@@ -107,9 +110,10 @@ public boolean onCreateOptionsMenu(Menu menu)
 		    ad.setButton("Go", new DialogInterface.OnClickListener() {  
 		        @Override  
 		        public void onClick(DialogInterface dialog, int which) {  
-		           for ( String s : guidelines.GetKeys() ) {
-		               download(s);
-		           }
+	//	           for ( String s : guidelines.GetKeys() ) {
+	//	               download(s);
+			    new AsyncDownload().execute(guidelines.GetKeys());
+//		           }
 /*		           download("Acutely ill patients in hospital");		   
 		 		   download("Alcohol dependence and harmful alcohol use");
 		 		   download("Alcohol-use disorders: physical complications");
@@ -339,8 +343,18 @@ public boolean onCreateOptionsMenu(Menu menu)
 		return sdcard.getAbsolutePath() + File.separator+ "nice_guidance" + File.separator;		
 	}
 	
-	public boolean download(String guideline) {
-		String url = guidelines.Get(guideline);
+	public boolean download(String guideline) { 
+		//What is public stays public
+		AsyncTask myDownload = new AsyncDownload().execute(guideline);
+		try{
+			Boolean success = (Boolean) myDownload.get();
+			return success.booleanValue();
+		}catch(InterruptedException e){
+			return false;
+		}catch(java.util.concurrent.ExecutionException f){
+			return false;
+		}
+/*		String url = guidelines.Get(guideline);
 		String hash  = MD5_Hash(url);
 
 		String targetFile= pathToStorage( hash + ".pdf" );					
@@ -359,6 +373,43 @@ public boolean onCreateOptionsMenu(Menu menu)
                         Toast.LENGTH_LONG).show();
                 		return false;
 			}}
-		return true;	
+		return true;	*/
 	}
+	private class AsyncDownload extends AsyncTask<String, String, Boolean> {
+		protected void onPreExecute() {
+			Toast.makeText(getApplicationContext(),
+					"Accessing / downloading",
+					Toast.LENGTH_SHORT).show();
+		}
+		protected Boolean doInBackground(String... guidelinelist) {
+			int count = guidelinelist.length;
+			Boolean singlesuccess = Boolean.FALSE; // if called on a single file the pdf viewer may be opened
+			for (int i = 0; i < count; i++){
+				String url = guidelines.Get(guidelinelist[i]);
+				String hash = MD5_Hash(url);
+				String targetFile = pathToStorage(hash + ".pdf");
+				File file = new File(targetFile);
+				if (! file.exists() ) {
+					DownloadPDF p = new DownloadPDF();
+					try {
+						p.DownloadFrom(url, targetFile);
+						publishProgress("Downloaded " + guidelinelist[i] + " successfully");
+						singlesuccess = Boolean.TRUE;
+					} catch (Exception exc){
+						publishProgress("Failed to download the PDF " + exc.toString());
+					}
+				} else {
+					singlesuccess = Boolean.TRUE;
+				}
+			}
+			if (count == 1) return singlesuccess;
+			return Boolean.TRUE;
+		}
+		protected void onProgressUpdate(String... progress) {
+			Toast.makeText(getApplicationContext(),
+					progress[0],
+					Toast.LENGTH_SHORT).show();
+		}
+	}
+
 }
