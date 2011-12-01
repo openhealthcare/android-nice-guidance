@@ -59,6 +59,7 @@ public class NICEApp extends ListActivity {
 	GuidelineData guidelines;
 	ArrayAdapter<String> arrad;
 	ArrayAdapter<String> adapter = null;
+	ListView lv;
 
 	
 	@Override
@@ -155,14 +156,10 @@ public boolean onCreateOptionsMenu(Menu menu)
 	  
 	  setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item, (String[])c));
 	  
-	  ListView lv = getListView();
+	  lv = getListView();
 	  lv.setTextFilterEnabled(true);
 
-	    Intent intent = getIntent();
-	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-	      String query = intent.getStringExtra(SearchManager.QUERY);
-	      lv.setFilterText(query);
-	    }
+	  handleIntent(getIntent());
 
 	  lv.setOnItemClickListener(new OnItemClickListener(){
 			@Override
@@ -188,6 +185,19 @@ public boolean onCreateOptionsMenu(Menu menu)
 		Toast.makeText(getApplicationContext(),
 				"Search Button pressed",
 				Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		setIntent(intent);
+		handleIntent(intent);
+	}
+
+	private void handleIntent(Intent intent) {
+	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+	      String query = intent.getStringExtra(SearchManager.QUERY);
+	      lv.setFilterText(query);
+	    }
 	}
 
 	public String MD5_Hash(String s) { 
