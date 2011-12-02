@@ -54,9 +54,12 @@ public class NICEApp extends ListActivity {
 	private static final int FEEDBACK_ID = 2;
 	private static final int ABOUT_ID = 3;
 	private static final int GETALL_ID = 4;
+	private static final int SEARCH_ID = 5;
+	private static boolean downloadLock = false;
 	GuidelineData guidelines;
 	ArrayAdapter<String> arrad;
 	ArrayAdapter<String> adapter = null;
+	ListView lv;
 
 	
 	@Override
@@ -77,6 +80,8 @@ public boolean onCreateOptionsMenu(Menu menu)
 	.setIcon(android.R.drawable.ic_menu_info_details);
 	menu.add(PREFERENCES_GROUP_ID, GETALL_ID, 0, "download all")
 	.setIcon(android.R.drawable.ic_menu_save);
+	menu.add(PREFERENCES_GROUP_ID, SEARCH_ID, 0, "search")
+	.setIcon(android.R.drawable.ic_menu_search);
 
 	return true;
 	} 
@@ -110,142 +115,18 @@ public boolean onCreateOptionsMenu(Menu menu)
 		    ad.setButton("Go", new DialogInterface.OnClickListener() {  
 		        @Override  
 		        public void onClick(DialogInterface dialog, int which) {  
-	//	           for ( String s : guidelines.GetKeys() ) {
-	//	               download(s);
 			    new AsyncDownload().execute(guidelines.GetKeys());
-//		           }
-/*		           download("Acutely ill patients in hospital");		   
-		 		   download("Alcohol dependence and harmful alcohol use");
-		 		   download("Alcohol-use disorders: physical complications");
-		 		   download("Anaemia management in people with chronic kidney disease");
-		 		   download("Antenatal and postnatal mental health");
-		 		   download("Antenatal care");
-		 		   download("Antisocial personality disorder");
-		 		   download("Anxiety");
-		 		   download("Atopic eczema in children");
-		 		   download("Atrial fibrillation");
-		 		   download("Attention deficit hyperactivity disorder (ADHD)");
-		 		   download("Autism spectrum disorders in children and young people");
-		 		   download("Bacterial meningitis and meningococcal septicaemia");
-		 		   download("Barrett's oesophagus - ablative therapy");
-		 		   download("Bipolar disorder");
-		 		   download("Borderline personality disorder (BPD)");
-		 		   download("Breast cancer (advanced)");
-//		 		   download("Breast cancer (early & locally advanced)");
-		 		   download("Caesarean section");
-		 		   download("Chest pain of recent onset");
-		 		   download("Chronic fatigue syndrome / Myalgic encephalomyelitis");
-		 		   download("Chronic heart failure");
-		 		   download("Chronic kidney disease");
-		 		   download("Chronic obstructive pulmonary disease (updated)");
-		 		   download("Coeliac disease");
-		 		   download("Colonoscopic surveillance for prevention of colorectal cancerin people with ulcerative colitis, Crohn's disease adenomas");
-		 		   download("Common mental health disorders");
-		 		   download("Constipation in children and young people");
-		 		   download("Critical illness rehabilitation");
-		 		   download("Delirium");
-		 		   download("Dementia");
-		 		   download("Dental recall");
-		 		   download("Depression in adults (update)");
-		 		   download("Depression in children and young people");
-		 		   download("Depression with a chronic physical health problem");
-		 		   download("Diabetes in pregnancy");
-		 		   download("Diabetic foot problems - inpatient management");
-		 		   download("Diarrhoea and vomiting in children under 5");
-		 		   download("Donor breast milk banks");
-		 		   download("Drug misuse: opioid detoxification");
-		 		   download("Drug misuse: psychosocial interventions");
-		 		   download("Dyspepsia");
-		 		   download("Eating disorders");
-		 		   download("Epilepsy - Adults");
-		 		   download("Epilepsy - Children");
-		 		   download("Faecal incontinence");
-		 		   download("Falls");
-		 		   download("Familial breast cancer");
-		 		   download("Familial hypercholesterolaemia");
-		 		   download("Fertility");
-		 		   download("Feverish illness in children");
-		 		   download("Food allergy in children and young people");
-		 		   download("Glaucoma");
-		 		   download("Head injury");
-		 		   download("Heavy menstrual bleeding");
-		 		   download("Hip fracture");
-		 		   download("Hypertension");
-		 		   download("Hypertension in pregnancy");
-		 		   download("Induction of labour");
-		 		   download("Infection control");
-		 		   download("Intrapartum care");
-		 		   download("Irritable bowel syndrome");
-		 		   download("Lipid modification");
-		 		   download("Long-acting reversible contraception");
-		 		   download("Low back pain");
-		 		   download("Lower urinary tract symptoms");
-		 		   download("Lung cancer");
-		 		   download("MI: secondary prevention");
-		 		   download("Medicines adherence");
-		 		   download("Metastatic malignant disease of unknown primary origin");
-		 		   download("Metastatic spinal cord compression");
-		 		   download("Motor neurone disease - non-invasive ventilation");
-		 		   download("Multiple pregnancy");
-		 		   download("Multiple sclerosis");
-		 		   download("Neonatal jaundice");
-		 		   download("Neuropathic pain - pharmacological management");
-		 		   download("Nocturnal enuresis - the management of bedwetting in children and young people");
-		 		   download("Nutrition support in adults");
-		 		   download("Obesity");
-		 		   download("Obsessive compulsive disorder (OCD) and body dysmorphic disorder (BDD)");
-		 		   download("Osteoarthritis");
-		 		   download("Ovarian cancer");
-		 		   download("Parkinson's disease");
-		 		   download("Perioperative hypothermia (inadvertent)");
-		 		   download("Peritoneal dialysis");
-		 		   download("Post-traumatic stress disorder (PTSD)");
-		 		   download("Postnatal care");
-		 		   download("Pregnancy and complex social factors");
-		 		   download("Preoperative tests");
-		 		   download("Pressure relieving devices");
-		 		   download("Pressure ulcer management");
-		 		   download("Prophylaxis against infective endocarditis");
-		 		   download("Prostate cancer");
-		 		   download("Psychosis with coexisting substance misuse");
-		 		   download("Referral for suspected cancer");
-		 		   download("Respiratory tract infections");
-		 		   download("Rheumatoid arthritis");
-		 		   download("Schizophrenia (update)");
-		 		   download("Sedation in children and young people");
-		 		   download("Self-harm");
-		 		   download("Stable angina");
-		 		   download("Stroke");
-		 		   download("Surgical management of OME");
-		 		   download("Surgical site infection");
-		 		   download("Transient loss of consciousness in adults and young people");
-		 		   download("Tuberculosis");
-		 		   download("Type 1 diabetes");
-		 		   download("Type 2 Diabetes - newer agents (partial update of CG66)");
-		 		   download("Type 2 diabetes - footcare");
-		 		   download("Unstable angina and NSTEMI");
-		 		   download("Urinary incontinence");
-		 		   download("Urinary tract infection in children");
-		 		   download("Venous thromboembolism - reducing the risk");
-		 		   download("Violence");
-		 		   download("When to suspect child maltreatment");
-*/ 		   
 				   dialog.dismiss();
 		 		   
-//		 		  AlertDialog ad2 = new AlertDialog.Builder(this).create();  
-//				    //ad.setCancelable(false); // This blocks the 'BACK' button  
-//				    ad2.setTitle("Done");
-//				    ad2.setMessage("Success");  
-//				    ad2.setButton("Thanks", new DialogInterface.OnClickListener() {  
-//				        @Override  
-//				        public void onClick(DialogInterface dialog, int which) {  
-//				            dialog.dismiss();				      
-//				        ad2.show(); }  
-//				    }); 
 		        }  
 		    });  
 		    ad.show();  
 		   
+		   return true;
+
+	    case SEARCH_ID:
+
+		   onSearchRequested();
 		   return true;
 			}
 		   
@@ -255,11 +136,6 @@ public boolean onCreateOptionsMenu(Menu menu)
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
 	  
-	    Intent intent = getIntent();
-	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-	      String query = intent.getStringExtra(SearchManager.QUERY);
-	      doMySearch(query);
-	    }
 
 	  try { 
 		  guidelines = new GuidelineData(this);
@@ -280,8 +156,10 @@ public boolean onCreateOptionsMenu(Menu menu)
 	  
 	  setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item, (String[])c));
 	  
-	  ListView lv = getListView();
+	  lv = getListView();
 	  lv.setTextFilterEnabled(true);
+
+	  handleIntent(getIntent());
 
 	  lv.setOnItemClickListener(new OnItemClickListener(){
 			@Override
@@ -294,31 +172,32 @@ public boolean onCreateOptionsMenu(Menu menu)
 					
 					String targetFile= pathToStorage( hash + ".pdf" );					
 					File file = new File(targetFile);
-					
-					download(key);
+					new AsyncDownload().execute(key);
+					//download(key);
 					// Hash it and look for it on disk, if not on disk then download locally
 					
-                    Uri path = Uri.fromFile(file);
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setDataAndType(path, "application/pdf");
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                    try {
-                        startActivity(intent);
-                    } 
-                    catch (ActivityNotFoundException e) {
-                        Toast.makeText(getApplicationContext(), 
-                            "No Application Available to View PDF files", 
-                            Toast.LENGTH_LONG).show();
-                    }
 			}		   
 	  });
 
 	}
 
 	private void doMySearch(String query) {
-	
-		
+		Toast.makeText(getApplicationContext(),
+				"Search Button pressed",
+				Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		setIntent(intent);
+		handleIntent(intent);
+	}
+
+	private void handleIntent(Intent intent) {
+	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+	      String query = intent.getStringExtra(SearchManager.QUERY);
+	      lv.setFilterText(query);
+	    }
 	}
 
 	public String MD5_Hash(String s) { 
@@ -390,6 +269,11 @@ public boolean onCreateOptionsMenu(Menu menu)
 				String targetFile = pathToStorage(hash + ".pdf");
 				File file = new File(targetFile);
 				if (! file.exists() ) {
+					if (downloadLock) {
+						publishProgress("Please wait for previous files to download");
+						return Boolean.FALSE;
+					}
+					downloadLock = true;
 					DownloadPDF p = new DownloadPDF();
 					try {
 						p.DownloadFrom(url, targetFile);
@@ -398,9 +282,29 @@ public boolean onCreateOptionsMenu(Menu menu)
 					} catch (Exception exc){
 						publishProgress("Failed to download the PDF " + exc.toString());
 					}
+					downloadLock = false;
 				} else {
 					singlesuccess = Boolean.TRUE;
 				}
+			}
+			if (count == 1  && singlesuccess && ! downloadLock ) {
+				String url = guidelines.Get(guidelinelist[0]);
+				String hash = MD5_Hash(url);
+				String targetFile = pathToStorage(hash + ".pdf");
+				File file = new File(targetFile);
+                    		Uri path = Uri.fromFile(file);
+                    		Intent intent = new Intent(Intent.ACTION_VIEW);
+                    		intent.setDataAndType(path, "application/pdf");
+                    		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                    		try {
+                        		startActivity(intent);
+                    		} 
+                    		catch (ActivityNotFoundException e) {
+                        		Toast.makeText(getApplicationContext(), 
+                            		"No Application Available to View PDF files", 
+                            		Toast.LENGTH_LONG).show();
+                    		}
 			}
 			if (count == 1) return singlesuccess;
 			return Boolean.TRUE;
