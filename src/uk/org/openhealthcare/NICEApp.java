@@ -103,7 +103,7 @@ public boolean onCreateOptionsMenu(Menu menu)
                Toast.LENGTH_LONG).show();
 	   			return true;	
 	   case ABOUT_ID: Toast.makeText(getApplicationContext(), 
-               "Authors:\nRoss Jones / Dr VJ Joshi", 
+               "Developers:\nRoss Jones / Dr VJ Joshi / Neil McPhail", 
                Toast.LENGTH_LONG).show();
 				return true;
 	   case GETALL_ID: 
@@ -153,7 +153,6 @@ public boolean onCreateOptionsMenu(Menu menu)
 	  
 	  Object[] c = guidelines.GetKeys();
 	  Arrays.sort(c);
-	  
 	  setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item, (String[])c));
 	  
 	  lv = getListView();
