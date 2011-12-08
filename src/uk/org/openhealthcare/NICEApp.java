@@ -260,6 +260,7 @@ public boolean onCreateOptionsMenu(Menu menu)
 					Toast.LENGTH_SHORT).show();
 		}
 		protected Boolean doInBackground(String... guidelinelist) {
+			try {
 			int count = guidelinelist.length;
 			Boolean singlesuccess = Boolean.FALSE; // if called on a single file the pdf viewer may be opened
 			for (int i = 0; i < count; i++){
@@ -300,13 +301,20 @@ public boolean onCreateOptionsMenu(Menu menu)
                         		startActivity(intent);
                     		} 
                     		catch (ActivityNotFoundException e) {
-                        		Toast.makeText(getApplicationContext(), 
+                    			publishProgress("No application available to view PDF files");
+                    			// Can't do this in a thread.
+                        	/*	Toast.makeText(getApplicationContext(), 
                             		"No Application Available to View PDF files", 
-                            		Toast.LENGTH_LONG).show();
+                            		Toast.LENGTH_LONG).show(); */
                     		}
 			}
 			if (count == 1) return singlesuccess;
-			return Boolean.TRUE;
+			return Boolean.TRUE; } catch ( Exception eee ) {
+/*				Toast.makeText(getApplicationContext(),
+						eee.toString(),
+						Toast.LENGTH_SHORT).show();*/
+				return false;
+			}
 		}
 		protected void onProgressUpdate(String... progress) {
 			Toast.makeText(getApplicationContext(),
