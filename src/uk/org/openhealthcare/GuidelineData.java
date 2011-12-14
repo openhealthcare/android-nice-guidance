@@ -55,8 +55,8 @@ public class GuidelineData {
 		for (int i = 0; i < nodeList.getLength(); i++) {
 			Node node = nodeList.item(i);
 			Element elem = (Element)node;
-			String nm = elem.getElementsByTagName("title").item(0).getFirstChild().getNodeValue();
-			String url = elem.getElementsByTagName("url").item(0).getFirstChild().getNodeValue();
+			String nm = elem.getElementsByTagName("title").item(0).getFirstChild().getNodeValue().trim();
+			String url = elem.getElementsByTagName("url").item(0).getFirstChild().getNodeValue().trim();
 			map.put( nm, url );
 		}
 	};

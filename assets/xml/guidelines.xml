@@ -1,119 +1,987 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" ?>
 <guidelines>
-<guide><title>Acutely ill patients in hospital</title><url>http://guidance.nice.org.uk/nicemedia/live/11810/35949/35949.pdf</url></guide>
-<guide><title>Alcohol dependence and harmful alcohol use</title><url>http://guidance.nice.org.uk/nicemedia/live/13337/53194/53194.pdf</url></guide>
-<guide><title>Alcohol-use disorders: physical complications</title><url>http://guidance.nice.org.uk/nicemedia/live/12995/49004/49004.pdf</url></guide>
-<guide><title>Anaemia management in people with chronic kidney disease</title><url>http://guidance.nice.org.uk/nicemedia/live/13329/52857/52857.pdf</url></guide>
-<guide><title>Antenatal and postnatal mental health</title><url>http://guidance.nice.org.uk/nicemedia/live/11004/30432/30432.pdf</url></guide>
-<guide><title>Antenatal care</title><url>http://guidance.nice.org.uk/nicemedia/live/11947/40110/40110.pdf</url></guide>
-<guide><title>Antisocial personality disorder</title><url>http://guidance.nice.org.uk/nicemedia/live/11765/42997/42997.PDF</url></guide>
-<guide><title>Anxiety</title><url>http://guidance.nice.org.uk/nicemedia/live/13314/52601/52601.pdf</url></guide>
-<guide><title>Atopic eczema in children</title><url>http://guidance.nice.org.uk/nicemedia/live/11901/38566/38566.pdf</url></guide>
-<guide><title>Atrial fibrillation</title><url>http://guidance.nice.org.uk/nicemedia/live/10982/30054/30054.pdf</url></guide>
-<guide><title>Attention deficit hyperactivity disorder (ADHD)</title><url>http://guidance.nice.org.uk/nicemedia/live/12061/42107/42107.pdf</url></guide>
-<guide><title>Autism spectrum disorders in children and young people</title><url>http://guidance.nice.org.uk/nicemedia/live/13572/56431/56431.pdf</url></guide>
-<guide><title>Bacterial meningitis and meningococcal septicaemia</title><url>http://www.nice.org.uk/nicemedia/live/13027/49341/49341.pdf</url></guide>
-<guide><title>Barrett's oesophagus - ablative therapy</title><url>http://www.nice.org.uk/nicemedia/live/13096/50252/50252.pdf</url></guide>
-<guide><title>Bipolar disorder</title><url>http://www.nice.org.uk/nicemedia/live/10990/30191/30191.pdf</url></guide>
-<guide><title>Borderline personality disorder (BPD)</title><url>http://www.nice.org.uk/nicemedia/live/12125/42868/42868.pdf</url></guide>
-<guide><title>Breast cancer (advanced)</title><url>http://www.nice.org.uk/nicemedia/live/11778/43308/43308.pdf</url></guide>
-<guide><title>Breast cancer (early &amp; locally advanced)</title><url>http://www.nice.org.uk/nicemedia/live/12132/43314/43314.pdf</url></guide>
-<guide><title>Caesarean section</title><url>http://www.nice.org.uk/nicemedia/live/13620/57163/57163.pdf</url></guide>
-<guide><title>Chest pain of recent onset</title><url>http://www.nice.org.uk/nicemedia/live/12947/47918/47918.pdf</url></guide>
-<guide><title>Chronic fatigue syndrome / Myalgic encephalomyelitis</title><url>http://www.nice.org.uk/nicemedia/live/11824/36190/36190.pdf</url></guide>
-<guide><title>Chronic heart failure</title><url>http://www.nice.org.uk/nicemedia/live/13099/50526/50526.pdf</url></guide>
-<guide><title>Chronic kidney disease</title><url>http://guidance.nice.org.uk/nicemedia/live/12069/42119/42119.pdf</url></guide>
-<guide><title>Chronic obstructive pulmonary disease (updated)</title><url>http://guidance.nice.org.uk/nicemedia/live/13029/49399/49399.pdf</url></guide>
-<guide><title>Coeliac disease</title><url>http://guidance.nice.org.uk/nicemedia/live/12166/44355/44355.pdf</url></guide>
-<guide><title>Colonoscopic surveillance for prevention of colorectal cancerin people with ulcerative colitis, Crohn's disease adenomas</title><url>http://guidance.nice.org.uk/nicemedia/live/13415/53592/53592.pdf</url></guide>
-<guide><title>Colorectal cancer</title><url>http://www.nice.org.uk/nicemedia/live/13597/56998/56998.pdf</url></guide>
-<guide><title>Common mental health disorders</title><url>http://guidance.nice.org.uk/nicemedia/live/13476/54523/54523.pdf</url></guide>
-<guide><title>Constipation in children and young people</title><url>http://guidance.nice.org.uk/nicemedia/live/12993/48754/48754.pdf</url></guide>
-<guide><title>Critical illness rehabilitation</title><url>http://www.nice.org.uk/nicemedia/live/12137/43565/43565.pdf</url></guide>
-<guide><title>Delirium</title><url>http://guidance.nice.org.uk/nicemedia/live/13060/49913/49913.pdf</url></guide>
-<guide><title>Dementia</title><url>http://guidance.nice.org.uk/nicemedia/live/10998/30317/30317.pdf</url></guide>
-<guide><title>Dental recall</title><url>http://guidance.nice.org.uk/nicemedia/live/10952/29484/29484.pdf</url></guide>
-<guide><title>Depression in adults (update)</title><url>http://guidance.nice.org.uk/nicemedia/live/12329/45890/45890.pdf</url></guide>
-<guide><title>Depression in children and young people</title><url>http://guidance.nice.org.uk/nicemedia/live/10970/29858/29858.pdf</url></guide>
-<guide><title>Depression with a chronic physical health problem</title><url>http://guidance.nice.org.uk/nicemedia/live/12327/45865/45865.pdf</url></guide>
-<guide><title>Diabetes in pregnancy</title><url>http://guidance.nice.org.uk/nicemedia/live/11946/41321/41321.PDF</url></guide>
-<guide><title>Diabetic foot problems - inpatient management</title><url>http://guidance.nice.org.uk/nicemedia/live/13416/53558/53558.pdf</url></guide>
-<guide><title>Diarrhoea and vomiting in children under 5</title><url>http://guidance.nice.org.uk/nicemedia/live/11846/43843/43843.pdf</url></guide>
-<guide><title>Donor breast milk banks</title><url>http://guidance.nice.org.uk/nicemedia/live/12811/47522/47522.pdf</url></guide>
-<guide><title>Drug misuse: opioid detoxification</title><url>http://guidance.nice.org.uk/nicemedia/live/11813/35996/35996.pdf</url></guide>
-<guide><title>Drug misuse: psychosocial interventions</title><url>http://guidance.nice.org.uk/nicemedia/live/11812/35972/35972.pdf</url></guide>
-<guide><title>Dyspepsia</title><url>http://guidance.nice.org.uk/nicemedia/live/10950/29458/29458.pdf</url></guide>
-<guide><title>Eating disorders</title><url>http://guidance.nice.org.uk/nicemedia/live/10932/29217/29217.pdf</url></guide>
-<guide><title>Epilepsy - Adults</title><url>http://www.nice.org.uk/nicemedia/live/10954/29529/29529.pdf</url></guide>
-<guide><title>Epilepsy - Children</title><url>http://www.nice.org.uk/nicemedia/live/10954/29530/29530.pdf</url></guide>
-<guide><title>Faecal incontinence</title><url>http://guidance.nice.org.uk/nicemedia/live/11012/30546/30546.pdf</url></guide>
-<guide><title>Falls</title><url>http://guidance.nice.org.uk/nicemedia/live/10956/29582/29582.pdf</url></guide>
-<guide><title>Familial breast cancer</title><url>http://guidance.nice.org.uk/nicemedia/live/10994/30244/30244.pdf</url></guide>
-<guide><title>Familial hypercholesterolaemia</title><url>http://guidance.nice.org.uk/nicemedia/live/12048/41674/41674.pdf</url></guide>
-<guide><title>Fertility</title><url>http://www.nice.org.uk/nicemedia/live/10936/29267/29267.pdf</url></guide>
-<guide><title>Feverish illness in children</title><url>http://guidance.nice.org.uk/nicemedia/live/11010/30524/30524.pdf</url></guide>
-<guide><title>Food allergy in children and young people</title><url>http://guidance.nice.org.uk/nicemedia/live/13348/53217/53217.pdf</url></guide>
-<guide><title>Glaucoma</title><url>http://guidance.nice.org.uk/nicemedia/live/12145/43791/43791.pdf</url></guide>
-<guide><title>Head injury</title><url>http://guidance.nice.org.uk/nicemedia/live/11836/36257/36257.pdf</url></guide>
-<guide><title>Heavy menstrual bleeding</title><url>http://guidance.nice.org.uk/nicemedia/live/11002/30403/30403.pdf</url></guide>
-<guide><title>Hip fracture</title><url>http://guidance.nice.org.uk/nicemedia/live/13489/54921/54921.pdf</url></guide>
-<guide><title>Hypertension</title><url>http://guidance.nice.org.uk/nicemedia/live/13561/56015/56015.pdf</url></guide>
-<guide><title>Hypertension in pregnancy</title><url>http://guidance.nice.org.uk/nicemedia/live/13098/50416/50416.pdf</url></guide>
-<guide><title>Induction of labour</title><url>http://guidance.nice.org.uk/nicemedia/live/12012/41266/41266.pdf</url></guide>
-<guide><title>Infection control</title><url>http://www.nice.org.uk/nicemedia/live/10922/29117/29117.pdf</url></guide>
-<guide><title>Intrapartum care</title><url>http://guidance.nice.org.uk/nicemedia/live/11837/36273/36273.pdf</url></guide>
-<guide><title>Irritable bowel syndrome</title><url>http://guidance.nice.org.uk/nicemedia/live/11927/39559/39559.pdf</url></guide>
-<guide><title>Lipid modification</title><url>http://guidance.nice.org.uk/nicemedia/live/11982/40675/40675.pdf</url></guide>
-<guide><title>Long-acting reversible contraception</title><url>http://guidance.nice.org.uk/nicemedia/live/10974/29911/29911.pdf</url></guide>
-<guide><title>Low back pain</title><url>http://guidance.nice.org.uk/nicemedia/live/11887/44345/44345.pdf</url></guide>
-<guide><title>Lower urinary tract symptoms</title><url>http://guidance.nice.org.uk/nicemedia/live/12984/48575/48575.pdf</url></guide>
-<guide><title>Lung cancer</title><url>http://guidance.nice.org.uk/nicemedia/live/13465/54208/54208.pdf</url></guide>
-<guide><title>MI: secondary prevention</title><url>http://guidance.nice.org.uk/nicemedia/live/11008/30497/30497.pdf</url></guide>
-<guide><title>Medicines adherence</title><url>http://guidance.nice.org.uk/nicemedia/live/11766/42891/42891.PDF</url></guide>
-<guide><title>Metastatic malignant disease of unknown primary origin</title><url>http://guidance.nice.org.uk/nicemedia/live/13044/49867/49867.pdf</url></guide>
-<guide><title>Metastatic spinal cord compression</title><url>http://guidance.nice.org.uk/nicemedia/live/12085/42586/42586.pdf</url></guide>
-<guide><title>Motor neurone disease - non-invasive ventilation</title><url>http://guidance.nice.org.uk/nicemedia/live/13057/49893/49893.pdf</url></guide>
-<guide><title>Multiple pregnancy</title><url>http://guidance.nice.org.uk/nicemedia/live/13571/56425/56425.pdf</url></guide>
-<guide><title>Multiple sclerosis</title><url>http://www.nice.org.uk/nicemedia/live/10930/29199/29199.pdf</url></guide>
-<guide><title>Neonatal jaundice</title><url>http://guidance.nice.org.uk/nicemedia/live/12986/48679/48679.pdf</url></guide>
-<guide><title>Neuropathic pain - pharmacological management</title><url>http://guidance.nice.org.uk/nicemedia/live/12948/47936/47936.pdf</url></guide>
-<guide><title>Nocturnal enuresis - the management of bedwetting in children and young people</title><url>http://guidance.nice.org.uk/nicemedia/live/13246/51382/51382.pdf</url></guide>
-<guide><title>Nutrition support in adults</title><url>http://guidance.nice.org.uk/nicemedia/live/10978/29978/29978.pdf</url></guide>
-<guide><title>Obesity</title><url>http://www.nice.org.uk/nicemedia/live/11000/30364/30364.pdf</url></guide>
-<guide><title>Obsessive compulsive disorder (OCD) and body dysmorphic disorder (BDD)</title><url>http://guidance.nice.org.uk/nicemedia/live/10976/29945/29945.pdf</url></guide>
-<guide><title>Osteoarthritis</title><url>http://guidance.nice.org.uk/nicemedia/live/11926/39554/39554.pdf</url></guide>
-<guide><title>Ovarian cancer</title><url>http://guidance.nice.org.uk/nicemedia/live/13464/54268/54268.pdf</url></guide>
-<guide><title>Parkinson's disease</title><url>http://guidance.nice.org.uk/nicemedia/live/10984/30085/30085.pdf</url></guide>
-<guide><title>Perioperative hypothermia (inadvertent)</title><url>http://guidance.nice.org.uk/nicemedia/live/11962/40396/40396.pdf</url></guide>
-<guide><title>Peritoneal dialysis</title><url>http://guidance.nice.org.uk/nicemedia/live/13524/55496/55496.pdf</url></guide>
-<guide><title>Post-traumatic stress disorder (PTSD)</title><url>http://guidance.nice.org.uk/nicemedia/live/10966/29771/29771.pdf</url></guide>
-<guide><title>Postnatal care</title><url>http://guidance.nice.org.uk/nicemedia/live/10988/30143/30143.pdf</url></guide>
-<guide><title>Pregnancy and complex social factors</title><url>http://guidance.nice.org.uk/nicemedia/live/13167/50817/50817.pdf</url></guide>
-<guide><title>Preoperative tests</title><url>http://www.nice.org.uk/nicemedia/live/10920/29090/29090.pdf</url></guide>
-<guide><title>Pressure relieving devices</title><url>http://www.nice.org.uk/nicemedia/live/10928/29180/29180.pdf</url></guide>
-<guide><title>Pressure ulcer management</title><url>http://guidance.nice.org.uk/nicemedia/live/10972/29883/29883.pdf</url></guide>
-<guide><title>Prophylaxis against infective endocarditis</title><url>http://guidance.nice.org.uk/nicemedia/live/11938/40014/40014.pdf</url></guide>
-<guide><title>Prostate cancer</title><url>http://guidance.nice.org.uk/nicemedia/live/11924/39524/39524.pdf</url></guide>
-<guide><title>Psychosis with coexisting substance misuse</title><url>http://guidance.nice.org.uk/nicemedia/live/13414/53731/53731.pdf</url></guide>
-<guide><title>Referral for suspected cancer</title><url>http://guidance.nice.org.uk/nicemedia/live/10968/29813/29813.pdf</url></guide>
-<guide><title>Respiratory tract infections</title><url>http://guidance.nice.org.uk/nicemedia/live/12015/41322/41322.pdf</url></guide>
-<guide><title>Rheumatoid arthritis</title><url>http://guidance.nice.org.uk/nicemedia/live/12131/43329/43329.pdf</url></guide>
-<guide><title>Schizophrenia (update)</title><url>http://guidance.nice.org.uk/nicemedia/live/11786/43610/43610.pdf</url></guide>
-<guide><title>Sedation in children and young people</title><url>http://guidance.nice.org.uk/nicemedia/live/13296/52132/52132.pdf</url></guide>
-<guide><title>Self-harm</title><url>http://guidance.nice.org.uk/nicemedia/live/10946/29422/29422.pdf</url></guide>
-<guide><title>Stable angina</title><url>http://guidance.nice.org.uk/nicemedia/live/13549/55663/55663.pdf</url></guide>
-<guide><title>Stroke</title><url>http://guidance.nice.org.uk/nicemedia/live/12018/41316/41316.pdf</url></guide>
-<guide><title>Surgical management of OME</title><url>http://guidance.nice.org.uk/nicemedia/live/11928/39564/39564.pdf</url></guide>
-<guide><title>Surgical site infection</title><url>http://guidance.nice.org.uk/nicemedia/live/11743/42381/42381.pdf</url></guide>
-<guide><title>Transient loss of consciousness in adults and young people</title><url>http://guidance.nice.org.uk/nicemedia/live/13111/50456/50456.pdf</url></guide>
-<guide><title>Tuberculosis</title><url>http://www.nice.org.uk/nicemedia/live/13422/53642/53642.pdf</url></guide>
-<guide><title>Type 1 diabetes</title><url>http://www.nice.org.uk/nicemedia/live/10944/29390/29390.pdf</url></guide>
-<guide><title>Type 2 Diabetes - newer agents (partial update of CG66)</title><url>http://guidance.nice.org.uk/nicemedia/live/12165/44322/44322.pdf</url></guide>
-<guide><title>Type 2 diabetes - footcare</title><url>http://guidance.nice.org.uk/nicemedia/live/10934/29240/29240.pdf</url></guide>
-<guide><title>Unstable angina and NSTEMI</title><url>http://guidance.nice.org.uk/nicemedia/live/12949/47924/47924.pdf</url></guide>
-<guide><title>Urinary incontinence</title><url>http://guidance.nice.org.uk/nicemedia/live/10996/30279/30279.pdf</url></guide>
-<guide><title>Urinary tract infection in children</title><url>http://guidance.nice.org.uk/nicemedia/live/11819/36030/36030.pdf</url></guide>
-<guide><title>Venous thromboembolism - reducing the risk</title><url>http://guidance.nice.org.uk/nicemedia/live/12695/47197/47197.pdf</url></guide>
-<guide><title>Violence</title><url>http://guidance.nice.org.uk/nicemedia/live/10964/29716/29716.pdf</url></guide>
-<guide><title>When to suspect child maltreatment</title><url>http://guidance.nice.org.uk/nicemedia/live/12183/44872/44872.pdf</url></guide>
+  <guide>
+    <title>
+      Acutely ill patients in hospital
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11810/35949/35949.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Alcohol dependence and harmful alcohol use
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13337/53194/53194.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Alcohol-use disorders: physical complications
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12995/49004/49004.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Anaemia management in people with chronic kidney disease
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13329/52857/52857.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Anaphylaxis
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Antenatal and postnatal mental health
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11004/30432/30432.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Antenatal care
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11947/40110/40110.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Antisocial personality disorder
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11765/42997/42997.PDF
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Anxiety
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13314/52601/52601.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Atopic eczema in children
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11901/38566/38566.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Atrial fibrillation
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/10982/30054/30054.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Attention deficit hyperactivity disorder (ADHD)
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12061/42107/42107.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Autism in children and young people
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13572/56431/56431.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Bacterial meningitis and meningococcal septicaemia
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13027/49341/49341.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Barrett's oesophagus - ablative therapy
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13096/50252/50252.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Bipolar disorder
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/10990/30191/30191.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Borderline personality disorder (BPD)
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12125/42868/42868.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Breast cancer (advanced)
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11778/43308/43308.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Breast cancer (early &amp; locally advanced)
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12132/43314/43314.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Caesarean section
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Caesarean section
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Chest pain of recent onset
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12947/47918/47918.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Chronic fatigue syndrome / Myalgic encephalomyelitis
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Chronic heart failure
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13099/50526/50526.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Chronic kidney disease
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12069/42119/42119.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Chronic obstructive pulmonary disease (updated)
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13029/49399/49399.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Coeliac disease
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12166/44355/44355.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Colonoscopic surveillance for prevention of colorectal cancerin people with ulcerative colitis, Crohn's disease or adenomas
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13415/53592/53592.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Colorectal cancer
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Common mental health disorders
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13476/54523/54523.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Constipation in children and young people
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12993/48754/48754.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Critical illness rehabilitation
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Delirium
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13060/49913/49913.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Dementia
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/10998/30317/30317.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Dental recall
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/10952/29484/29484.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Depression in adults (update)
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12329/45890/45890.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Depression in children and young people
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/10970/29858/29858.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Depression with a chronic physical health problem
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12327/45865/45865.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Diabetes in pregnancy
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11946/41321/41321.PDF
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Diabetic foot problems - inpatient management
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13416/53558/53558.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Diarrhoea and vomiting in children under 5
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11846/43843/43843.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Donor breast milk banks
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12811/47522/47522.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Drug misuse: opioid detoxification
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11813/35996/35996.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Drug misuse: psychosocial interventions
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11812/35972/35972.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Dyspepsia
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/10950/29458/29458.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Eating disorders
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/10932/29217/29217.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Epilepsy
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Faecal incontinence
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11012/30546/30546.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Falls
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/10956/29582/29582.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Familial breast cancer
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/10994/30244/30244.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Familial hypercholesterolaemia
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12048/41674/41674.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Fertility
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Feverish illness in children
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11010/30524/30524.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Food allergy in children and young people
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13348/53217/53217.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Glaucoma
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12145/43791/43791.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Head injury
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11836/36257/36257.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Heavy menstrual bleeding
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11002/30403/30403.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Hip fracture
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13489/54921/54921.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Hyperglycaemia in acute coronary syndromes
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Hypertension
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13561/56015/56015.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Hypertension in pregnancy
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13098/50416/50416.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Induction of labour
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12012/41266/41266.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Infection control
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Intrapartum care
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11837/36273/36273.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Irritable bowel syndrome
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11927/39559/39559.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Lipid modification
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11982/40675/40675.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Long-acting reversible contraception
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/10974/29911/29911.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Low back pain
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11887/44345/44345.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Lower urinary tract symptoms
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12984/48575/48575.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Lung cancer
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13465/54208/54208.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Medicines adherence
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11766/42891/42891.PDF
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Metastatic malignant disease of unknown primary origin
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13044/49867/49867.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Metastatic spinal cord compression
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12085/42586/42586.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      MI: secondary prevention
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11008/30497/30497.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Motor neurone disease - non-invasive ventilation
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13057/49893/49893.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Multiple pregnancy
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13571/56425/56425.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Multiple sclerosis
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Neonatal jaundice
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12986/48679/48679.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Neuropathic pain - pharmacological management
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12948/47936/47936.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Nocturnal enuresis - the management of bedwetting in children and young people
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13246/51382/51382.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Nutrition support in adults
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/10978/29978/29978.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Obesity
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Obsessive compulsive disorder (OCD) and body dysmorphic disorder (BDD)
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/10976/29945/29945.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Organ donation
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13628/57554/57554.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Osteoarthritis
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11926/39554/39554.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Ovarian cancer
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13464/54268/54268.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Parkinson's disease
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/10984/30085/30085.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Perioperative hypothermia (inadvertent)
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11962/40396/40396.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Peritoneal dialysis
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13524/55496/55496.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Post-traumatic stress disorder (PTSD)
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/10966/29771/29771.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Postnatal care
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/10988/30143/30143.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Pregnancy and complex social factors
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13167/50817/50817.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Preoperative tests
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Pressure relieving devices
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Pressure ulcer management
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/10972/29883/29883.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Pressure ulcers (see Pressure ulcer management, CG29)
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Prophylaxis against infective endocarditis
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11938/40014/40014.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Prostate cancer
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11924/39524/39524.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Psychosis with coexisting substance misuse
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13414/53731/53731.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Referral for suspected cancer
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/10968/29813/29813.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Respiratory tract infections
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12015/41322/41322.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Rheumatoid arthritis
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12131/43329/43329.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Schizophrenia (update)
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11786/43610/43610.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Sedation in children and young people
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13296/52132/52132.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Self-harm
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Self-harm (longer term management)
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Service user experience in adult mental health
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Stable angina
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13549/55663/55663.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Stroke
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12018/41316/41316.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Surgical management of OME
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11928/39564/39564.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Surgical site infection
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11743/42381/42381.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Transient loss of consciousness in adults and young people
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/13111/50456/50456.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Tuberculosis
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Type 1 diabetes
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Type 2 diabetes (partially updated by CG87)
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Type 2 diabetes - footcare
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/10934/29240/29240.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Type 2 Diabetes - newer agents (partial update of CG66)
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12165/44322/44322.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Unstable angina and NSTEMI
+    </title>
+    <url>
+      
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Urinary incontinence
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/10996/30279/30279.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Urinary tract infection in children
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/11819/36030/36030.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Venous thromboembolism - reducing the risk
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12695/47197/47197.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      Violence
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/10964/29716/29716.pdf
+    </url>
+  </guide>
+  <guide>
+    <title>
+      When to suspect child maltreatment
+    </title>
+    <url>
+      http://guidance.nice.org.uk/nicemedia/live/12183/44872/44872.pdf
+    </url>
+  </guide>
 </guidelines>
