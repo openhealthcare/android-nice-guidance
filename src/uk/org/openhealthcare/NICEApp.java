@@ -357,11 +357,6 @@ public boolean onCreateOptionsMenu(Menu menu)
 					progress[0],
 					Toast.LENGTH_SHORT).show();
 		}
-	     protected void onPostExecute(Long result) {
-	    	 arrad.notifyDataSetChanged();
-	    	 lv.invalidateViews();
-	     }
-	
 	}
 	
 	
@@ -380,14 +375,12 @@ public boolean onCreateOptionsMenu(Menu menu)
 					cached[i] =  0;
 				}
 			}
+			publishProgress("Done");
 		return true;
 	}
-	     protected void onPostExecute(Long result) {
-	    	 arrad.notifyDataSetChanged();
-	    	 lv.invalidateViews();
-	    	 //doesn't seem to force the redraw, needs investigation
-	     }
-
+		protected void onProgressUpdate(String... progress) {
+			lv.invalidateViews();
+		}
 }
 	
 	public class ColourArray extends ArrayAdapter<String> implements Filterable{
