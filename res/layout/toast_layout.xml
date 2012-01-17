@@ -1,0 +1,12 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/toast_layout_root"
+              android:orientation="horizontal"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:padding="10dp"
+              android:background="#FFF"
+              >
+    <ImageView android:id="@+id/image"
+               android:layout_height="fill_parent"
+               android:layout_width="match_parent"/>
+</LinearLayout>
