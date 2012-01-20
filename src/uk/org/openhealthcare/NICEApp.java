@@ -24,6 +24,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.lang.Boolean;
 
 import android.net.ConnectivityManager;
@@ -73,8 +74,8 @@ public class NICEApp extends ListActivity {
 	private static boolean downloadLock = false;
 	GuidelineData guidelines;
 	int cached[] = new int[200];
-	Boolean finishedcheck = null;
-	
+    boolean haveConnectedWifi = false;
+    boolean haveConnectedMobile = false;	
 
 	ArrayAdapter<String> arrad;
 	ArrayAdapter<String> adapter = null;
@@ -192,8 +193,6 @@ public boolean onCreateOptionsMenu(Menu menu)
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
 	  
-	  
-
 	  try { 
 		  guidelines = new GuidelineData(this);
 	  } catch (Exception elocal) {
@@ -201,7 +200,7 @@ public boolean onCreateOptionsMenu(Menu menu)
                   "Failed to load guideline list", 
                   Toast.LENGTH_LONG).show();		  
 	  }
-	  
+	  	  
 	  String folderString = pathToStorage(null);
 	  File folder = new File(folderString);
 	  if ( ! folder.exists() ) {
@@ -210,7 +209,7 @@ public boolean onCreateOptionsMenu(Menu menu)
 	  
 	  Object[] c = guidelines.GetKeys();
 	  Arrays.sort(c);
-	  
+	  	  
 	  new CheckExists().execute(guidelines.GetKeys());
 	  final ArrayAdapter<String> arrad = new ColourArray(this, (String[])c);
 	  setListAdapter(arrad);
@@ -248,7 +247,7 @@ public boolean onCreateOptionsMenu(Menu menu)
 	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 	      String query = intent.getStringExtra(SearchManager.QUERY);
 	      //arrad.getFilter().filter(query);
-	      lv.setFilterText(query);
+	      lv.setFilterText(query);    
 	    }
 	}
 
@@ -385,7 +384,7 @@ public boolean onCreateOptionsMenu(Menu menu)
 	
 	public class ColourArray extends ArrayAdapter<String> implements Filterable{
 		private final Activity context;
-		private final String[] names;
+		public final String[] names;
 
 		public ColourArray(Activity context, String[] names) {
 			super(context, R.layout.list_item, names);
@@ -442,14 +441,27 @@ public boolean onCreateOptionsMenu(Menu menu)
 	}
 
 
+//	   private boolean isNetworkAvailable() {
+//		    ConnectivityManager connectivityManager 
+//		          = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+//		    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+//		    return activeNetworkInfo != null;
+//		}
+	   
 	   private boolean isNetworkAvailable() {
-		    ConnectivityManager connectivityManager 
-		          = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-		    return activeNetworkInfo != null;
+
+		    haveConnectedWifi = false;
+		    haveConnectedMobile = false;
+		    
+		    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		    NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+		    for (NetworkInfo ni : netInfo) {
+		        if (ni.isConnected()){
+		        	if (ni.getTypeName().equalsIgnoreCase("WIFI")) haveConnectedWifi = true;
+		        	if (ni.getTypeName().equalsIgnoreCase("MOBILE")) haveConnectedMobile = true;
+		        }
+		    }
+		    return haveConnectedWifi || haveConnectedMobile;
 		}
-
-
-
 
 	}
