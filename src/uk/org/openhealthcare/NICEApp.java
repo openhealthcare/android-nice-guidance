@@ -47,6 +47,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.widget.AdapterView;
@@ -74,6 +75,7 @@ public class NICEApp extends ListActivity {
 	private static boolean downloadLock = false;
 	GuidelineData guidelines;
 	int cached[] = new int[200];
+	int NumGuidelines;
     boolean haveConnectedWifi = false;
     boolean haveConnectedMobile = false;	
 
@@ -200,7 +202,7 @@ public boolean onCreateOptionsMenu(Menu menu)
                   "Failed to load guideline list", 
                   Toast.LENGTH_LONG).show();		  
 	  }
-	  	  
+	   
 	  String folderString = pathToStorage(null);
 	  File folder = new File(folderString);
 	  if ( ! folder.exists() ) {
@@ -209,7 +211,14 @@ public boolean onCreateOptionsMenu(Menu menu)
 	  
 	  Object[] c = guidelines.GetKeys();
 	  Arrays.sort(c);
-	  	  
+	  NumGuidelines=c.length;
+	  
+	  SharedPreferences settings = getPreferences (0);
+	  int count =NumGuidelines;		
+		for (int i = 0; i < count; i++){
+			cached[i] = settings.getInt(Integer.toString(i), 0);
+		}
+	  
 	  new CheckExists().execute(guidelines.GetKeys());
 	  final ArrayAdapter<String> arrad = new ColourArray(this, (String[])c);
 	  setListAdapter(arrad);
@@ -236,6 +245,19 @@ public boolean onCreateOptionsMenu(Menu menu)
 
 	}
 
+	@Override
+    protected void onStop(){
+       super.onStop();
+
+      SharedPreferences settings = getPreferences(0);
+      SharedPreferences.Editor editor = settings.edit();
+      int count =NumGuidelines;		
+		for (int i = 0; i < count; i++){
+			editor.putInt(Integer.toString(i), cached[i]);
+		}
+	
+      editor.commit();
+    }
 
 	@Override
 	protected void onNewIntent(Intent intent) {
