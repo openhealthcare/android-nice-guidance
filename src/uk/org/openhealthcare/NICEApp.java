@@ -75,7 +75,8 @@ public class NICEApp extends ListActivity {
 	private static boolean downloadLock = false;
 	GuidelineData guidelines;
 	int cached[] = new int[200];
-	int NumGuidelines;
+	int numGuidelines;
+	int lastOpened;
     boolean haveConnectedWifi = false;
     boolean haveConnectedMobile = false;	
 
@@ -211,13 +212,14 @@ public boolean onCreateOptionsMenu(Menu menu)
 	  
 	  Object[] c = guidelines.GetKeys();
 	  Arrays.sort(c);
-	  NumGuidelines=c.length;
+	  numGuidelines=c.length;
 	  
 	  SharedPreferences settings = getPreferences (0);
-	  int count =NumGuidelines;		
+	  int count =numGuidelines;		
 		for (int i = 0; i < count; i++){
 			cached[i] = settings.getInt(Integer.toString(i), 0);
 		}
+	  lastOpened = settings.getInt("last", 0);
 	  
 	  new CheckExists().execute(guidelines.GetKeys());
 	  final ArrayAdapter<String> arrad = new ColourArray(this, (String[])c);
@@ -237,6 +239,7 @@ public boolean onCreateOptionsMenu(Menu menu)
 					new AsyncDownload().execute(key);
 					if (isNetworkAvailable()){ 
 						cached[position]=1;
+						lastOpened=position;
 						arrad.notifyDataSetChanged();
 						lv.invalidateViews();
 					}	
@@ -251,10 +254,11 @@ public boolean onCreateOptionsMenu(Menu menu)
 
       SharedPreferences settings = getPreferences(0);
       SharedPreferences.Editor editor = settings.edit();
-      int count =NumGuidelines;		
+      int count =numGuidelines;		
 		for (int i = 0; i < count; i++){
 			editor.putInt(Integer.toString(i), cached[i]);
 		}
+		editor.putInt("last", lastOpened);
 	
       editor.commit();
     }
@@ -457,6 +461,9 @@ public boolean onCreateOptionsMenu(Menu menu)
 			}else {
 				textView.setTextColor(Color.rgb(127,127,127));
 			}	
+			
+			if (position==lastOpened && lastOpened!=0) textView.setTextColor(Color.rgb(255,200,200)); 
+			
 			return rowView;
 		}
 
