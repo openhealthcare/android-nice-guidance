@@ -19,7 +19,11 @@
 package uk.org.openhealthcare;
 
 import java.io.File;
+import java.io.IOException;
 import java.math.BigInteger;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -137,6 +141,29 @@ public boolean onCreateOptionsMenu(Menu menu)
 	   			return true;	
 	   case ABOUT_ID: 
 
+			  if (isNetworkAvailable()){ 
+				  
+			  
+				   URL url = null;
+				try {
+					url = new URL("https://raw.github.com/openhealthcare/android-nice-guidance/master/assets/xml/guidelines.xml");
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				   URLConnection urlConnection = null;
+				try {
+					urlConnection = url.openConnection();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				   long lastDate = urlConnection.getLastModified();
+				   Toast.makeText(getApplicationContext(), 
+						   String.valueOf(lastDate), 
+			                  Toast.LENGTH_LONG).show();
+				}
+		   
 		   Toast.makeText(getApplicationContext(), 
                "Developers:\nRoss Jones / Dr VJ Joshi / Neil McPhail", 
                Toast.LENGTH_LONG).show();
@@ -220,7 +247,7 @@ public boolean onCreateOptionsMenu(Menu menu)
 			cached[i] = settings.getInt(Integer.toString(i), 0);
 		}
 	  lastOpened = settings.getInt("last", 0);
-	  
+
 	  new CheckExists().execute(guidelines.GetKeys());
 	  final ArrayAdapter<String> arrad = new ColourArray(this, (String[])c);
 	  setListAdapter(arrad);
@@ -462,7 +489,9 @@ public boolean onCreateOptionsMenu(Menu menu)
 				textView.setTextColor(Color.rgb(127,127,127));
 			}	
 			
-			if (position==lastOpened && lastOpened!=0) textView.setTextColor(Color.rgb(255,200,200)); 
+			if (position==lastOpened && lastOpened!=0) {
+				textView.setBackgroundColor(Color.rgb(15,15,191)); 
+			}
 			
 			return rowView;
 		}
