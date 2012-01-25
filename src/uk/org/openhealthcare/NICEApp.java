@@ -78,7 +78,7 @@ public class NICEApp extends ListActivity {
 	private static final int SEARCH_ID = 5;
 	private static boolean downloadLock = false;
 	GuidelineData guidelines;
-	int cached[] = new int[200];
+	int cached[];
 	int numGuidelines;
 	int lastOpened;
     boolean haveConnectedWifi = false;
@@ -240,6 +240,8 @@ public boolean onCreateOptionsMenu(Menu menu)
 	  Object[] c = guidelines.GetKeys();
 	  Arrays.sort(c);
 	  numGuidelines=c.length;
+	  
+	  cached = new int[numGuidelines];
 	  
 	  SharedPreferences settings = getPreferences (0);
 	  int count =numGuidelines;		
