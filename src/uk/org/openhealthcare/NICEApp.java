@@ -19,16 +19,12 @@
 package uk.org.openhealthcare;
 
 import java.io.File;
-import java.io.IOException;
 import java.math.BigInteger;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.lang.Boolean;
 
 import android.net.ConnectivityManager;
@@ -52,13 +48,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -71,11 +64,11 @@ public class NICEApp extends ListActivity {
 
 	private static final int PREFERENCES_GROUP_ID = 0;
 	private static final int SHARE_ID = 0;
-	private static final int HELP_ID = 1;
+	private static final int GETALL_ID = 1;
 	private static final int FEEDBACK_ID = 2;
-	private static final int ABOUT_ID = 3;
-	private static final int GETALL_ID = 4;
-	private static final int SEARCH_ID = 5;
+	private static final int RELOAD_ID = 3;
+	private static final int HELP_ID = 4;
+	private static final int ABOUT_ID = 5;
 	private static boolean downloadLock = false;
 	GuidelineData guidelines;
 	int cached[];
@@ -99,16 +92,16 @@ public boolean onCreateOptionsMenu(Menu menu)
 
 	menu.add(PREFERENCES_GROUP_ID, SHARE_ID, 0, "share")
 	.setIcon(android.R.drawable.ic_menu_share);
-	menu.add(PREFERENCES_GROUP_ID, HELP_ID, 0, "help")
-	.setIcon(android.R.drawable.ic_menu_help);
-	menu.add(PREFERENCES_GROUP_ID, FEEDBACK_ID, 0, "feedback")
-	.setIcon(android.R.drawable.ic_menu_send);
-	menu.add(PREFERENCES_GROUP_ID, ABOUT_ID, 0, "about")
-	.setIcon(android.R.drawable.ic_menu_info_details);
 	menu.add(PREFERENCES_GROUP_ID, GETALL_ID, 0, "download all")
 	.setIcon(android.R.drawable.ic_menu_save);
-	menu.add(PREFERENCES_GROUP_ID, SEARCH_ID, 0, "search")
-	.setIcon(android.R.drawable.ic_menu_search);
+	menu.add(PREFERENCES_GROUP_ID, FEEDBACK_ID, 0, "feedback")
+	.setIcon(android.R.drawable.ic_menu_send);
+	menu.add(PREFERENCES_GROUP_ID, RELOAD_ID, 0, "last file")
+	.setIcon(android.R.drawable.ic_menu_rotate);
+	menu.add(PREFERENCES_GROUP_ID, HELP_ID, 0, "help")
+	.setIcon(android.R.drawable.ic_menu_help);
+	menu.add(PREFERENCES_GROUP_ID, ABOUT_ID, 0, "about")
+	.setIcon(android.R.drawable.ic_menu_info_details);
 
 	return true;
 	} 
@@ -132,7 +125,7 @@ public boolean onCreateOptionsMenu(Menu menu)
 
 	   			return true;
 	   case HELP_ID: Toast.makeText(getApplicationContext(), 
-               "Choose an item.\nMake sure you have a PDF Reader installed.", 
+               "Cached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.", 
                Toast.LENGTH_LONG).show();
 				return true;
 	   case FEEDBACK_ID: Toast.makeText(getApplicationContext(), 
@@ -140,37 +133,11 @@ public boolean onCreateOptionsMenu(Menu menu)
                Toast.LENGTH_LONG).show();
 	   			return true;	
 	   case ABOUT_ID: 
-
-			  if (isNetworkAvailable()){ 
-				  
-			  
-				   URL url = null;
-				try {
-					url = new URL("https://raw.github.com/openhealthcare/android-nice-guidance/master/assets/xml/guidelines.xml");
-				} catch (MalformedURLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				   URLConnection urlConnection = null;
-				try {
-					urlConnection = url.openConnection();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				   long lastDate = urlConnection.getLastModified();
-				   Toast.makeText(getApplicationContext(), 
-						   String.valueOf(lastDate), 
-			                  Toast.LENGTH_LONG).show();
-				}
-		   
-		   Toast.makeText(getApplicationContext(), 
-               "Developers:\nRoss Jones / Dr VJ Joshi / Neil McPhail", 
-               Toast.LENGTH_LONG).show();
-		   
-
+		   Toast.makeText(getApplicationContext(),
+				   "Developers:\nRoss Jones / Dr VJ Joshi / Neil McPhail",
+				   Toast.LENGTH_LONG).show();	   
 		   return true;
-				
+		   
 	   case GETALL_ID: 
 		   
 		   StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
@@ -185,22 +152,51 @@ public boolean onCreateOptionsMenu(Menu menu)
 		   {
 		   
 	    if (isNetworkAvailable()){ 
+	    	if (haveConnectedWifi){ 
 		    AlertDialog ad = new AlertDialog.Builder(this).create();  
 		    //ad.setCancelable(false); // This blocks the 'BACK' button  
-		    ad.setTitle("This will be SLOW");
-		    ad.setMessage("Phone may appear to freeze\nPlease let it do its thing\n\nDownload will take approx 3 mins over WiFi (25Mb)");  
+		    ad.setTitle("This could be slow...");
+		    ad.setMessage("Phone will download all missing files.  Please let it do its thing\n\nDownload can take approx 3 mins over WiFi (25Mb)\n\nPress BACK to back out");  
+	
 		    ad.setButton("Go", new DialogInterface.OnClickListener() {  
 		        @Override  
 		        public void onClick(DialogInterface dialog, int which) {  
-					Toast.makeText(getApplicationContext(),
-							"Accessing / downloading",
-							Toast.LENGTH_SHORT).show();
+					final Toast ShortToast = Toast.makeText(getApplicationContext(),
+							"Starting downloads",
+							Toast.LENGTH_SHORT);
+					
+					Timer timer = new Timer();
+					   TimerTask task = new TimerTask() {
+
+						   @Override
+						   public void run() {
+						     // make sure to cancel the Toast in UI thread
+						     runOnUiThread(new Runnable() {
+
+						       @Override
+						       public void run() {
+						    	   ShortToast.cancel();
+						       }
+						     });
+						   }
+						 };
+
+						 ShortToast.show();
+						 timer.schedule(task, 500);
+						 
 					new AsyncDownload().execute(guidelines.GetKeys());
 				   dialog.dismiss();
 		 		   
 		        }  
 		    });  
 		    ad.show();  
+	    }
+	    	else
+		    {
+		    	Toast.makeText(getApplicationContext(), 
+		                "Inadvisable unless over a WiFi connection", 
+		                Toast.LENGTH_LONG).show();
+		    }
 	    }
 	    else
 	    {
@@ -211,9 +207,10 @@ public boolean onCreateOptionsMenu(Menu menu)
 		   }   
 	    return true;
 
-	    case SEARCH_ID:
-
-		   onSearchRequested();
+	    case RELOAD_ID:
+	       Object item1 = getListAdapter().getItem(lastOpened);
+		   String key = (String) item1;
+		   new AsyncDownload().execute(key);
 		   return true;
 			}
 		   
@@ -255,7 +252,9 @@ public boolean onCreateOptionsMenu(Menu menu)
 	  setListAdapter(arrad);
 
 	  lv = getListView();
+	  lv.setFastScrollEnabled(true);
 	  lv.setTextFilterEnabled(true);
+	  
 	  
 	  handleIntent(getIntent());
 
@@ -266,6 +265,11 @@ public boolean onCreateOptionsMenu(Menu menu)
 					Object item = getListAdapter().getItem(position);
 					String key = (String) item;
 					new AsyncDownload().execute(key);
+					if (cached[position]==1){
+						Toast.makeText(getApplicationContext(), 
+			                  "Accessing", 
+			                  Toast.LENGTH_SHORT).show();
+						};
 					if (isNetworkAvailable()){ 
 						cached[position]=1;
 						lastOpened=position;
@@ -359,11 +363,17 @@ public boolean onCreateOptionsMenu(Menu menu)
 						return Boolean.FALSE;
 						}
 						downloadLock = true;
-						publishProgress("Downloading");
+						if (count == 1){
+							publishProgress("Downloading\n" + guidelinelist[i]);
+						}else
+						{
+							publishProgress("Download Progress:\n" + guidelinelist[i]);
+						}
+						
 						DownloadPDF p = new DownloadPDF();
 						try {
 							p.DownloadFrom(url, targetFile);
-							publishProgress("Downloaded " + guidelinelist[i] + " successfully");
+							if (!haveConnectedWifi) publishProgress("Downloaded successfully");
 							singlesuccess = Boolean.TRUE;
 
 						} catch (Exception exc){
@@ -376,7 +386,7 @@ public boolean onCreateOptionsMenu(Menu menu)
 						publishProgress("File not cached\nNo Network Connectivity"); 
 						}
 				} else {
-					publishProgress("Accessing");
+					//publishProgress("Accessing");
 					singlesuccess = Boolean.TRUE;
 				}
 			}
@@ -407,9 +417,9 @@ public boolean onCreateOptionsMenu(Menu menu)
 			}
 		}
 		protected void onProgressUpdate(String... progress) {
-			Toast.makeText(getApplicationContext(),
-					progress[0],
-					Toast.LENGTH_SHORT).show();
+			  
+			   Toast.makeText(getApplicationContext(), progress[0], Toast.LENGTH_SHORT).show();
+			   				 
 		}
 	}
 	
@@ -454,6 +464,7 @@ public boolean onCreateOptionsMenu(Menu menu)
 
 		public View getView(int position, View convertView, ViewGroup parent) {
 			LayoutInflater inflater = context.getLayoutInflater();
+
 			View rowView = inflater.inflate(R.layout.list_item, null, true);
 			TextView textView = (TextView) rowView.findViewById(R.id.label);
 			ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
@@ -465,12 +476,13 @@ public boolean onCreateOptionsMenu(Menu menu)
 			if (length==0) {imageView.setImageResource(R.drawable.icon);}
 			else {imageView.setImageResource(R.drawable.fox);}
 			
-			//if (length2==0) {imageView2.setImageResource(R.drawable.mouth);}
-			//if (length2==1) {imageView2.setImageResource(R.drawable.blob);}
-			//if (length2==2) {imageView2.setImageResource(R.drawable.mail);}
+			int length2 = s.length()%3;
+			if (length2==0) {imageView2.setImageResource(R.drawable.stethoscope);}
+			if (length2==1) {imageView2.setImageResource(R.drawable.primary_care);}
+			if (length2==2) {imageView2.setImageResource(R.drawable.pharmacology);}
 			
 			//Temporary Hardcode//
-			imageView2.setImageResource(R.drawable.primary_care);
+			//imageView2.setImageResource(R.drawable.primary_care);
 			
 			if (s.startsWith("Acute")) {imageView2.setImageResource(R.drawable.stethoscope);}
 			
