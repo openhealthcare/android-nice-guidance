@@ -19,6 +19,10 @@
 package uk.org.openhealthcare;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -33,6 +37,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -48,6 +53,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -66,14 +72,16 @@ public class NICEApp extends ListActivity {
 	private static final int SHARE_ID = 0;
 	private static final int GETALL_ID = 1;
 	private static final int FEEDBACK_ID = 2;
-	private static final int RELOAD_ID = 3;
-	private static final int HELP_ID = 4;
-	private static final int ABOUT_ID = 5;
+	private static final int SEARCH_ID = 3;
+	private static final int RELOAD_ID = 4;
+	private static final int HELP_ID = 5;
+	private static final int ABOUT_ID = 6;
 	private static boolean downloadLock = false;
 	GuidelineData guidelines;
 	int cached[];
 	int numGuidelines;
 	int lastOpened;
+	boolean firstrun;
     boolean haveConnectedWifi = false;
     boolean haveConnectedMobile = false;	
 
@@ -96,6 +104,8 @@ public boolean onCreateOptionsMenu(Menu menu)
 	.setIcon(android.R.drawable.ic_menu_save);
 	menu.add(PREFERENCES_GROUP_ID, FEEDBACK_ID, 0, "feedback")
 	.setIcon(android.R.drawable.ic_menu_send);
+	//menu.add(PREFERENCES_GROUP_ID, SEARCH_ID, 0, "search")
+	//.setIcon(android.R.drawable.ic_menu_search);
 	menu.add(PREFERENCES_GROUP_ID, RELOAD_ID, 0, "last file")
 	.setIcon(android.R.drawable.ic_menu_rotate);
 	menu.add(PREFERENCES_GROUP_ID, HELP_ID, 0, "help")
@@ -207,6 +217,9 @@ public boolean onCreateOptionsMenu(Menu menu)
 		   }   
 	    return true;
 
+	    case SEARCH_ID:
+		       return true;
+	
 	    case RELOAD_ID:
 	       Object item1 = getListAdapter().getItem(lastOpened);
 		   String key = (String) item1;
@@ -220,6 +233,30 @@ public boolean onCreateOptionsMenu(Menu menu)
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
 	  
+	  SharedPreferences settings = getPreferences (0);
+	  
+	  firstrun = settings.getBoolean("firstrun", true);
+	  
+	  String folderString = pathToStorage(null);
+	  File folder = new File(folderString);
+	  if ( ! folder.exists() ) {
+		  folder.mkdir();
+	  }
+	  
+	  String targetFile = pathToStorage("guidelines.xml");
+		boolean exists = (new File(targetFile)).exists();
+		if (exists) {
+			//do nothing
+		} else {
+			if (firstrun){
+				  CopyAssets("");
+					sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse
+							("file://"
+							+ Environment.getExternalStorageDirectory())));
+				  firstrun=false;	  
+			}
+		}
+	  
 	  try { 
 		  guidelines = new GuidelineData(this);
 	  } catch (Exception elocal) {
@@ -228,19 +265,12 @@ public boolean onCreateOptionsMenu(Menu menu)
                   Toast.LENGTH_LONG).show();		  
 	  }
 	   
-	  String folderString = pathToStorage(null);
-	  File folder = new File(folderString);
-	  if ( ! folder.exists() ) {
-		  folder.mkdir();
-	  }
-	  
 	  Object[] c = guidelines.GetKeys();
 	  Arrays.sort(c);
 	  numGuidelines=c.length;
 	  
 	  cached = new int[numGuidelines];
 	  
-	  SharedPreferences settings = getPreferences (0);
 	  int count =numGuidelines;		
 		for (int i = 0; i < count; i++){
 			cached[i] = settings.getInt(Integer.toString(i), 0);
@@ -292,6 +322,7 @@ public boolean onCreateOptionsMenu(Menu menu)
 			editor.putInt(Integer.toString(i), cached[i]);
 		}
 		editor.putInt("last", lastOpened);
+		editor.putBoolean("firstrun", firstrun);
 	
       editor.commit();
     }
@@ -447,7 +478,14 @@ public boolean onCreateOptionsMenu(Menu menu)
 		}
 }
 	
+	private static class FilesViewHolder {
+        public TextView separator;
+        public TextView textView;
+        public TextView subtitleView;
+    }
+	
 	public class ColourArray extends ArrayAdapter<String> implements Filterable{
+		
 		private final Activity context;
 		public final String[] names;
 
@@ -459,19 +497,28 @@ public boolean onCreateOptionsMenu(Menu menu)
 		}
 
 		@Override
-
-
-
+		
 		public View getView(int position, View convertView, ViewGroup parent) {
 			LayoutInflater inflater = context.getLayoutInflater();
 
+			//View rowView = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
 			View rowView = inflater.inflate(R.layout.list_item, null, true);
-			TextView textView = (TextView) rowView.findViewById(R.id.label);
+			
+			FilesViewHolder holder = new FilesViewHolder();
+			
+			holder.textView = (TextView) rowView.findViewById(R.id.label);
 			ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
 			ImageView imageView2 = (ImageView) rowView.findViewById(R.id.icon2);
+			holder.separator = (TextView) rowView.findViewById(R.id.separator);
+			holder.subtitleView = (TextView) rowView.findViewById(R.id.subtitle);
+				
 			String s = names[position];
-			textView.setText(s);
 			int length = s.length()%2;
+			
+			holder.separator.setText(s.substring(0,1));
+			holder.textView.setText(s);
+			holder.subtitleView.setText("NICE CG"+length+""+position+"   Other Extra Stuff");
+			
 						
 			if (length==0) {imageView.setImageResource(R.drawable.icon);}
 			else {imageView.setImageResource(R.drawable.fox);}
@@ -481,6 +528,13 @@ public boolean onCreateOptionsMenu(Menu menu)
 			if (length2==1) {imageView2.setImageResource(R.drawable.primary_care);}
 			if (length2==2) {imageView2.setImageResource(R.drawable.pharmacology);}
 			
+			int length3 = position%6;
+			if (length3!=0) holder.separator.setVisibility(View.GONE);
+			
+			
+			 //holder.titleView.setText(holder.titleBuffer.data, 0, holder.titleBuffer.sizeCopied);
+			 
+			 
 			//Temporary Hardcode//
 			//imageView2.setImageResource(R.drawable.primary_care);
 			
@@ -498,15 +552,16 @@ public boolean onCreateOptionsMenu(Menu menu)
 			//////////////////////
 			
 			if (cached[position] > 0) {
-				textView.setTextColor(Color.rgb(255,255,255));
+				holder.textView.setTextColor(Color.rgb(255,255,255));
 			}else {
-				textView.setTextColor(Color.rgb(127,127,127));
+				holder.textView.setTextColor(Color.rgb(127,127,127));
 			}	
 			
 			if (position==lastOpened && lastOpened!=0) {
-				textView.setBackgroundColor(Color.rgb(15,15,191)); 
+				holder.textView.setBackgroundColor(Color.rgb(15,15,191)); 
 			}
 			
+			rowView.setTag(holder);
 			return rowView;
 		}
 
@@ -536,4 +591,63 @@ public boolean onCreateOptionsMenu(Menu menu)
 		    return haveConnectedWifi || haveConnectedMobile;
 		}
 
-	}
+	   
+	   private void CopyAssets(String path) {
+		    AssetManager assetManager = this.getAssets();
+		    String assets[] = null;
+		    try {
+		        Log.i("tag", "CopyAssets() "+path);
+		        assets = assetManager.list(path);
+		        if (assets.length == 0) {
+		            copyFile(path);
+		        } else {
+		            String fullPath =  pathToStorage(path);
+		            Log.i("tag", "path="+fullPath);
+		            File dir = new File(fullPath);
+		            if (!dir.exists() && !path.startsWith("images") && !path.startsWith("sounds") && !path.startsWith("webkit"))
+		                if (!dir.mkdirs());
+		                    Log.i("tag", "could not create dir "+fullPath);
+		            for (int i = 0; i < assets.length; ++i) {
+		                String p;
+		                if (path.equals(""))
+		                    p = "";
+		                else 
+		                    p = path + "/";
+
+		                if (!path.startsWith("images") && !path.startsWith("sounds") && !path.startsWith("webkit"))
+		                	CopyAssets( p + assets[i]);
+		            }
+		        }
+		    } catch (IOException ex) {
+		        Log.e("tag", "I/O Exception", ex);
+		    }
+		}
+
+		private void copyFile(String filename) {
+		    AssetManager assetManager = this.getAssets();
+
+		    InputStream in = null;
+		    OutputStream out = null;
+		    String newFileName = null;
+		    try {
+		        Log.i("tag", "copyFile() "+filename);
+		        in = assetManager.open(filename);
+		        newFileName = pathToStorage(filename);
+		        out = new FileOutputStream(newFileName);
+
+		        byte[] buffer = new byte[1024];
+		        int read;
+		        while ((read = in.read(buffer)) != -1) {
+		            out.write(buffer, 0, read);
+		        }
+		        in.close();
+		        in = null;
+		        out.flush();
+		        out.close();
+		        out = null;
+		    } catch (Exception e) {
+		        Log.e("tag", "Exception in copyFile() of "+newFileName);
+		        Log.e("tag", "Exception in copyFile() "+e.toString());
+		    }
+
+	}}

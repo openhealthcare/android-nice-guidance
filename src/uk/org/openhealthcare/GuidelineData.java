@@ -17,6 +17,9 @@
 
 package uk.org.openhealthcare;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -33,6 +36,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import android.content.Context;
+import android.os.Environment;
 
 public class GuidelineData {
 
@@ -41,7 +45,7 @@ public class GuidelineData {
 	public GuidelineData(Context ctx) throws IOException, ParserConfigurationException, SAXException
 	{
 		// Load the XML from the assets folder and parse it into the map
-		InputStream inp = ctx.getAssets().open("xml/guidelines.xml");
+		InputStream inp = new FileInputStream(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml");
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		Document doc = null;

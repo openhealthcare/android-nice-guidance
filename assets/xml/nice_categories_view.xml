@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guidelines>
+  <provider name="NICE">
+    <category name="Cancer">
+      <category name="Breast cancer">
+        <guideline category="Cancer" code="CG81" subcategory="Breast cancer" title="Advanced breast cancer" url="http://www.nice.org.uk/nicemedia/live/11778/43308/43308.pdf"/>
+        <guideline category="Cancer" code="CG80" subcategory="Breast cancer" title="Early and locally advanced breast cancer" url="http://www.nice.org.uk/nicemedia/live/12132/43314/43314.pdf"/>
+        <guideline category="Cancer" code="CG41" subcategory="Breast cancer" title="Familial breast cancer" url="http://www.nice.org.uk/nicemedia/live/10994/30244/30244.pdf"/>
+      </category>
+      <category name="Gastrointestinal cancer">
+        <guideline category="Cancer" code="CG118" subcategory="Gastrointestinal cancer" title="Colonoscopic surveillance for prevention of colorectal cancer in people with ulcerative colitis, Crohn's disease or adenomas" url="http://www.nice.org.uk/nicemedia/live/13415/53592/53592.pdf"/>
+      </category>
+      <category name="Lung cancer">
+        <guideline category="Cancer" code="CG121" subcategory="Lung cancer" title="Lung cancer" url="http://www.nice.org.uk/nicemedia/live/13465/54208/54208.pdf"/>
+      </category>
+      <category name="Metastasis">
+        <guideline category="Cancer" code="CG104" subcategory="Metastasis" title="Metastatic malignant disease of unknown primary origin" url="http://www.nice.org.uk/nicemedia/live/13044/49867/49867.pdf"/>
+        <guideline category="Cancer" code="CG75" subcategory="Metastasis" title="Metastatic spinal cord compression" url="http://www.nice.org.uk/nicemedia/live/12085/42586/42586.pdf"/>
+      </category>
+      <category name="Urogenital cancer">
+        <guideline category="Cancer" code="CG97" subcategory="Urogenital cancer" title="Lower urinary tract symptoms" url="http://www.nice.org.uk/nicemedia/live/12984/48575/48575.pdf"/>
+        <guideline category="Cancer" code="CG58" subcategory="Urogenital cancer" title="Prostate cancer" url="http://www.nice.org.uk/nicemedia/live/11924/39524/39524.pdf"/>
+      </category>
+    </category>
+    <category name="Cardiovascular">
+      <category name="Angina">
+        <guideline category="Cardiovascular" code="CG126" subcategory="Angina" title="Stable angina" url="http://www.nice.org.uk/nicemedia/live/13549/55663/55663.pdf"/>
+      </category>
+      <category name="Arrhythmia">
+        <guideline category="Cardiovascular" code="CG36" subcategory="Arrhythmia" title="Atrial fibrillation" url="http://www.nice.org.uk/nicemedia/live/10982/30054/30054.pdf"/>
+      </category>
+      <category name="Coronary disease">
+        <guideline category="Cardiovascular" code="CG71" subcategory="Coronary disease" title="Familial hypercholesterolaemia" url="http://www.nice.org.uk/nicemedia/live/12048/41674/41674.pdf"/>
+        <guideline category="Cardiovascular" code="CG67" subcategory="Coronary disease" title="Lipid modification" url="http://www.nice.org.uk/nicemedia/live/11982/40675/40675.pdf"/>
+      </category>
+      <category name="Myocardial infarction">
+        <guideline category="Cardiovascular" code="CG95" subcategory="Myocardial infarction" title="Chest pain of recent onset" url="http://www.nice.org.uk/nicemedia/live/12947/47918/47918.pdf"/>
+        <guideline category="Cardiovascular" code="CG48" subcategory="Myocardial infarction" title="MI; secondary prevention" url="http://www.nice.org.uk/nicemedia/live/11008/30497/30497.pdf"/>
+        <guideline category="Cardiovascular" code="CG94" subcategory="Myocardial infarction" title="Unstable angina and NSTEMI" url="http://www.nice.org.uk/nicemedia/live/12949/47924/47924.pdf"/>
+      </category>
+      <category name="Stroke">
+        <guideline category="Cardiovascular" code="CG68" subcategory="Stroke" title="Stroke" url="http://www.nice.org.uk/nicemedia/live/12018/41316/41316.pdf"/>
+      </category>
+      <category name="Thrombosis">
+        <guideline category="Cardiovascular" code="CG92" subcategory="Thrombosis" title="Venous thromboembolism - reducing the risk" url="http://www.nice.org.uk/nicemedia/live/12695/47197/47197.pdf"/>
+      </category>
+    </category>
+    <category name="Central nervous system">
+      <guideline category="Central nervous system" code="CG102" subcategory="" title="Bacterial meningitis and meningococcal septicaemia" url="http://www.nice.org.uk/nicemedia/live/13027/49341/49341.pdf"/>
+      <guideline category="Central nervous system" code="CG53" subcategory="" title="Chronic fatigue syndrome / Myalgic encephalomyelitis" url="http://www.nice.org.uk/nicemedia/live/11824/36190/36190.pdf"/>
+      <guideline category="Central nervous system" code="CG103" subcategory="" title="Delirium" url="http://www.nice.org.uk/nicemedia/live/13060/49913/49913.pdf"/>
+      <guideline category="Central nervous system" code="CG42" subcategory="" title="Dementia" url="http://www.nice.org.uk/nicemedia/live/10998/30317/30317.pdf"/>
+      <guideline category="Central nervous system" code="CG105" subcategory="" title="Motor neurone disease - non-invasive ventilation" url="http://www.nice.org.uk/nicemedia/live/13057/49893/49893.pdf"/>
+      <guideline category="Central nervous system" code="CG35" subcategory="" title="Parkinson's disease" url="http://www.nice.org.uk/nicemedia/live/10984/30085/30085.pdf"/>
+      <guideline category="Central nervous system" code="CG109" subcategory="" title="Transient loss of consciousness in adults and young people" url="http://www.nice.org.uk/nicemedia/live/13111/50456/50456.pdf"/>
+    </category>
+    <category name="Digestive system">
+      <category name="Gastrointestinal diseases">
+        <guideline category="Digestive system" code="CG106" subcategory="Gastrointestinal diseases" title="Barrett's oesophagus - ablative therapy" url="http://www.nice.org.uk/nicemedia/live/13096/50252/50252.pdf"/>
+        <guideline category="Digestive system" code="CG86" subcategory="Gastrointestinal diseases" title="Coeliac disease" url="http://www.nice.org.uk/nicemedia/live/12166/44355/44355.pdf"/>
+        <guideline category="Digestive system" code="CG118" subcategory="Gastrointestinal diseases" title="Colonoscopic surveillance for prevention of colorectal cancer in people with ulcerative colitis, Crohn's disease or adenomas" url="http://www.nice.org.uk/nicemedia/live/13415/53592/53592.pdf"/>
+        <guideline category="Digestive system" code="CG99" subcategory="Gastrointestinal diseases" title="Constipation in children and young people" url="http://www.nice.org.uk/nicemedia/live/12993/48754/48754.pdf"/>
+        <guideline category="Digestive system" code="CG84" subcategory="Gastrointestinal diseases" title="Diarrhoea and vomiting in children under 5" url="http://www.nice.org.uk/nicemedia/live/11846/43843/43843.pdf"/>
+        <guideline category="Digestive system" code="CG17" subcategory="Gastrointestinal diseases" title="Dyspepsia" url="http://www.nice.org.uk/nicemedia/live/10950/29458/29458.pdf"/>
+        <guideline category="Digestive system" code="CG49" subcategory="Gastrointestinal diseases" title="Faecal incontinence" url="http://www.nice.org.uk/nicemedia/live/11012/30546/30546.pdf"/>
+        <guideline category="Digestive system" code="CG61" subcategory="Gastrointestinal diseases" title="Irritable bowel syndrome" url="http://www.nice.org.uk/nicemedia/live/11927/39559/39559.pdf"/>
+      </category>
+      <category name="Liver diseases">
+        <guideline category="Digestive system" code="CG98" subcategory="Liver diseases" title="Neonatal jaundice" url="http://www.nice.org.uk/nicemedia/live/12986/48679/48679.pdf"/>
+      </category>
+    </category>
+    <category name="Ear and nose">
+      <guideline category="Ear and nose" code="CG60" subcategory="" title="Surgical management of OME" url="http://www.nice.org.uk/nicemedia/live/11928/39564/39564.pdf"/>
+    </category>
+    <category name="Endocrine, nutritional and metabolic">
+      <category name="Diabetes">
+        <guideline category="Endocrine, nutritional and metabolic" code="CG62" subcategory="Diabetes" title="Antenatal care" url="http://www.nice.org.uk/nicemedia/live/11947/40110/40110.pdf"/>
+        <guideline category="Endocrine, nutritional and metabolic" code="CG63" subcategory="Diabetes" title="Diabetes in pregnancy" url="http://www.nice.org.uk/nicemedia/live/11946/41321/41321.PDF"/>
+        <guideline category="Endocrine, nutritional and metabolic" code="CG119" subcategory="Diabetes" title="Diabetic foot problems - inpatient management" url="http://www.nice.org.uk/nicemedia/live/13416/53558/53558.pdf"/>
+        <guideline category="Endocrine, nutritional and metabolic" code="CG10" subcategory="Diabetes" title="Type 2 diabetes - footcare" url="http://www.nice.org.uk/nicemedia/live/10934/29240/29240.pdf"/>
+        <guideline category="Endocrine, nutritional and metabolic" code="CG87" subcategory="Diabetes" title="Type 2 diabetes - newer agents (a partial update of CG66)" url="http://www.nice.org.uk/nicemedia/live/12165/44322/44322.pdf"/>
+      </category>
+      <category name="Nutrition disorders">
+        <guideline category="Endocrine, nutritional and metabolic" code="CG114" subcategory="Nutrition disorders" title="Anaemia management in people with chronic kidney disease" url="http://www.nice.org.uk/nicemedia/live/13329/52857/52857.pdf"/>
+        <guideline category="Endocrine, nutritional and metabolic" code="CG9" subcategory="Nutrition disorders" title="Eating disorders" url="http://www.nice.org.uk/nicemedia/live/10932/29217/29217.pdf"/>
+        <guideline category="Endocrine, nutritional and metabolic" code="CG32" subcategory="Nutrition disorders" title="Nutrition support in adults" url="http://www.nice.org.uk/nicemedia/live/10978/29978/29978.pdf"/>
+        <guideline category="Endocrine, nutritional and metabolic" code="CG43" subcategory="Nutrition disorders" title="Obesity" url="http://www.nice.org.uk/nicemedia/live/11000/30364/30364.pdf"/>
+      </category>
+    </category>
+    <category name="Eye">
+      <guideline category="Eye" code="CG85" subcategory="" title="Glaucoma" url="http://www.nice.org.uk/nicemedia/live/12145/43791/43791.pdf"/>
+    </category>
+    <category name="Gynaecology, pregnancy and birth">
+      <category name="Gynaecology">
+        <guideline category="Gynaecology, pregnancy and birth" code="CG44" subcategory="Gynaecology" title="Heavy menstrual bleeding" url="http://www.nice.org.uk/nicemedia/live/11002/30403/30403.pdf"/>
+        <guideline category="Gynaecology, pregnancy and birth" code="CG30" subcategory="Gynaecology" title="Long-acting reversible contraception" url="http://www.nice.org.uk/nicemedia/live/10974/29911/29911.pdf"/>
+        <guideline category="Gynaecology, pregnancy and birth" code="CG122" subcategory="Gynaecology" title="Ovarian cancer" url="http://www.nice.org.uk/nicemedia/live/13464/54268/54268.pdf"/>
+      </category>
+      <category name="Pregnancy">
+        <guideline category="Gynaecology, pregnancy and birth" code="CG45" subcategory="Pregnancy" title="Antenatal and postnatal mental health" url="http://www.nice.org.uk/nicemedia/live/11004/30432/30432.pdf"/>
+        <guideline category="Gynaecology, pregnancy and birth" code="CG62" subcategory="Pregnancy" title="Antenatal care" url="http://www.nice.org.uk/nicemedia/live/11947/40110/40110.pdf"/>
+        <guideline category="Gynaecology, pregnancy and birth" code="CG37" subcategory="Pregnancy" title="CG37 Postnatal care - quick reference guid" url="http://www.nice.org.uk/nicemedia/live/10988/30143/30143.pdf"/>
+        <guideline category="Gynaecology, pregnancy and birth" code="CG63" subcategory="Pregnancy" title="Diabetes in pregnancy" url="http://www.nice.org.uk/nicemedia/live/11946/41321/41321.PDF"/>
+        <guideline category="Gynaecology, pregnancy and birth" code="CG107" subcategory="Pregnancy" title="Hypertension in pregnancy" url="http://www.nice.org.uk/nicemedia/live/13098/50416/50416.pdf"/>
+        <guideline category="Gynaecology, pregnancy and birth" code="CG55" subcategory="Pregnancy" title="Intrapartum care" url="http://www.nice.org.uk/nicemedia/live/11837/36273/36273.pdf"/>
+        <guideline category="Gynaecology, pregnancy and birth" code="CG129" subcategory="Pregnancy" title="Multiple pregnancy" url="http://www.nice.org.uk/nicemedia/live/13571/56425/56425.pdf"/>
+        <guideline category="Gynaecology, pregnancy and birth" code="CG110" subcategory="Pregnancy" title="Pregnancy and complex social factors" url="http://www.nice.org.uk/nicemedia/live/13167/50817/50817.pdf"/>
+      </category>
+    </category>
+    <category name="Infectious diseases">
+      <guideline category="Infectious diseases" code="CG102" subcategory="" title="Bacterial meningitis and meningococcal septicaemia" url="http://www.nice.org.uk/nicemedia/live/13027/49341/49341.pdf"/>
+      <guideline category="Infectious diseases" code="CG47" subcategory="" title="Feverish illness in children" url="http://www.nice.org.uk/nicemedia/live/11010/30524/30524.pdf"/>
+      <guideline category="Infectious diseases" code="CG74" subcategory="" title="Surgical site infection" url="http://www.nice.org.uk/nicemedia/live/11743/42381/42381.pdf"/>
+      <guideline category="Infectious diseases" code="CG54" subcategory="" title="Urinary tract infection in children" url="http://www.nice.org.uk/nicemedia/live/11819/36030/36030.pdf"/>
+    </category>
+    <category name="Injuries, accidents and wounds">
+      <guideline category="Injuries, accidents and wounds" code="CG56" subcategory="" title="Head injury" url="http://www.nice.org.uk/nicemedia/live/11836/36257/36257.pdf"/>
+      <guideline category="Injuries, accidents and wounds" code="CG124" subcategory="" title="Hip fracture" url="http://www.nice.org.uk/nicemedia/live/13489/54921/54921.pdf"/>
+      <guideline category="Injuries, accidents and wounds" code="CG89" subcategory="" title="When to suspect child maltreatment" url="http://www.nice.org.uk/nicemedia/live/12183/44872/44872.pdf"/>
+    </category>
+    <category name="Mental health and behavioural conditions">
+      <guideline category="Mental health and behavioural conditions" code="CG38" subcategory="" title=" Bipolar disorder" url="http://www.nice.org.uk/nicemedia/live/10990/30191/30191.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG115" subcategory="" title="Alcohol dependence and harmful alcohol use" url="http://www.nice.org.uk/nicemedia/live/13337/53194/53194.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG100" subcategory="" title="Alcohol-use disorders: physical complications" url="http://www.nice.org.uk/nicemedia/live/12995/49004/49004.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG45" subcategory="" title="Antenatal and postnatal mental health" url="http://www.nice.org.uk/nicemedia/live/11004/30432/30432.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG77" subcategory="" title="Antisocial personality disorder" url="http://www.nice.org.uk/nicemedia/live/11765/42997/42997.PDF"/>
+      <guideline category="Mental health and behavioural conditions" code="CG113" subcategory="" title="Anxiety" url="http://www.nice.org.uk/nicemedia/live/13314/52601/52601.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG72" subcategory="" title="Attention deficit hyperactivity disorder (ADHD)" url="http://www.nice.org.uk/nicemedia/live/12061/42107/42107.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG128" subcategory="" title="Autism in children and young people" url="http://www.nice.org.uk/nicemedia/live/13572/56431/56431.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG78" subcategory="" title="Borderline personality disorder (BPD)" url="http://www.nice.org.uk/nicemedia/live/12125/42868/42868.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG123" subcategory="" title="Common mental health disorders" url="http://www.nice.org.uk/nicemedia/live/13476/54523/54523.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG42" subcategory="" title="Dementia" url="http://www.nice.org.uk/nicemedia/live/10998/30317/30317.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG90" subcategory="" title="Depression in adults" url="http://www.nice.org.uk/nicemedia/live/12329/45890/45890.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG28" subcategory="" title="Depression in children and young people" url="http://www.nice.org.uk/nicemedia/live/10970/29858/29858.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG91" subcategory="" title="Depression with a chronic physical health problem" url="http://www.nice.org.uk/nicemedia/live/12327/45865/45865.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG52" subcategory="" title="Drug misuse: opioid detoxification" url="http://www.nice.org.uk/nicemedia/live/11813/35996/35996.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG51" subcategory="" title="Drug misuse: psychosocial interventions" url="http://www.nice.org.uk/nicemedia/live/11812/35972/35972.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG9" subcategory="" title="Eating disorders" url="http://www.nice.org.uk/nicemedia/live/10932/29217/29217.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG76" subcategory="" title="Medicines adherence" url="http://www.nice.org.uk/nicemedia/live/11766/42891/42891.PDF"/>
+      <guideline category="Mental health and behavioural conditions" code="CG111" subcategory="" title="Nocturnal enuresis - the management of bedwetting in children and young people" url="http://www.nice.org.uk/nicemedia/live/13246/51382/51382.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG31" subcategory="" title="Obsessive-compulsive disorder" url="http://www.nice.org.uk/nicemedia/live/10976/29945/29945.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG26" subcategory="" title="Post-traumatic stress disorder (PTSD)" url="http://www.nice.org.uk/nicemedia/live/10966/29771/29771.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG110" subcategory="" title="Pregnancy and complex social factors" url="http://www.nice.org.uk/nicemedia/live/13167/50817/50817.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG120" subcategory="" title="Psychosis with coexisting substance misuse" url="http://www.nice.org.uk/nicemedia/live/13414/53731/53731.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG82" subcategory="" title="Schizophrenia (update)" url="http://www.nice.org.uk/nicemedia/live/11786/43610/43610.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG25" subcategory="" title="Violence" url="http://www.nice.org.uk/nicemedia/live/10964/29716/29716.pdf"/>
+      <guideline category="Mental health and behavioural conditions" code="CG89" subcategory="" title="When to suspect child maltreatment" url="http://www.nice.org.uk/nicemedia/live/12183/44872/44872.pdf"/>
+    </category>
+    <category name="Mouth and dental">
+      <guideline category="Mouth and dental" code="CG19" subcategory="" title="Dental recall" url="http://www.nice.org.uk/nicemedia/live/10952/29484/29484.pdf"/>
+      <guideline category="Mouth and dental" code="CG64" subcategory="" title="Prophylaxis against infective endocarditis" url="http://www.nice.org.uk/nicemedia/live/11938/40014/40014.pdf"/>
+    </category>
+    <category name="Musculoskeletal">
+      <category name="Osteoarthritis">
+        <guideline category="Musculoskeletal" code="CG59" subcategory="Osteoarthritis" title="Osteoarthritis" url="http://www.nice.org.uk/nicemedia/live/11926/39554/39554.pdf"/>
+      </category>
+      <category name="Rheumatoid arthritis">
+        <guideline category="Musculoskeletal" code="CG79" subcategory="Rheumatoid arthritis" title="Rheumatoid arthritis" url="http://www.nice.org.uk/nicemedia/live/12131/43329/43329.pdf"/>
+      </category>
+      <category name="Spine disorders">
+        <guideline category="Musculoskeletal" code="CG88" subcategory="Spine disorders" title="Low back pain" url="http://www.nice.org.uk/nicemedia/live/11887/44345/44345.pdf"/>
+      </category>
+    </category>
+    <category name="Respiratory">
+      <guideline category="Respiratory" code="CG101" subcategory="" title="Chronic obstructive pulmonary disease (update)" url="http://www.nice.org.uk/nicemedia/live/13029/49399/49399.pdf"/>
+      <guideline category="Respiratory" code="CG121" subcategory="" title="Lung cancer" url="http://www.nice.org.uk/nicemedia/live/13465/54208/54208.pdf"/>
+      <guideline category="Respiratory" code="CG69" subcategory="" title="Respiratory tract infections" url="http://www.nice.org.uk/nicemedia/live/12015/41322/41322.pdf"/>
+    </category>
+    <category name="Skin">
+      <guideline category="Skin" code="CG57" subcategory="" title="Atopic eczema in children" url="http://www.nice.org.uk/nicemedia/live/11901/38566/38566.pdf"/>
+      <guideline category="Skin" code="CG119" subcategory="" title="Diabetic foot problems - inpatient management" url="http://www.nice.org.uk/nicemedia/live/13416/53558/53558.pdf"/>
+      <guideline category="Skin" code="CG29" subcategory="" title="Pressure ulcer management" url="http://www.nice.org.uk/nicemedia/live/10972/29883/29883.pdf"/>
+      <guideline category="Skin" code="CG10" subcategory="" title="Type 2 diabetes - footcare" url="http://www.nice.org.uk/nicemedia/live/10934/29240/29240.pdf"/>
+    </category>
+    <category name="Urogenital">
+      <guideline category="Urogenital" code="CG114" subcategory="" title="Anaemia management in people with chronic kidney disease" url="http://www.nice.org.uk/nicemedia/live/13329/52857/52857.pdf"/>
+      <guideline category="Urogenital" code="CG73" subcategory="" title="Chronic kidney disease" url="http://www.nice.org.uk/nicemedia/live/12069/42119/42119.pdf"/>
+      <guideline category="Urogenital" code="CG97" subcategory="" title="Lower urinary tract symptoms" url="http://www.nice.org.uk/nicemedia/live/12984/48575/48575.pdf"/>
+      <guideline category="Urogenital" code="CG111" subcategory="" title="Nocturnal enuresis - the management of bedwetting in children and young people" url="http://www.nice.org.uk/nicemedia/live/13246/51382/51382.pdf"/>
+      <guideline category="Urogenital" code="CG125" subcategory="" title="Peritoneal dialysis" url="http://www.nice.org.uk/nicemedia/live/13524/55496/55496.pdf"/>
+      <guideline category="Urogenital" code="CG58" subcategory="" title="Prostate cancer" url="http://www.nice.org.uk/nicemedia/live/11924/39524/39524.pdf"/>
+      <guideline category="Urogenital" code="CG40" subcategory="" title="Urinary incontinence" url="http://www.nice.org.uk/nicemedia/live/10996/30279/30279.pdf"/>
+      <guideline category="Urogenital" code="CG54" subcategory="" title="Urinary tract infection in children" url="http://www.nice.org.uk/nicemedia/live/11819/36030/36030.pdf"/>
+    </category>
+  </provider>
+</guidelines>

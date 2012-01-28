@@ -1,35 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginRight="2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"
-        android:src="@android:drawable/ic_menu_save" >
-    </ImageView>
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+        <TextView
+            android:id="@+id/separator"
+            style="?android:attr/listSeparatorTextViewStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white" />
 
-    <ImageView
-        android:id="@+id/icon2"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-		android:layout_marginRight="2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"
-        android:src="@android:drawable/ic_menu_save" >
-    </ImageView>
+<LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" >
+        
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
+            android:src="@android:drawable/ic_menu_save" >
+        </ImageView>
 
-    <TextView
-        android:id="@+id/label"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center_vertical"
-        android:text="@+id/label"
-        android:textSize="14dp" />
+        <ImageView
+            android:id="@+id/icon2"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
+            android:src="@android:drawable/ic_menu_save" >
+        </ImageView>
+
+ <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+             <TextView
+                android:id="@+id/label"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@+id/label"
+                android:textSize="14dp" />
+            <TextView
+                android:id="@+id/subtitle"
+                android:text="@+id/subtitle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="12dp"
+                />
 
 </LinearLayout>
-
-
+</LinearLayout>
+</LinearLayout>
