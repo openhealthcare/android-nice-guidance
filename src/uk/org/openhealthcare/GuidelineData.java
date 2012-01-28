@@ -40,7 +40,7 @@ import android.os.Environment;
 
 public class GuidelineData {
 
-	final Map<String, String> map = new HashMap<String,String>();
+final Map<String, GuidelineItem> map = new HashMap<String,GuidelineItem>();
 	
 	public GuidelineData(Context ctx) throws IOException, ParserConfigurationException, SAXException
 	{
@@ -54,18 +54,22 @@ public class GuidelineData {
 		} catch(Exception e) {
 			System.out.println(e.toString());
 		}
-		
-		NodeList nodeList = doc.getElementsByTagName("guide");
+		 
+		NodeList nodeList = doc.getElementsByTagName("guideline");
 		for (int i = 0; i < nodeList.getLength(); i++) {
 			Node node = nodeList.item(i);
 			Element elem = (Element)node;
-			String nm = elem.getElementsByTagName("title").item(0).getFirstChild().getNodeValue().trim();
-			String url = elem.getElementsByTagName("url").item(0).getFirstChild().getNodeValue().trim();
-			map.put( nm, url );
+			GuidelineItem item = new GuidelineItem();
+			item.name = elem.getElementsByTagName("title").item(0).getFirstChild().getNodeValue().trim();
+			item.url = elem.getElementsByTagName("url").item(0).getFirstChild().getNodeValue().trim();
+			item.code = elem.getAttribute("code");
+			item.category = elem.getAttribute("category");
+			item.subcategory = elem.getAttribute("subcategory");
+			map.put( item.name, item );
 		}
 	};
 	
-	String Get(String k) {
+	GuidelineItem Get(String k) {
 		return map.get(k);
 	}
 	
