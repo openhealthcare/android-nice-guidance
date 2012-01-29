@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="8dp"
                 android:textColor="?android:attr/textColorSecondary"
-                android:textSize="12dp"
+                android:textSize="10dp"
                 />
 
 </LinearLayout>

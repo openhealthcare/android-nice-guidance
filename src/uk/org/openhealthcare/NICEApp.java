@@ -53,6 +53,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.widget.AdapterView;
@@ -84,6 +85,7 @@ public class NICEApp extends ListActivity {
 	boolean firstrun;
     boolean haveConnectedWifi = false;
     boolean haveConnectedMobile = false;	
+    public String lastLetter = "";
 
 	ArrayAdapter<String> arrad;
 	ArrayAdapter<String> adapter = null;
@@ -102,7 +104,7 @@ public boolean onCreateOptionsMenu(Menu menu)
 	.setIcon(android.R.drawable.ic_menu_share);
 	menu.add(PREFERENCES_GROUP_ID, GETALL_ID, 0, "download all")
 	.setIcon(android.R.drawable.ic_menu_save);
-	menu.add(PREFERENCES_GROUP_ID, FEEDBACK_ID, 0, "feedback")
+	menu.add(PREFERENCES_GROUP_ID, FEEDBACK_ID, 0, "feedback + update")
 	.setIcon(android.R.drawable.ic_menu_send);
 	//menu.add(PREFERENCES_GROUP_ID, SEARCH_ID, 0, "search")
 	//.setIcon(android.R.drawable.ic_menu_search);
@@ -141,6 +143,16 @@ public boolean onCreateOptionsMenu(Menu menu)
 	   case FEEDBACK_ID: Toast.makeText(getApplicationContext(), 
                "http://openhealthcare.org.uk\n\nCome say hello :)", 
                Toast.LENGTH_LONG).show();
+	   
+	   DownloadGuideline p = new DownloadGuideline();
+		try {
+			p.DownloadFrom("https://views.scraperwiki.com/run/nice_categories_view/?", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml");
+		} catch (Exception exc){
+			Toast.makeText(getApplicationContext(), 
+		               "Failed to update the list of guidelines", 
+		               Toast.LENGTH_LONG).show();
+		}
+	   
 	   			return true;	
 	   case ABOUT_ID: 
 		   Toast.makeText(getApplicationContext(),
@@ -243,18 +255,18 @@ public boolean onCreateOptionsMenu(Menu menu)
 		  folder.mkdir();
 	  }
 	  
-	  String targetFile = pathToStorage("guidelines.xml");
+	  String targetFile = pathToStorage("xml/guidelines.xml");
 		boolean exists = (new File(targetFile)).exists();
 		if (exists) {
 			//do nothing
 		} else {
-			if (firstrun){
+			//if (firstrun){
 				  CopyAssets("");
 					sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse
 							("file://"
 							+ Environment.getExternalStorageDirectory())));
 				  firstrun=false;	  
-			}
+			//}
 		}
 	  
 	  try { 
@@ -267,6 +279,7 @@ public boolean onCreateOptionsMenu(Menu menu)
 	   
 	  Object[] c = guidelines.GetKeys();
 	  Arrays.sort(c);
+	  
 	  numGuidelines=c.length;
 	  
 	  cached = new int[numGuidelines];
@@ -277,6 +290,25 @@ public boolean onCreateOptionsMenu(Menu menu)
 		}
 	  lastOpened = settings.getInt("last", 0);
 
+	  if (!canDisplayPdf()){
+		  AlertDialog ad = new AlertDialog.Builder(this).create();  
+		    //ad.setCancelable(false); // This blocks the 'BACK' button  
+		    ad.setTitle("**** IMPORTANT ****");
+		    ad.setMessage("You have NO PDF Reader\n\nYou will not be able to view any of the guidelines\n\nDownload a Reader");  
+		    ad.setButton("Understood", new DialogInterface.OnClickListener() {  
+		        @Override  
+		        public void onClick(DialogInterface dialog, int which) {  
+		        	if (isNetworkAvailable()){ 
+		        	Intent intent = new Intent(Intent.ACTION_VIEW);
+		        	intent.setData(Uri.parse("market://details?id=com.adobe.reader"));
+		        	startActivity(intent);
+		        	}
+		        	dialog.dismiss();
+		        }  
+		    });  
+		    ad.show();  
+	  }
+	  
 	  new CheckExists().execute(guidelines.GetKeys());
 	  final ArrayAdapter<String> arrad = new ColourArray(this, (String[])c);
 	  setListAdapter(arrad);
@@ -491,12 +523,11 @@ public boolean onCreateOptionsMenu(Menu menu)
 		
 		private final Activity context;
 		public final String[] names;
-
+		
 		public ColourArray(Activity context, String[] names) {
 			super(context, R.layout.list_item, names);
 			this.context = context;
 			this.names = names;
-
 		}
 
 		@Override
@@ -514,46 +545,42 @@ public boolean onCreateOptionsMenu(Menu menu)
 			ImageView imageView2 = (ImageView) rowView.findViewById(R.id.icon2);
 			holder.separator = (TextView) rowView.findViewById(R.id.separator);
 			holder.subtitleView = (TextView) rowView.findViewById(R.id.subtitle);
-				
+			
+			GuidelineItem item =guidelines.Get(names[position]); 
+			String code = item.code;
+			String category = item.category;
+			
 			String s = names[position];
-			int length = s.length()%2;
 			
 			holder.separator.setText(s.substring(0,1));
 			holder.textView.setText(s);
-			holder.subtitleView.setText("NICE CG"+length+""+position+"   Other Extra Stuff");
+			holder.subtitleView.setText("NICE "+code+" Date Published: Dec 2012");
+			//holder.subtitleView.setText(category);
 			
-						
+			int length = s.length()%2;
 			if (length==0) {imageView.setImageResource(R.drawable.icon);}
 			else {imageView.setImageResource(R.drawable.fox);}
 			
-			int length2 = s.length()%3;
-			if (length2==0) {imageView2.setImageResource(R.drawable.stethoscope);}
-			if (length2==1) {imageView2.setImageResource(R.drawable.primary_care);}
-			if (length2==2) {imageView2.setImageResource(R.drawable.pharmacology);}
+			//Why is this not working?//
+			if (category.equals("Cancer")) {imageView2.setImageResource(R.drawable.stethoscope);}
+			if (category.equals("Cardiovascular")) {imageView2.setImageResource(R.drawable.cardiology);}
+			if (category.equals("Central nervous system")) {imageView2.setImageResource(R.drawable.pharmacology);}
+			if (category.equals("Digestive system")) {imageView2.setImageResource(R.drawable.stethoscope);}
+			if (category.equals("Ear and nose")) {imageView2.setImageResource(R.drawable.primary_care);}
+			if (category.equals("Endocrine, nutritional and metabolic")) {imageView2.setImageResource(R.drawable.pharmacology);}
+			if (category.equals("Eye")) {imageView2.setImageResource(R.drawable.stethoscope);}
+			if (category.equals("Gynaecology, pregnancy and birth")) {imageView2.setImageResource(R.drawable.gynaecology);}
+			if (category.equals("Infectious diseases")) {imageView2.setImageResource(R.drawable.medicine);}
+			if (category.equals("Injuries, accidents and wounds")) {imageView2.setImageResource(R.drawable.hospital);}
+			if (category.equals("Mental health and behavioural conditions")) {imageView2.setImageResource(R.drawable.iv);}
+			if (category.equals("Mouth and dental")) {imageView2.setImageResource(R.drawable.stethoscope);}
+			if (category.equals("Musculoskeletal")) {imageView2.setImageResource(R.drawable.primary_care);}
+			if (category.equals("Respiratory")) {imageView2.setImageResource(R.drawable.pharmacology);}
+			if (category.equals("Skin")) {imageView2.setImageResource(R.drawable.primary_care);}
+			if (category.equals("Urogenital")) {imageView2.setImageResource(R.drawable.pharmacology);}
 			
-			int length3 = position%6;
-			if (length3!=0) holder.separator.setVisibility(View.GONE);
-			
-			
-			 //holder.titleView.setText(holder.titleBuffer.data, 0, holder.titleBuffer.sizeCopied);
-			 
-			 
-			//Temporary Hardcode//
-			//imageView2.setImageResource(R.drawable.primary_care);
-			
-			if (s.startsWith("Acute")) {imageView2.setImageResource(R.drawable.stethoscope);}
-			
-			if (s.startsWith("Alcohol")) {imageView2.setImageResource(R.drawable.iv);}
-			
-			if (s.startsWith("Anaemia")) {imageView2.setImageResource(R.drawable.blood);}
-			
-			if (s.startsWith("Antenatal")) {imageView2.setImageResource(R.drawable.gynaecology);}
+			if (lastLetter.equals(s.substring(0,1))) holder.separator.setVisibility(View.GONE);
 						
-			if (s.startsWith("Atrial fibrillation")) {imageView2.setImageResource(R.drawable.cardiology);}
-			
-			if (s.startsWith("Bacterial")) {imageView2.setImageResource(R.drawable.medicine);}
-			//////////////////////
-			
 			if (cached[position] > 0) {
 				holder.textView.setTextColor(Color.rgb(255,255,255));
 			}else {
@@ -564,10 +591,11 @@ public boolean onCreateOptionsMenu(Menu menu)
 				holder.textView.setBackgroundColor(Color.rgb(15,15,191)); 
 			}
 			
+			lastLetter=s.substring(0,1);
+
 			rowView.setTag(holder);
 			return rowView;
 		}
-
 	}
 
 
@@ -653,4 +681,16 @@ public boolean onCreateOptionsMenu(Menu menu)
 		        Log.e("tag", "Exception in copyFile() "+e.toString());
 		    }
 
-	}}
+	}
+		public boolean canDisplayPdf() {
+		    PackageManager packageManager = this.getPackageManager();
+		    Intent testIntent = new Intent(Intent.ACTION_VIEW);
+		    testIntent.setType("application/pdf");
+		    if (packageManager.queryIntentActivities(testIntent, PackageManager.MATCH_DEFAULT_ONLY).size() > 0) {
+		        return true;
+		    } else {
+		        return false;
+		    }
+		}
+	
+}

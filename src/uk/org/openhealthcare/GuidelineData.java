@@ -19,7 +19,6 @@ package uk.org.openhealthcare;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -82,5 +81,4 @@ final Map<String, GuidelineItem> map = new HashMap<String,GuidelineItem>();
 		Arrays.sort(items);
 		return items;
 	};
-	
 }
