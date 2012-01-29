@@ -72,6 +72,15 @@ final Map<String, GuidelineItem> map = new HashMap<String,GuidelineItem>();
 		return map.get(k);
 	}
 	
+	GuidelineItem GetLoc(int l) {
+		Object[] objs = map.keySet().toArray();
+		String[]items = new String[objs.length];
+		for( int i = 0; i < objs.length; i++ )
+			items[i] = objs[i].toString();
+		Arrays.sort(items);
+		return map.get(items[l]);
+	}
+	
 	String[] GetKeys() {
 		// Fetch a sorted version of the keys from the map
 		Object[] objs = map.keySet().toArray();

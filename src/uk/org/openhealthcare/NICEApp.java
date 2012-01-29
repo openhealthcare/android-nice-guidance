@@ -85,8 +85,9 @@ public class NICEApp extends ListActivity {
 	boolean firstrun;
     boolean haveConnectedWifi = false;
     boolean haveConnectedMobile = false;	
-    public String lastLetter = "";
-
+    boolean section[];
+	
+    
 	ArrayAdapter<String> arrad;
 	ArrayAdapter<String> adapter = null;
 	ListView lv;
@@ -283,10 +284,18 @@ public boolean onCreateOptionsMenu(Menu menu)
 	  numGuidelines=c.length;
 	  
 	  cached = new int[numGuidelines];
+	  section = new boolean[numGuidelines];
+	  String lastLetter = "";    
 	  
 	  int count =numGuidelines;		
 		for (int i = 0; i < count; i++){
 			cached[i] = settings.getInt(Integer.toString(i), 0);
+			
+			section[i]=true;
+			GuidelineItem item =guidelines.GetLoc(i); 
+			String s=item.name.substring(0,1);
+			if(lastLetter.equals(s)){section[i]=false;}
+			lastLetter=s;
 		}
 	  lastOpened = settings.getInt("last", 0);
 
@@ -530,6 +539,8 @@ public boolean onCreateOptionsMenu(Menu menu)
 			this.names = names;
 		}
 
+		
+		
 		@Override
 		
 		public View getView(int position, View convertView, ViewGroup parent) {
@@ -550,18 +561,15 @@ public boolean onCreateOptionsMenu(Menu menu)
 			String code = item.code;
 			String category = item.category;
 			
-			String s = names[position];
-			
-			holder.separator.setText(s.substring(0,1));
-			holder.textView.setText(s);
+			holder.separator.setText(item.name.substring(0,1));
+			holder.textView.setText(item.name);
 			holder.subtitleView.setText("NICE "+code+" Date Published: Dec 2012");
 			//holder.subtitleView.setText(category);
 			
-			int length = s.length()%2;
+			int length = item.name.length()%2;
 			if (length==0) {imageView.setImageResource(R.drawable.icon);}
 			else {imageView.setImageResource(R.drawable.fox);}
 			
-			//Why is this not working?//
 			if (category.equals("Cancer")) {imageView2.setImageResource(R.drawable.stethoscope);}
 			if (category.equals("Cardiovascular")) {imageView2.setImageResource(R.drawable.cardiology);}
 			if (category.equals("Central nervous system")) {imageView2.setImageResource(R.drawable.pharmacology);}
@@ -579,7 +587,7 @@ public boolean onCreateOptionsMenu(Menu menu)
 			if (category.equals("Skin")) {imageView2.setImageResource(R.drawable.primary_care);}
 			if (category.equals("Urogenital")) {imageView2.setImageResource(R.drawable.pharmacology);}
 			
-			if (lastLetter.equals(s.substring(0,1))) holder.separator.setVisibility(View.GONE);
+			if (!section[position]) holder.separator.setVisibility(View.GONE);
 						
 			if (cached[position] > 0) {
 				holder.textView.setTextColor(Color.rgb(255,255,255));
@@ -590,12 +598,11 @@ public boolean onCreateOptionsMenu(Menu menu)
 			if (position==lastOpened && lastOpened!=0) {
 				holder.textView.setBackgroundColor(Color.rgb(15,15,191)); 
 			}
-			
-			lastLetter=s.substring(0,1);
 
 			rowView.setTag(holder);
 			return rowView;
 		}
+		
 	}
 
 
