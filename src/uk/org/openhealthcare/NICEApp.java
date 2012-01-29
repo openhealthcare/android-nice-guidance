@@ -166,8 +166,8 @@ public boolean onCreateOptionsMenu(Menu menu)
 					long arg3) {
 
 					String key = (String) ((TextView) view).getText();
-					String url = guidelines.Get(key);
-					String hash  = MD5_Hash(url);
+					GuidelineItem item = guidelines.Get(key);
+					String hash  = MD5_Hash(item.url);
 					
 					String targetFile= pathToStorage( hash + ".pdf" );					
 					File file = new File(targetFile);
@@ -264,7 +264,8 @@ public boolean onCreateOptionsMenu(Menu menu)
 			int count = guidelinelist.length;
 			Boolean singlesuccess = Boolean.FALSE; // if called on a single file the pdf viewer may be opened
 			for (int i = 0; i < count; i++){
-				String url = guidelines.Get(guidelinelist[i]);
+				GuidelineItem item = guidelines.Get(guidelinelist[i]);
+				String url = item.url;
 				String hash = MD5_Hash(url);
 				String targetFile = pathToStorage(hash + ".pdf");
 				File file = new File(targetFile);
@@ -288,7 +289,8 @@ public boolean onCreateOptionsMenu(Menu menu)
 				}
 			}
 			if (count == 1  && singlesuccess && ! downloadLock ) {
-				String url = guidelines.Get(guidelinelist[0]);
+				GuidelineItem item =guidelines.Get(guidelinelist[0]); 
+				String url = item.url;
 				String hash = MD5_Hash(url);
 				String targetFile = pathToStorage(hash + ".pdf");
 				File file = new File(targetFile);
