@@ -89,17 +89,17 @@ public boolean onCreateOptionsMenu(Menu menu)
 	{
 	super.onCreateOptionsMenu(menu);
 
-	menu.add(PREFERENCES_GROUP_ID, SHARE_ID, 0, "share")
+	menu.add(PREFERENCES_GROUP_ID, SHARE_ID, 0, "Share")
 	.setIcon(android.R.drawable.ic_menu_share);
-	menu.add(PREFERENCES_GROUP_ID, HELP_ID, 0, "help")
+	menu.add(PREFERENCES_GROUP_ID, HELP_ID, 0, "Help")
 	.setIcon(android.R.drawable.ic_menu_help);
-	menu.add(PREFERENCES_GROUP_ID, FEEDBACK_ID, 0, "feedback")
+	menu.add(PREFERENCES_GROUP_ID, FEEDBACK_ID, 0, "Feedback")
 	.setIcon(android.R.drawable.ic_menu_send);
-	menu.add(PREFERENCES_GROUP_ID, ABOUT_ID, 0, "about")
+	menu.add(PREFERENCES_GROUP_ID, ABOUT_ID, 0, "About")
 	.setIcon(android.R.drawable.ic_menu_info_details);
-	menu.add(PREFERENCES_GROUP_ID, GETALL_ID, 0, "download all")
+	menu.add(PREFERENCES_GROUP_ID, GETALL_ID, 0, "Download all")
 	.setIcon(android.R.drawable.ic_menu_save);
-	menu.add(PREFERENCES_GROUP_ID, SEARCH_ID, 0, "search")
+	menu.add(PREFERENCES_GROUP_ID, SEARCH_ID, 0, "Search")
 	.setIcon(android.R.drawable.ic_menu_search);
 
 	return true;
@@ -134,7 +134,7 @@ public boolean onCreateOptionsMenu(Menu menu)
 	   case ABOUT_ID: 
 
 		   Toast.makeText(getApplicationContext(), 
-               "Developers:\nRoss Jones / Dr VJ Joshi / Neil McPhail", 
+               "Developers:\nDr VJ Joshi / Neil McPhail / Ross Jones", 
                Toast.LENGTH_LONG).show();
 		   
 
