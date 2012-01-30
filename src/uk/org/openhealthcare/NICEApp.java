@@ -586,7 +586,7 @@ public boolean onCreateOptionsMenu(Menu menu)
 			
 			holder.separator.setText(item.name.substring(0,1));
 			holder.textView.setText(item.name);
-			holder.subtitleView.setText("NICE "+code+String.format("%1$-" + (65-item.subcategory.length()) + "s", " ")+item.subcategory);
+			holder.subtitleView.setText("NICE "+code+String.format("%1$-" + (52-item.subcategory.length()-item.code.length()) + "s", " ")+item.subcategory);
 			
 			imageView.setImageResource(R.drawable.icon);
 			//if (item.name.length()%2==0) {imageView.setImageResource(R.drawable.fox);}
