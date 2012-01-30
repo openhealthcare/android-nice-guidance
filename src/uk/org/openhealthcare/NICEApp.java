@@ -26,7 +26,11 @@ import java.io.OutputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.lang.Boolean;
@@ -61,6 +65,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SectionIndexer;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.Menu; 
@@ -79,7 +84,7 @@ public class NICEApp extends ListActivity {
 	private static final int ABOUT_ID = 6;
 	private static boolean downloadLock = false;
 	GuidelineData guidelines;
-	int cached[];
+	boolean cached[];
 	int numGuidelines;
 	int lastOpened;
 	boolean firstrun;
@@ -283,14 +288,12 @@ public boolean onCreateOptionsMenu(Menu menu)
 	  
 	  numGuidelines=c.length;
 	  
-	  cached = new int[numGuidelines];
+	  cached = new boolean[numGuidelines];
 	  section = new boolean[numGuidelines];
 	  String lastLetter = "";    
-	  
 	  int count =numGuidelines;		
 		for (int i = 0; i < count; i++){
-			cached[i] = settings.getInt(Integer.toString(i), 0);
-			
+			cached[i] = settings.getBoolean(Integer.toString(i), false);
 			section[i]=true;
 			GuidelineItem item =guidelines.GetLoc(i); 
 			String s=item.name.substring(0,1);
@@ -299,24 +302,23 @@ public boolean onCreateOptionsMenu(Menu menu)
 		}
 	  lastOpened = settings.getInt("last", 0);
 
-	  if (!canDisplayPdf()){
-		  AlertDialog ad = new AlertDialog.Builder(this).create();  
-		    //ad.setCancelable(false); // This blocks the 'BACK' button  
-		    ad.setTitle("**** IMPORTANT ****");
-		    ad.setMessage("You have NO PDF Reader\n\nYou will not be able to view any of the guidelines\n\nDownload a Reader");  
-		    ad.setButton("Understood", new DialogInterface.OnClickListener() {  
-		        @Override  
-		        public void onClick(DialogInterface dialog, int which) {  
-		        	if (isNetworkAvailable()){ 
-		        	Intent intent = new Intent(Intent.ACTION_VIEW);
-		        	intent.setData(Uri.parse("market://details?id=com.adobe.reader"));
-		        	startActivity(intent);
-		        	}
-		        	dialog.dismiss();
-		        }  
-		    });  
-		    ad.show();  
-	  }
+//	  if (!canDisplayPdf()){
+//		  AlertDialog ad = new AlertDialog.Builder(this).create();  
+//		    ad.setTitle("**** IMPORTANT ****");
+//		    ad.setMessage("You have NO PDF Reader\n\nYou will not be able to view any of the guidelines\n\nDownload a Reader");  
+//		    ad.setButton("Understood", new DialogInterface.OnClickListener() {  
+//		        @Override  
+//		        public void onClick(DialogInterface dialog, int which) {  
+//		        	if (isNetworkAvailable()){ 
+//		        	Intent intent = new Intent(Intent.ACTION_VIEW);
+//		        	intent.setData(Uri.parse("market://details?id=com.adobe.reader"));
+//		        	startActivity(intent);
+//		        	}
+//		        	dialog.dismiss();
+//		        }  
+//		    });  
+//		    ad.show();  
+//	  }
 	  
 	  new CheckExists().execute(guidelines.GetKeys());
 	  final ArrayAdapter<String> arrad = new ColourArray(this, (String[])c);
@@ -336,15 +338,14 @@ public boolean onCreateOptionsMenu(Menu menu)
 					Object item = getListAdapter().getItem(position);
 					String key = (String) item;
 					new AsyncDownload().execute(key);
-					if (cached[position]==1){
+					if (cached[position]){
 						Toast.makeText(getApplicationContext(), 
 			                  "Accessing", 
 			                  Toast.LENGTH_SHORT).show();
 						};
 					if (isNetworkAvailable()){ 
-						cached[position]=1;
+						cached[position]=true;
 						lastOpened=position;
-						arrad.notifyDataSetChanged();
 						lv.invalidateViews();
 					}	
 			}		   
@@ -360,7 +361,7 @@ public boolean onCreateOptionsMenu(Menu menu)
       SharedPreferences.Editor editor = settings.edit();
       int count =numGuidelines;		
 		for (int i = 0; i < count; i++){
-			editor.putInt(Integer.toString(i), cached[i]);
+			editor.putBoolean(Integer.toString(i), cached[i]);
 		}
 		editor.putInt("last", lastOpened);
 		editor.putBoolean("firstrun", firstrun);
@@ -379,7 +380,9 @@ public boolean onCreateOptionsMenu(Menu menu)
 	      String query = intent.getStringExtra(SearchManager.QUERY);
 	      //arrad.getFilter().filter(query);
 	      lv.setFilterText(query);    
-	    }
+	      lv.invalidateViews(); 
+	     // arrad.notifyDataSetChanged();
+}
 	}
 
 	public String MD5_Hash(String s) { 
@@ -446,9 +449,9 @@ public boolean onCreateOptionsMenu(Menu menu)
 						DownloadPDF p = new DownloadPDF();
 						try {
 							p.DownloadFrom(url, targetFile);
-							if (!haveConnectedWifi) publishProgress("Downloaded successfully");
 							singlesuccess = Boolean.TRUE;
-
+							if (!haveConnectedWifi) publishProgress("Downloaded successfully");
+							
 						} catch (Exception exc){
 							publishProgress("Failed to download the PDF " + exc.toString());
 						}
@@ -482,6 +485,7 @@ public boolean onCreateOptionsMenu(Menu menu)
                     			// Can't do this in a thread.
                     		}
 			}
+			new CheckExists().execute(guidelines.GetKeys());
 			if (count == 1) return singlesuccess;
 			return Boolean.TRUE; } catch ( Exception eee ) {
 /*				Toast.makeText(getApplicationContext(),
@@ -509,9 +513,11 @@ public boolean onCreateOptionsMenu(Menu menu)
 				String targetFile = pathToStorage(hash + ".pdf");
 				boolean exists = (new File(targetFile)).exists();
 				if (exists) {
-					cached[i] =  1;
+					cached[i] =  true;
+					item.cached = true;
 				} else {
-					cached[i] =  0;
+					cached[i] =  false;
+					item.cached = false;
 				}
 			}
 			publishProgress("Done");
@@ -528,16 +534,31 @@ public boolean onCreateOptionsMenu(Menu menu)
         public TextView subtitleView;
     }
 	
-	public class ColourArray extends ArrayAdapter<String> implements Filterable{
+	public class ColourArray extends ArrayAdapter<String>  implements SectionIndexer{
 		
-		private final Activity context;
+		HashMap<String, Integer> alphaIndexer;
+        String[] sections;
+        
+        private final Activity context;
 		public final String[] names;
 		
 		public ColourArray(Activity context, String[] names) {
 			super(context, R.layout.list_item, names);
 			this.context = context;
 			this.names = names;
-		}
+			
+			alphaIndexer = new HashMap<String, Integer>();
+            int size = names.length;
+            for (int x = 0; x < size; x++) {alphaIndexer.put(guidelines.GetLoc(x).name.substring(0, 1), x);}
+ 
+	    // create a list from the set to sort
+            ArrayList<String> sectionList = new ArrayList<String>(alphaIndexer.keySet()); 
+            Collections.sort(sectionList);
+ 
+            sections = new String[sectionList.size()];
+ 
+            sectionList.toArray(sections);
+            }
 
 		
 		
@@ -557,18 +578,18 @@ public boolean onCreateOptionsMenu(Menu menu)
 			holder.separator = (TextView) rowView.findViewById(R.id.separator);
 			holder.subtitleView = (TextView) rowView.findViewById(R.id.subtitle);
 			
-			GuidelineItem item =guidelines.Get(names[position]); 
+			
+			Object itemO = getListAdapter().getItem(position);
+			GuidelineItem item =guidelines.Get((String) itemO); 
 			String code = item.code;
 			String category = item.category;
 			
 			holder.separator.setText(item.name.substring(0,1));
 			holder.textView.setText(item.name);
-			holder.subtitleView.setText("NICE "+code+" Date Published: Dec 2012");
-			//holder.subtitleView.setText(category);
+			holder.subtitleView.setText("NICE "+code+String.format("%1$-" + (65-item.subcategory.length()) + "s", " ")+item.subcategory);
 			
-			int length = item.name.length()%2;
-			if (length==0) {imageView.setImageResource(R.drawable.icon);}
-			else {imageView.setImageResource(R.drawable.fox);}
+			imageView.setImageResource(R.drawable.icon);
+			//if (item.name.length()%2==0) {imageView.setImageResource(R.drawable.fox);}
 			
 			if (category.equals("Cancer")) {imageView2.setImageResource(R.drawable.stethoscope);}
 			if (category.equals("Cardiovascular")) {imageView2.setImageResource(R.drawable.cardiology);}
@@ -589,7 +610,7 @@ public boolean onCreateOptionsMenu(Menu menu)
 			
 			if (!section[position]) holder.separator.setVisibility(View.GONE);
 						
-			if (cached[position] > 0) {
+			if (item.cached) {
 				holder.textView.setTextColor(Color.rgb(255,255,255));
 			}else {
 				holder.textView.setTextColor(Color.rgb(127,127,127));
@@ -602,7 +623,18 @@ public boolean onCreateOptionsMenu(Menu menu)
 			rowView.setTag(holder);
 			return rowView;
 		}
-		
+		public int getPositionForSection(int section) {
+	        if (section==0) return 0; else   
+			return alphaIndexer.get(sections[section-1]);
+	       }
+	 
+	       public int getSectionForPosition(int position) {
+	           return 1;
+	       }
+	 
+	       public Object[] getSections() {
+	            return sections;
+	       }
 	}
 
 

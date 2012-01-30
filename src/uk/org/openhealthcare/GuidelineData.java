@@ -43,7 +43,7 @@ final Map<String, GuidelineItem> map = new HashMap<String,GuidelineItem>();
 	
 	public GuidelineData(Context ctx) throws IOException, ParserConfigurationException, SAXException
 	{
-		// Load the XML from the assets folder and parse it into the map
+		// Load the XML from the SDCard folder and parse it into the map
 		InputStream inp = new FileInputStream(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml");
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
@@ -64,6 +64,7 @@ final Map<String, GuidelineItem> map = new HashMap<String,GuidelineItem>();
 			item.code = elem.getAttribute("code");
 			item.category = elem.getAttribute("category");
 			item.subcategory = elem.getAttribute("subcategory");
+			item.cached=false;
 			map.put( item.name, item );
 		}
 	};

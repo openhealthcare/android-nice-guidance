@@ -2,10 +2,7 @@
               android:id="@+id/toast_layout_root"
               android:orientation="vertical"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:padding="10dp"
-              
-              >
+              android:layout_height="fill_parent">
     <ImageView android:id="@+id/image"
                android:layout_height="fill_parent"
                android:layout_width="match_parent"/>
@@ -14,11 +11,11 @@
                android:layout_height="fill_parent"
                android:layout_width="match_parent"
                android:text="@string/poster_notice"
-               android:padding="14dp"
+               android:padding="10dp"
                android:gravity="center"
-               android:textColor="#4F8FCF"
+               android:textColor="#669933"
                android:textSize="18dp"
                android:textStyle="bold"
-               android:background="#000000"
+               android:background="#0F0F0F"
                />
 </LinearLayout>
