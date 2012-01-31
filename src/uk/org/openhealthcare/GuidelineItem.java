@@ -6,5 +6,5 @@ public class GuidelineItem {
 	public String code;
 	public String category;
 	public String subcategory;
-
+	public boolean cached;
 }

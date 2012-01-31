@@ -17,6 +17,8 @@
 
 package uk.org.openhealthcare;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 
@@ -35,15 +37,16 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import android.content.Context;
+import android.os.Environment;
 
 public class GuidelineData {
 
-	final Map<String, GuidelineItem> map = new HashMap<String,GuidelineItem>();
+final Map<String, GuidelineItem> map = new HashMap<String,GuidelineItem>();
 	
 	public GuidelineData(Context ctx) throws IOException, ParserConfigurationException, SAXException
 	{
-		// Load the XML from the assets folder and parse it into the map
-		InputStream inp = ctx.getAssets().open("xml/guidelines.xml");
+		// Load the XML from the SDCard folder and parse it into the map
+		InputStream inp = new FileInputStream(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml");
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		Document doc = null;
@@ -63,12 +66,22 @@ public class GuidelineData {
 			item.code = elem.getAttribute("code");
 			item.category = elem.getAttribute("category");
 			item.subcategory = elem.getAttribute("subcategory");
+			item.cached=false;
 			map.put( item.name, item );
 		}
 	};
 	
 	GuidelineItem Get(String k) {
 		return map.get(k);
+	}
+	
+	GuidelineItem GetLoc(int l) {
+		Object[] objs = map.keySet().toArray();
+		String[]items = new String[objs.length];
+		for( int i = 0; i < objs.length; i++ )
+			items[i] = objs[i].toString();
+		Arrays.sort(items);
+		return map.get(items[l]);
 	}
 	
 	String[] GetKeys() {
@@ -80,5 +93,4 @@ public class GuidelineData {
 		Arrays.sort(items);
 		return items;
 	};
-	
 }
