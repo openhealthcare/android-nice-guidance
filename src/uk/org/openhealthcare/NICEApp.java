@@ -246,6 +246,8 @@ public class NICEApp extends ListActivity {
 	 public boolean onSearchRequested() {
 
 		 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+
 	     return false;  // don't go ahead and show the search box
 	 }
 	 
