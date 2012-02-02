@@ -293,7 +293,7 @@ public class NICEApp extends ListActivity {
 			if(lastLetter.equals(s)){section[i]=false;}
 			lastLetter=s;
 		}
-	  lastOpened = settings.getInt("last", 0);
+	  lastOpened = settings.getInt("last", -1);
 
 //	  if (!canDisplayPdf()){
 //		  AlertDialog ad = new AlertDialog.Builder(this).create();  
@@ -337,7 +337,8 @@ public class NICEApp extends ListActivity {
 			                  Toast.LENGTH_SHORT).show();
 						};
 					if (isNetworkAvailable()){ 
-						cached[position]=true;
+						GuidelineItem item0 =guidelines.Get((String) item); 
+						item0.cached=true;
 						lastOpened=position;
 						lv.invalidateViews();
 					}	
@@ -608,7 +609,7 @@ public class NICEApp extends ListActivity {
 				holder.textView.setTextColor(Color.rgb(127,127,127));
 			}	
 			
-			if (position==lastOpened && lastOpened!=0) {
+			if (position==lastOpened) {
 				holder.textView.setBackgroundColor(Color.rgb(15,15,191)); 
 			}
 
