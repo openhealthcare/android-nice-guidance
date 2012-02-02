@@ -145,51 +145,6 @@ public class NICEApp extends ListActivity {
 					"http://openhealthcare.org.uk\n\nCome say hello :)",
 					Toast.LENGTH_LONG).show();
 
-<<<<<<< HEAD
-			DownloadGuideline p = new DownloadGuideline();
-			try {
-				p.DownloadFrom(
-						"https://views.scraperwiki.com/run/nice_categories_view/?",
-						Environment.getExternalStorageDirectory()
-								.getAbsolutePath()
-								+ File.separator
-								+ "nice_guidance"
-								+ File.separator
-								+ "xml/guidelines.xml");
-			} catch (Exception exc) {
-				Toast.makeText(getApplicationContext(),
-						"Failed to update the list of guidelines",
-						Toast.LENGTH_LONG).show();
-			}
-
-			return true;
-		case ABOUT_ID:
-			Toast.makeText(getApplicationContext(),
-					"Developers:\nDr VJ Joshi / Neil McPhail / Ross Jones",
-					Toast.LENGTH_LONG).show();
-			return true;
-
-		case GETALL_ID:
-
-			StatFs stat = new StatFs(Environment.getExternalStorageDirectory()
-					.getPath());
-			double sdAvailSize = (double) stat.getAvailableBlocks()
-					* (double) stat.getBlockSize();
-			// Check for space first ***ToDo****
-
-			if (sdAvailSize < 25000000) {
-				Toast.makeText(getApplicationContext(),
-						"Not enough space on SDCard", Toast.LENGTH_LONG).show();
-			} else {
-
-				if (isNetworkAvailable()) {
-					if (haveConnectedWifi) {
-						AlertDialog ad = new AlertDialog.Builder(this).create();
-						// ad.setCancelable(false); // This blocks the 'BACK'
-						// button
-						ad.setTitle("This could be slow...");
-						ad.setMessage("Phone will download all missing files.  Please let it do its thing\n\nDownload can take approx 3 mins over WiFi (25Mb)\n\nPress BACK to back out");
-
 						ad.setButton("Go",
 								new DialogInterface.OnClickListener() {
 									@Override
@@ -398,114 +353,6 @@ public boolean onCreateOptionsMenu(Menu menu)
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
-<<<<<<< HEAD
-		super.onCreate(savedInstanceState);
-
-		SharedPreferences settings = getPreferences(0);
-
-		firstrun = settings.getBoolean("firstrun", true);
-
-		String folderString = pathToStorage(null);
-		File folder = new File(folderString);
-		if (!folder.exists()) {
-			folder.mkdir();
-		}
-
-		String targetFile = pathToStorage("xml/guidelines.xml");
-		boolean exists = (new File(targetFile)).exists();
-		if (exists) {
-			// do nothing
-		} else {
-			// if (firstrun){
-			CopyAssets("");
-			sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
-					Uri.parse("file://"
-							+ Environment.getExternalStorageDirectory())));
-			firstrun = false;
-			// }
-		}
-
-		try {
-			guidelines = new GuidelineData(this);
-		} catch (Exception elocal) {
-			Toast.makeText(getApplicationContext(),
-					"Failed to load guideline list", Toast.LENGTH_LONG).show();
-		}
-
-		Object[] c = guidelines.GetKeys();
-		Arrays.sort(c);
-
-		numGuidelines = c.length;
-
-		cached = new boolean[numGuidelines];
-		section = new boolean[numGuidelines];
-		String lastLetter = "";
-		int count = numGuidelines;
-		for (int i = 0; i < count; i++) {
-			cached[i] = settings.getBoolean(Integer.toString(i), false);
-			section[i] = true;
-			GuidelineItem item = guidelines.GetLoc(i);
-			String s = item.name.substring(0, 1);
-			if (lastLetter.equals(s)) {
-				section[i] = false;
-			}
-			lastLetter = s;
-		}
-		lastOpened = settings.getInt("last", 0);
-
-		// if (!canDisplayPdf()){
-		// AlertDialog ad = new AlertDialog.Builder(this).create();
-		// ad.setTitle("**** IMPORTANT ****");
-		// ad.setMessage("You have NO PDF Reader\n\nYou will not be able to view any of the guidelines\n\nDownload a Reader");
-		// ad.setButton("Understood", new DialogInterface.OnClickListener() {
-		// @Override
-		// public void onClick(DialogInterface dialog, int which) {
-		// if (isNetworkAvailable()){
-		// Intent intent = new Intent(Intent.ACTION_VIEW);
-		// intent.setData(Uri.parse("market://details?id=com.adobe.reader"));
-		// startActivity(intent);
-		// }
-		// dialog.dismiss();
-		// }
-		// });
-		// ad.show();
-		// }
-
-		new CheckExists().execute(guidelines.GetKeys());
-		final ArrayAdapter<String> arrad = new ColourArray(this, (String[]) c);
-		setListAdapter(arrad);
-
-		lv = getListView();
-		lv.setFastScrollEnabled(true);
-		lv.setTextFilterEnabled(true);
-
-		handleIntent(getIntent());
-
-		lv.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-
-				String key = (String) ((TextView) view).getText();
-				GuidelineItem item = guidelines.Get(key);
-				String hash = MD5_Hash(item.url);
-
-				String targetFile = pathToStorage(hash + ".pdf");
-				File file = new File(targetFile);
-				new AsyncDownload().execute(key);
-				if (cached[position]) {
-					Toast.makeText(getApplicationContext(), "Accessing",
-							Toast.LENGTH_SHORT).show();
-				}
-				;
-				if (isNetworkAvailable()) {
-					cached[position] = true;
-					lastOpened = position;
-					lv.invalidateViews();
-				}
-			}
-		});
-=======
 	  super.onCreate(savedInstanceState);
 	  
 	  SharedPreferences settings = getPreferences (0);
@@ -607,20 +454,9 @@ public boolean onCreateOptionsMenu(Menu menu)
 					}	
 			}		   
 	  });
->>>>>>> 9530cc11adcf534301641bbc1b1a6aef7fc441c1
-
 	}
 
 	@Override
-<<<<<<< HEAD
-	protected void onStop() {
-		super.onStop();
-
-		SharedPreferences settings = getPreferences(0);
-		SharedPreferences.Editor editor = settings.edit();
-		int count = numGuidelines;
-		for (int i = 0; i < count; i++) {
-=======
     protected void onStop(){
        super.onStop();
 
@@ -628,20 +464,12 @@ public boolean onCreateOptionsMenu(Menu menu)
       SharedPreferences.Editor editor = settings.edit();
       int count =numGuidelines;		
 		for (int i = 0; i < count; i++){
->>>>>>> 9530cc11adcf534301641bbc1b1a6aef7fc441c1
 			editor.putBoolean(Integer.toString(i), cached[i]);
 		}
 		editor.putInt("last", lastOpened);
 		editor.putBoolean("firstrun", firstrun);
-<<<<<<< HEAD
-
 		editor.commit();
 	}
-=======
-	
-      editor.commit();
-    }
->>>>>>> 9530cc11adcf534301641bbc1b1a6aef7fc441c1
 
 	@Override
 	protected void onNewIntent(Intent intent) {
@@ -650,23 +478,13 @@ public boolean onCreateOptionsMenu(Menu menu)
 	}
 
 	private void handleIntent(Intent intent) {
-<<<<<<< HEAD
-		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-			String query = intent.getStringExtra(SearchManager.QUERY);
-			// arrad.getFilter().filter(query);
-			lv.setFilterText(query);
-			lv.invalidateViews();
-			// arrad.notifyDataSetChanged();
-		}
-=======
 	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 	      String query = intent.getStringExtra(SearchManager.QUERY);
 	      //arrad.getFilter().filter(query);
 	      lv.setFilterText(query);    
 	      lv.invalidateViews(); 
 	     // arrad.notifyDataSetChanged();
-}
->>>>>>> 9530cc11adcf534301641bbc1b1a6aef7fc441c1
+        }
 	}
 
 	public String MD5_Hash(String s) {
@@ -710,80 +528,6 @@ public boolean onCreateOptionsMenu(Menu menu)
 
 		protected Boolean doInBackground(String... guidelinelist) {
 			try {
-<<<<<<< HEAD
-				int count = guidelinelist.length;
-				Boolean singlesuccess = Boolean.FALSE; // if called on a single
-														// file the pdf viewer
-														// may be opened
-				for (int i = 0; i < count; i++) {
-					GuidelineItem item = guidelines.Get(guidelinelist[i]);
-					String url = item.url;
-					String hash = MD5_Hash(url);
-					String targetFile = pathToStorage(hash + ".pdf");
-					File file = new File(targetFile);
-					if (!file.exists()) {
-						if (isNetworkAvailable()) {
-							if (downloadLock) {
-								publishProgress("Please wait for previous files to download");
-								return Boolean.FALSE;
-							}
-							downloadLock = true;
-							if (count == 1) {
-								publishProgress("Downloading\n"
-										+ guidelinelist[i]);
-							} else {
-								publishProgress("Download Progress:\n"
-										+ guidelinelist[i]);
-							}
-
-							DownloadPDF p = new DownloadPDF();
-							try {
-								p.DownloadFrom(url, targetFile);
-								singlesuccess = Boolean.TRUE;
-								if (!haveConnectedWifi)
-									publishProgress("Downloaded successfully");
-
-							} catch (Exception exc) {
-								publishProgress("Failed to download the PDF "
-										+ exc.toString());
-							}
-							downloadLock = false;
-						} else {
-							publishProgress("File not cached\nNo Network Connectivity");
-						}
-					} else {
-						// publishProgress("Accessing");
-						singlesuccess = Boolean.TRUE;
-					}
-				}
-				if (count == 1 && singlesuccess && !downloadLock) {
-					GuidelineItem item = guidelines.Get(guidelinelist[0]);
-					String url = item.url;
-					String hash = MD5_Hash(url);
-					String targetFile = pathToStorage(hash + ".pdf");
-					File file = new File(targetFile);
-					Uri path = Uri.fromFile(file);
-					Intent intent = new Intent(Intent.ACTION_VIEW);
-					intent.setDataAndType(path, "application/pdf");
-					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-					try {
-						startActivity(intent);
-					} catch (ActivityNotFoundException e) {
-						publishProgress("No application available to view PDF files");
-						// Can't do this in a thread.
-					}
-				}
-				new CheckExists().execute(guidelines.GetKeys());
-				if (count == 1)
-					return singlesuccess;
-				return Boolean.TRUE;
-			} catch (Exception eee) {
-				/*
-				 * Toast.makeText(getApplicationContext(), eee.toString(),
-				 * Toast.LENGTH_SHORT).show();
-				 */
-=======
 			int count = guidelinelist.length;
 			Boolean singlesuccess = Boolean.FALSE; // if called on a single file the pdf viewer may be opened		
 			for (int i = 0; i < count; i++){
@@ -851,22 +595,12 @@ public boolean onCreateOptionsMenu(Menu menu)
 /*				Toast.makeText(getApplicationContext(),
 						eee.toString(),
 						Toast.LENGTH_SHORT).show();*/
->>>>>>> 9530cc11adcf534301641bbc1b1a6aef7fc441c1
 				return false;
 			}
 		}
 
 		protected void onProgressUpdate(String... progress) {
-<<<<<<< HEAD
-
-			Toast.makeText(getApplicationContext(), progress[0],
-					Toast.LENGTH_SHORT).show();
-
-=======
-			  
 			   Toast.makeText(getApplicationContext(), progress[0], Toast.LENGTH_SHORT).show();
-			   				 
->>>>>>> 9530cc11adcf534301641bbc1b1a6aef7fc441c1
 		}
 	}
 
@@ -874,28 +608,17 @@ public boolean onCreateOptionsMenu(Menu menu)
 		protected Boolean doInBackground(String... guidelinelist) {
 
 			int count = guidelinelist.length;
-<<<<<<< HEAD
-			for (int i = 0; i < count; i++) {
-=======
 			for (int i = 0; i < count; i++){
->>>>>>> 9530cc11adcf534301641bbc1b1a6aef7fc441c1
 				GuidelineItem item = guidelines.Get(guidelinelist[i]);
 				String url = item.url;
 				String hash = MD5_Hash(url);
 				String targetFile = pathToStorage(hash + ".pdf");
 				boolean exists = (new File(targetFile)).exists();
 				if (exists) {
-<<<<<<< HEAD
-					cached[i] = true;
-					item.cached = true;
-				} else {
-					cached[i] = false;
-=======
 					cached[i] =  true;
 					item.cached = true;
 				} else {
 					cached[i] =  false;
->>>>>>> 9530cc11adcf534301641bbc1b1a6aef7fc441c1
 					item.cached = false;
 				}
 			}
@@ -906,25 +629,6 @@ public boolean onCreateOptionsMenu(Menu menu)
 		protected void onProgressUpdate(String... progress) {
 			lv.invalidateViews();
 		}
-<<<<<<< HEAD
-	}
-
-	private static class FilesViewHolder {
-		public TextView separator;
-		public TextView textView;
-		public TextView subtitleView;
-	}
-
-	public class ColourArray extends ArrayAdapter<String> implements
-			SectionIndexer {
-
-		HashMap<String, Integer> alphaIndexer;
-		String[] sections;
-
-		private final Activity context;
-		public final String[] names;
-
-=======
 }
 	
 	private static class FilesViewHolder {
@@ -941,41 +645,10 @@ public boolean onCreateOptionsMenu(Menu menu)
         private final Activity context;
 		public final String[] names;
 		
->>>>>>> 9530cc11adcf534301641bbc1b1a6aef7fc441c1
 		public ColourArray(Activity context, String[] names) {
 			super(context, R.layout.list_item, names);
 			this.context = context;
 			this.names = names;
-<<<<<<< HEAD
-
-			alphaIndexer = new HashMap<String, Integer>();
-			int size = names.length;
-			for (int x = 0; x < size; x++) {
-				alphaIndexer.put(guidelines.GetLoc(x).name.substring(0, 1), x);
-			}
-
-			// create a list from the set to sort
-			ArrayList<String> sectionList = new ArrayList<String>(
-					alphaIndexer.keySet());
-			Collections.sort(sectionList);
-
-			sections = new String[sectionList.size()];
-
-			sectionList.toArray(sections);
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			LayoutInflater inflater = context.getLayoutInflater();
-
-			// View rowView =
-			// LayoutInflater.from(context).inflate(R.layout.list_item, parent,
-			// false);
-			View rowView = inflater.inflate(R.layout.list_item, null, true);
-
-			FilesViewHolder holder = new FilesViewHolder();
-
-=======
 			
 			alphaIndexer = new HashMap<String, Integer>();
             int size = names.length;
@@ -1002,96 +675,10 @@ public boolean onCreateOptionsMenu(Menu menu)
 			
 			FilesViewHolder holder = new FilesViewHolder();
 			
->>>>>>> 9530cc11adcf534301641bbc1b1a6aef7fc441c1
 			holder.textView = (TextView) rowView.findViewById(R.id.label);
 			ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
 			ImageView imageView2 = (ImageView) rowView.findViewById(R.id.icon2);
 			holder.separator = (TextView) rowView.findViewById(R.id.separator);
-<<<<<<< HEAD
-			holder.subtitleView = (TextView) rowView
-					.findViewById(R.id.subtitle);
-
-			Object itemO = getListAdapter().getItem(position);
-			GuidelineItem item = guidelines.Get((String) itemO);
-			String code = item.code;
-			String category = item.category;
-
-			holder.separator.setText(item.name.substring(0, 1));
-			holder.textView.setText(item.name);
-			holder.subtitleView
-					.setText("NICE "
-							+ code
-							+ String.format(
-									"%1$-"
-											+ (52 - item.subcategory.length() - item.code
-													.length()) + "s", " ")
-							+ item.subcategory);
-
-			imageView.setImageResource(R.drawable.icon);
-			// if (item.name.length()%2==0)
-			// {imageView.setImageResource(R.drawable.fox);}
-
-			if (category.equals("Cancer")) {
-				imageView2.setImageResource(R.drawable.stethoscope);
-			}
-			if (category.equals("Cardiovascular")) {
-				imageView2.setImageResource(R.drawable.cardiology);
-			}
-			if (category.equals("Central nervous system")) {
-				imageView2.setImageResource(R.drawable.pharmacology);
-			}
-			if (category.equals("Digestive system")) {
-				imageView2.setImageResource(R.drawable.stethoscope);
-			}
-			if (category.equals("Ear and nose")) {
-				imageView2.setImageResource(R.drawable.primary_care);
-			}
-			if (category.equals("Endocrine, nutritional and metabolic")) {
-				imageView2.setImageResource(R.drawable.pharmacology);
-			}
-			if (category.equals("Eye")) {
-				imageView2.setImageResource(R.drawable.stethoscope);
-			}
-			if (category.equals("Gynaecology, pregnancy and birth")) {
-				imageView2.setImageResource(R.drawable.gynaecology);
-			}
-			if (category.equals("Infectious diseases")) {
-				imageView2.setImageResource(R.drawable.medicine);
-			}
-			if (category.equals("Injuries, accidents and wounds")) {
-				imageView2.setImageResource(R.drawable.hospital);
-			}
-			if (category.equals("Mental health and behavioural conditions")) {
-				imageView2.setImageResource(R.drawable.iv);
-			}
-			if (category.equals("Mouth and dental")) {
-				imageView2.setImageResource(R.drawable.stethoscope);
-			}
-			if (category.equals("Musculoskeletal")) {
-				imageView2.setImageResource(R.drawable.primary_care);
-			}
-			if (category.equals("Respiratory")) {
-				imageView2.setImageResource(R.drawable.pharmacology);
-			}
-			if (category.equals("Skin")) {
-				imageView2.setImageResource(R.drawable.primary_care);
-			}
-			if (category.equals("Urogenital")) {
-				imageView2.setImageResource(R.drawable.pharmacology);
-			}
-
-			if (!section[position])
-				holder.separator.setVisibility(View.GONE);
-
-			if (item.cached) {
-				holder.textView.setTextColor(Color.rgb(255, 255, 255));
-			} else {
-				holder.textView.setTextColor(Color.rgb(127, 127, 127));
-			}
-
-			if (position == lastOpened && lastOpened != 0) {
-				holder.textView.setBackgroundColor(Color.rgb(15, 15, 191));
-=======
 			holder.subtitleView = (TextView) rowView.findViewById(R.id.subtitle);
 			
 			
@@ -1134,13 +721,11 @@ public boolean onCreateOptionsMenu(Menu menu)
 			
 			if (position==lastOpened && lastOpened!=0) {
 				holder.textView.setBackgroundColor(Color.rgb(15,15,191)); 
->>>>>>> 9530cc11adcf534301641bbc1b1a6aef7fc441c1
 			}
 
 			rowView.setTag(holder);
 			return rowView;
 		}
-<<<<<<< HEAD
 
 		public int getPositionForSection(int section) {
 			if (section == 0)
@@ -1182,20 +767,6 @@ public boolean onCreateOptionsMenu(Menu menu)
 			}
 		}
 		return haveConnectedWifi || haveConnectedMobile;
-=======
-		public int getPositionForSection(int section) {
-	        if (section==0) return 0; else   
-			return alphaIndexer.get(sections[section-1]);
-	       }
-	 
-	       public int getSectionForPosition(int position) {
-	           return 1;
-	       }
-	 
-	       public Object[] getSections() {
-	            return sections;
-	       }
->>>>>>> 9530cc11adcf534301641bbc1b1a6aef7fc441c1
 	}
 
 	private void CopyAssets(String path) {
@@ -1223,7 +794,6 @@ public boolean onCreateOptionsMenu(Menu menu)
 					else
 						p = path + "/";
 
-<<<<<<< HEAD
 					if (!path.startsWith("images")
 							&& !path.startsWith("sounds")
 							&& !path.startsWith("webkit"))
@@ -1277,100 +847,3 @@ public boolean onCreateOptionsMenu(Menu menu)
 	}
 
 }
-=======
-//	   private boolean isNetworkAvailable() {
-//		    ConnectivityManager connectivityManager 
-//		          = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-//		    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-//		    return activeNetworkInfo != null;
-//		}
-	   
-	   private boolean isNetworkAvailable() {
-
-		    haveConnectedWifi = false;
-		    haveConnectedMobile = false;
-		    
-		    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		    NetworkInfo[] netInfo = cm.getAllNetworkInfo();
-		    for (NetworkInfo ni : netInfo) {
-		        if (ni.isConnected()){
-		        	if (ni.getTypeName().equalsIgnoreCase("WIFI")) haveConnectedWifi = true;
-		        	if (ni.getTypeName().equalsIgnoreCase("MOBILE")) haveConnectedMobile = true;
-		        }
-		    }
-		    return haveConnectedWifi || haveConnectedMobile;
-		}
-
-	   
-	   private void CopyAssets(String path) {
-		    AssetManager assetManager = this.getAssets();
-		    String assets[] = null;
-		    try {
-		        Log.i("tag", "CopyAssets() "+path);
-		        assets = assetManager.list(path);
-		        if (assets.length == 0) {
-		            copyFile(path);
-		        } else {
-		            String fullPath =  pathToStorage(path);
-		            Log.i("tag", "path="+fullPath);
-		            File dir = new File(fullPath);
-		            if (!dir.exists() && !path.startsWith("images") && !path.startsWith("sounds") && !path.startsWith("webkit"))
-		                if (!dir.mkdirs());
-		                    Log.i("tag", "could not create dir "+fullPath);
-		            for (int i = 0; i < assets.length; ++i) {
-		                String p;
-		                if (path.equals(""))
-		                    p = "";
-		                else 
-		                    p = path + "/";
-
-		                if (!path.startsWith("images") && !path.startsWith("sounds") && !path.startsWith("webkit"))
-		                	CopyAssets( p + assets[i]);
-		            }
-		        }
-		    } catch (IOException ex) {
-		        Log.e("tag", "I/O Exception", ex);
-		    }
-		}
-
-		private void copyFile(String filename) {
-		    AssetManager assetManager = this.getAssets();
-
-		    InputStream in = null;
-		    OutputStream out = null;
-		    String newFileName = null;
-		    try {
-		        Log.i("tag", "copyFile() "+filename);
-		        in = assetManager.open(filename);
-		        newFileName = pathToStorage(filename);
-		        out = new FileOutputStream(newFileName);
-
-		        byte[] buffer = new byte[1024];
-		        int read;
-		        while ((read = in.read(buffer)) != -1) {
-		            out.write(buffer, 0, read);
-		        }
-		        in.close();
-		        in = null;
-		        out.flush();
-		        out.close();
-		        out = null;
-		    } catch (Exception e) {
-		        Log.e("tag", "Exception in copyFile() of "+newFileName);
-		        Log.e("tag", "Exception in copyFile() "+e.toString());
-		    }
-
-	}
-		public boolean canDisplayPdf() {
-		    PackageManager packageManager = this.getPackageManager();
-		    Intent testIntent = new Intent(Intent.ACTION_VIEW);
-		    testIntent.setType("application/pdf");
-		    if (packageManager.queryIntentActivities(testIntent, PackageManager.MATCH_DEFAULT_ONLY).size() > 0) {
-		        return true;
-		    } else {
-		        return false;
-		    }
-		}
-	
-}
->>>>>>> 9530cc11adcf534301641bbc1b1a6aef7fc441c1
