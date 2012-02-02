@@ -535,6 +535,8 @@ public class NICEApp extends ListActivity {
 	
 	private static class FilesViewHolder {
         public TextView separator;
+        public ImageView imageView;
+        public ImageView imageView2;
         public TextView textView;
         public TextView subtitleView;
     }
@@ -578,8 +580,8 @@ public class NICEApp extends ListActivity {
 			FilesViewHolder holder = new FilesViewHolder();
 			
 			holder.textView = (TextView) rowView.findViewById(R.id.label);
-			//ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-			ImageView imageView2 = (ImageView) rowView.findViewById(R.id.icon2);
+			//holder.imageView = (ImageView) rowView.findViewById(R.id.icon);
+			holder.imageView2 = (ImageView) rowView.findViewById(R.id.icon2);
 			holder.separator = (TextView) rowView.findViewById(R.id.separator);
 			holder.subtitleView = (TextView) rowView.findViewById(R.id.subtitle);
 			
@@ -596,22 +598,22 @@ public class NICEApp extends ListActivity {
 			//imageView.setImageResource(R.drawable.icon);
 			//if (item.name.length()%2==0) {imageView.setImageResource(R.drawable.fox);}
 			
-			if (category.equals("Cancer")) {imageView2.setImageResource(R.drawable.stethoscope);}
-			if (category.equals("Cardiovascular")) {imageView2.setImageResource(R.drawable.cardiology);}
-			if (category.equals("Central nervous system")) {imageView2.setImageResource(R.drawable.pharmacology);}
-			if (category.equals("Digestive system")) {imageView2.setImageResource(R.drawable.stethoscope);}
-			if (category.equals("Ear and nose")) {imageView2.setImageResource(R.drawable.primary_care);}
-			if (category.equals("Endocrine, nutritional and metabolic")) {imageView2.setImageResource(R.drawable.pharmacology);}
-			if (category.equals("Eye")) {imageView2.setImageResource(R.drawable.stethoscope);}
-			if (category.equals("Gynaecology, pregnancy and birth")) {imageView2.setImageResource(R.drawable.gynaecology);}
-			if (category.equals("Infectious diseases")) {imageView2.setImageResource(R.drawable.medicine);}
-			if (category.equals("Injuries, accidents and wounds")) {imageView2.setImageResource(R.drawable.hospital);}
-			if (category.equals("Mental health and behavioural conditions")) {imageView2.setImageResource(R.drawable.iv);}
-			if (category.equals("Mouth and dental")) {imageView2.setImageResource(R.drawable.stethoscope);}
-			if (category.equals("Musculoskeletal")) {imageView2.setImageResource(R.drawable.primary_care);}
-			if (category.equals("Respiratory")) {imageView2.setImageResource(R.drawable.pharmacology);}
-			if (category.equals("Skin")) {imageView2.setImageResource(R.drawable.primary_care);}
-			if (category.equals("Urogenital")) {imageView2.setImageResource(R.drawable.pharmacology);}
+			if (category.equals("Cancer")) {holder.imageView2.setImageResource(R.drawable.stethoscope);}
+			if (category.equals("Cardiovascular")) {holder.imageView2.setImageResource(R.drawable.cardiology);}
+			if (category.equals("Central nervous system")) {holder.imageView2.setImageResource(R.drawable.pharmacology);}
+			if (category.equals("Digestive system")) {holder.imageView2.setImageResource(R.drawable.stethoscope);}
+			if (category.equals("Ear and nose")) {holder.imageView2.setImageResource(R.drawable.primary_care);}
+			if (category.equals("Endocrine, nutritional and metabolic")) {holder.imageView2.setImageResource(R.drawable.pharmacology);}
+			if (category.equals("Eye")) {holder.imageView2.setImageResource(R.drawable.stethoscope);}
+			if (category.equals("Gynaecology, pregnancy and birth")) {holder.imageView2.setImageResource(R.drawable.gynaecology);}
+			if (category.equals("Infectious diseases")) {holder.imageView2.setImageResource(R.drawable.medicine);}
+			if (category.equals("Injuries, accidents and wounds")) {holder.imageView2.setImageResource(R.drawable.hospital);}
+			if (category.equals("Mental health and behavioural conditions")) {holder.imageView2.setImageResource(R.drawable.iv);}
+			if (category.equals("Mouth and dental")) {holder.imageView2.setImageResource(R.drawable.stethoscope);}
+			if (category.equals("Musculoskeletal")) {holder.imageView2.setImageResource(R.drawable.primary_care);}
+			if (category.equals("Respiratory")) {holder.imageView2.setImageResource(R.drawable.pharmacology);}
+			if (category.equals("Skin")) {holder.imageView2.setImageResource(R.drawable.primary_care);}
+			if (category.equals("Urogenital")) {holder.imageView2.setImageResource(R.drawable.pharmacology);}
 			
 			if (!section[position]) holder.separator.setVisibility(View.GONE);
 						
