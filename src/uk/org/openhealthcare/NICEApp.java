@@ -47,11 +47,12 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.app.SearchManager;
+//import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -68,6 +69,7 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.Menu;
+import android.view.inputmethod.InputMethodManager;
 import android.os.AsyncTask;
 
 public class NICEApp extends ListActivity {
@@ -241,6 +243,12 @@ public class NICEApp extends ListActivity {
 		return false;
 	}
 
+	 public boolean onSearchRequested() {
+
+		 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+	     return false;  // don't go ahead and show the search box
+	 }
+	 
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
 	  
@@ -294,7 +302,7 @@ public class NICEApp extends ListActivity {
 			lastLetter=s;
 		}
 	  lastOpened = settings.getInt("last", -1);
-
+	  
 //	  if (!canDisplayPdf()){
 //		  AlertDialog ad = new AlertDialog.Builder(this).create();  
 //		    ad.setTitle("**** IMPORTANT ****");
@@ -322,7 +330,7 @@ public class NICEApp extends ListActivity {
 	  lv.setTextFilterEnabled(true);
 	  
 	  
-	  handleIntent(getIntent());
+	  //handleIntent(getIntent());
 
 	  lv.setOnItemClickListener(new OnItemClickListener(){
 			@Override
@@ -342,7 +350,7 @@ public class NICEApp extends ListActivity {
 						lastOpened=position;
 						lv.invalidateViews();
 					}	
-			}		   
+			}		     
 	  });
 	}
 
@@ -364,19 +372,21 @@ public class NICEApp extends ListActivity {
 	@Override
 	protected void onNewIntent(Intent intent) {
 		setIntent(intent);
-		handleIntent(intent);
+		//handleIntent(intent);
 	}
 
-	private void handleIntent(Intent intent) {
-	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-	      String query = intent.getStringExtra(SearchManager.QUERY);
+
+	//private void handleIntent(Intent intent) {
+	    //if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+	      //String query = intent.getStringExtra(SearchManager.QUERY);
 	      //arrad.getFilter().filter(query);
-	      lv.setFilterText(query);    
-	      lv.invalidateViews(); 
-	     // arrad.notifyDataSetChanged();
-        }
-	}
+	      //lv.setFilterText(query);    
+	      //lv.invalidateViews();
+      //  }
+	//}
 
+	
+	
 	public String MD5_Hash(String s) {
 		MessageDigest m = null;
 
