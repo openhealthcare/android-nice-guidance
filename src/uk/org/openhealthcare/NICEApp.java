@@ -565,7 +565,7 @@ public class NICEApp extends ListActivity {
 			FilesViewHolder holder = new FilesViewHolder();
 			
 			holder.textView = (TextView) rowView.findViewById(R.id.label);
-			ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
+			//ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
 			ImageView imageView2 = (ImageView) rowView.findViewById(R.id.icon2);
 			holder.separator = (TextView) rowView.findViewById(R.id.separator);
 			holder.subtitleView = (TextView) rowView.findViewById(R.id.subtitle);
@@ -580,7 +580,7 @@ public class NICEApp extends ListActivity {
 			holder.textView.setText(item.name);
 			holder.subtitleView.setText("NICE "+code+String.format("%1$-" + (52-item.subcategory.length()-item.code.length()) + "s", " ")+item.subcategory);
 			
-			imageView.setImageResource(R.drawable.icon);
+			//imageView.setImageResource(R.drawable.icon);
 			//if (item.name.length()%2==0) {imageView.setImageResource(R.drawable.fox);}
 			
 			if (category.equals("Cancer")) {imageView2.setImageResource(R.drawable.stethoscope);}
