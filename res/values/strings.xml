@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Nice Guidelines</string>    
+ <string name="app_name">Nice Guidelines</string>    
     <string name="app_label">Nice Guidelines</string>
     <string name="search_hint">Search guideline names</string>
     <string name="poster_notice">Poster available in Gallery</string>

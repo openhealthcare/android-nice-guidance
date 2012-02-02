@@ -30,10 +30,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.lang.Boolean;
+
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -62,7 +62,6 @@ import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SectionIndexer;
@@ -95,6 +94,7 @@ public class NICEApp extends ListActivity {
 	ArrayAdapter<String> adapter = null;
 	ListView lv;
 
+  
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
