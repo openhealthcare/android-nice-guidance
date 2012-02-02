@@ -116,105 +116,6 @@ public class NICEApp extends ListActivity {
 
 		return true;
 	}
-
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case SHARE_ID:
-			LayoutInflater inflater = getLayoutInflater();
-			View layout = inflater.inflate(R.layout.toast_layout,
-					(ViewGroup) findViewById(R.id.toast_layout_root));
-
-			ImageView image = (ImageView) layout.findViewById(R.id.image);
-			image.setImageResource(R.drawable.qrcode);
-
-			Toast toast = new Toast(getApplicationContext());
-			toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-			toast.setDuration(Toast.LENGTH_LONG);
-			toast.setView(layout);
-			toast.show();
-
-			return true;
-		case HELP_ID:
-			Toast.makeText(
-					getApplicationContext(),
-					"Cached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.",
-					Toast.LENGTH_LONG).show();
-			return true;
-		case FEEDBACK_ID:
-			Toast.makeText(getApplicationContext(),
-					"http://openhealthcare.org.uk\n\nCome say hello :)",
-					Toast.LENGTH_LONG).show();
-
-						ad.setButton("Go",
-								new DialogInterface.OnClickListener() {
-									@Override
-									public void onClick(DialogInterface dialog,
-											int which) {
-										final Toast ShortToast = Toast
-												.makeText(
-														getApplicationContext(),
-														"Starting downloads",
-														Toast.LENGTH_SHORT);
-
-										Timer timer = new Timer();
-										TimerTask task = new TimerTask() {
-
-											@Override
-											public void run() {
-												// make sure to cancel the Toast
-												// in UI thread
-												runOnUiThread(new Runnable() {
-
-													@Override
-													public void run() {
-														ShortToast.cancel();
-													}
-												});
-											}
-										};
-
-										ShortToast.show();
-										timer.schedule(task, 500);
-
-										new AsyncDownload().execute(guidelines
-												.GetKeys());
-										dialog.dismiss();
-
-									}
-								});
-						ad.show();
-					} else {
-						Toast.makeText(getApplicationContext(),
-								"Inadvisable unless over a WiFi connection",
-								Toast.LENGTH_LONG).show();
-					}
-				} else {
-					Toast.makeText(getApplicationContext(),
-							"No Network Connectivity", Toast.LENGTH_LONG)
-							.show();
-				}
-=======
-public boolean onCreateOptionsMenu(Menu menu)
-	{
-	super.onCreateOptionsMenu(menu);
-
-	menu.add(PREFERENCES_GROUP_ID, SHARE_ID, 0, "share")
-	.setIcon(android.R.drawable.ic_menu_share);
-	menu.add(PREFERENCES_GROUP_ID, GETALL_ID, 0, "download all")
-	.setIcon(android.R.drawable.ic_menu_save);
-	menu.add(PREFERENCES_GROUP_ID, FEEDBACK_ID, 0, "feedback + update")
-	.setIcon(android.R.drawable.ic_menu_send);
-	//menu.add(PREFERENCES_GROUP_ID, SEARCH_ID, 0, "search")
-	//.setIcon(android.R.drawable.ic_menu_search);
-	menu.add(PREFERENCES_GROUP_ID, RELOAD_ID, 0, "last file")
-	.setIcon(android.R.drawable.ic_menu_rotate);
-	menu.add(PREFERENCES_GROUP_ID, HELP_ID, 0, "help")
-	.setIcon(android.R.drawable.ic_menu_help);
-	menu.add(PREFERENCES_GROUP_ID, ABOUT_ID, 0, "about")
-	.setIcon(android.R.drawable.ic_menu_info_details);
-
-	return true;
-	} 
 	
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
@@ -335,18 +236,6 @@ public boolean onCreateOptionsMenu(Menu menu)
 		   String key = (String) item1;
 		   new AsyncDownload().execute(key);
 		   return true;
->>>>>>> 9530cc11adcf534301641bbc1b1a6aef7fc441c1
-			}
-			return true;
-
-		case SEARCH_ID:
-			return true;
-
-		case RELOAD_ID:
-			Object item1 = getListAdapter().getItem(lastOpened);
-			String key = (String) item1;
-			new AsyncDownload().execute(key);
-			return true;
 		}
 
 		return false;
