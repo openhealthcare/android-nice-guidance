@@ -47,7 +47,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -251,6 +250,13 @@ public class NICEApp extends ListActivity {
 	     return false;  // don't go ahead and show the search box
 	 }
 	 
+	 public void onWindowFocusChanged(boolean hasFocus) {
+		 
+		 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		 imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY,0); 
+
+	 }
+	  
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
 	  
@@ -359,7 +365,7 @@ public class NICEApp extends ListActivity {
 	@Override
     protected void onStop(){
        super.onStop();
-
+       
       SharedPreferences settings = getPreferences(0);
       SharedPreferences.Editor editor = settings.edit();
       int count =numGuidelines;		
