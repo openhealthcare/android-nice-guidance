@@ -609,21 +609,21 @@ public class NICEApp extends ListActivity {
 			//if (item.name.length()%2==0) {imageView.setImageResource(R.drawable.fox);}
 			
 			if (category.equals("Cancer")) {holder.imageView2.setImageResource(R.drawable.cancer);}
-			if (category.equals("Cardiovascular")) {holder.imageView2.setImageResource(R.drawable.cardiology);}
-			if (category.equals("Central nervous system")) {holder.imageView2.setImageResource(R.drawable.pharmacology);}
-			if (category.equals("Digestive system")) {holder.imageView2.setImageResource(R.drawable.stethoscope);}
-			if (category.equals("Ear and nose")) {holder.imageView2.setImageResource(R.drawable.primary_care);}
-			if (category.equals("Endocrine, nutritional and metabolic")) {holder.imageView2.setImageResource(R.drawable.pharmacology);}
-			if (category.equals("Eye")) {holder.imageView2.setImageResource(R.drawable.stethoscope);}
+			if (category.equals("Cardiovascular")) {holder.imageView2.setImageResource(R.drawable.cardio);}
+			if (category.equals("Central nervous system")) {holder.imageView2.setImageResource(R.drawable.neuro);}
+			if (category.equals("Digestive system")) {holder.imageView2.setImageResource(R.drawable.gastro);}
+			if (category.equals("Ear and nose")) {holder.imageView2.setImageResource(R.drawable.ear);}
+			if (category.equals("Endocrine, nutritional and metabolic")) {holder.imageView2.setImageResource(R.drawable.endocrine);}
+			if (category.equals("Eye")) {holder.imageView2.setImageResource(R.drawable.eye);}
 			if (category.equals("Gynaecology, pregnancy and birth")) {holder.imageView2.setImageResource(R.drawable.gynaecology);}
-			if (category.equals("Infectious diseases")) {holder.imageView2.setImageResource(R.drawable.medicine);}
-			if (category.equals("Injuries, accidents and wounds")) {holder.imageView2.setImageResource(R.drawable.hospital);}
+			if (category.equals("Infectious diseases")) {holder.imageView2.setImageResource(R.drawable.id);}
+			if (category.equals("Injuries, accidents and wounds")) {holder.imageView2.setImageResource(R.drawable.ed);}
 			if (category.equals("Mental health and behavioural conditions")) {holder.imageView2.setImageResource(R.drawable.mental);}
-			if (category.equals("Mouth and dental")) {holder.imageView2.setImageResource(R.drawable.stethoscope);}
-			if (category.equals("Musculoskeletal")) {holder.imageView2.setImageResource(R.drawable.primary_care);}
-			if (category.equals("Respiratory")) {holder.imageView2.setImageResource(R.drawable.pharmacology);}
-			if (category.equals("Skin")) {holder.imageView2.setImageResource(R.drawable.primary_care);}
-			if (category.equals("Urogenital")) {holder.imageView2.setImageResource(R.drawable.pharmacology);}
+			if (category.equals("Mouth and dental")) {holder.imageView2.setImageResource(R.drawable.mouth);}
+			if (category.equals("Musculoskeletal")) {holder.imageView2.setImageResource(R.drawable.ms);}
+			if (category.equals("Respiratory")) {holder.imageView2.setImageResource(R.drawable.endocrine);}
+			if (category.equals("Skin")) {holder.imageView2.setImageResource(R.drawable.thermo);}
+			if (category.equals("Urogenital")) {holder.imageView2.setImageResource(R.drawable.ug);}
 			
 			if (!section[position]) holder.separator.setVisibility(View.GONE);
 						
