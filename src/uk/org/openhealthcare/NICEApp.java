@@ -90,6 +90,7 @@ public class NICEApp extends ListActivity {
     boolean haveConnectedWifi = false;
     boolean haveConnectedMobile = false;	
     boolean section[];
+    boolean keyboardup = false;
 
 	ArrayAdapter<String> arrad;
 	ArrayAdapter<String> adapter = null;
@@ -246,15 +247,18 @@ public class NICEApp extends ListActivity {
 
 		 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+		 keyboardup=true;
 
 	     return false;  // don't go ahead and show the search box
 	 }
 	 
 	 public void onWindowFocusChanged(boolean hasFocus) {
 		 
+		 if (keyboardup){
 		 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		 imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY,0); 
-
+		 keyboardup=false;
+		 }
 	 }
 	  
 	public void onCreate(Bundle savedInstanceState) {
