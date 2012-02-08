@@ -615,7 +615,7 @@ public class NICEApp extends ListActivity {
 			if (category.equals("Ear and nose")) {holder.imageView2.setImageResource(R.drawable.ear);}
 			if (category.equals("Endocrine, nutritional and metabolic")) {holder.imageView2.setImageResource(R.drawable.endocrine);}
 			if (category.equals("Eye")) {holder.imageView2.setImageResource(R.drawable.eye);}
-			if (category.equals("Gynaecology, pregnancy and birth")) {holder.imageView2.setImageResource(R.drawable.gynaecology);}
+			if (category.equals("Gynaecology, pregnancy and birth")) {holder.imageView2.setImageResource(R.drawable.gynae);}
 			if (category.equals("Infectious diseases")) {holder.imageView2.setImageResource(R.drawable.id);}
 			if (category.equals("Injuries, accidents and wounds")) {holder.imageView2.setImageResource(R.drawable.ed);}
 			if (category.equals("Mental health and behavioural conditions")) {holder.imageView2.setImageResource(R.drawable.mental);}
