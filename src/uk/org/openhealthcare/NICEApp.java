@@ -608,7 +608,7 @@ public class NICEApp extends ListActivity {
 			//imageView.setImageResource(R.drawable.icon);
 			//if (item.name.length()%2==0) {imageView.setImageResource(R.drawable.fox);}
 			
-			if (category.equals("Cancer")) {holder.imageView2.setImageResource(R.drawable.stethoscope);}
+			if (category.equals("Cancer")) {holder.imageView2.setImageResource(R.drawable.cancer);}
 			if (category.equals("Cardiovascular")) {holder.imageView2.setImageResource(R.drawable.cardiology);}
 			if (category.equals("Central nervous system")) {holder.imageView2.setImageResource(R.drawable.pharmacology);}
 			if (category.equals("Digestive system")) {holder.imageView2.setImageResource(R.drawable.stethoscope);}
