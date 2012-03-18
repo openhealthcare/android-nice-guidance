@@ -550,6 +550,14 @@
           Hip fracture
         </title>
       </guideline>
+      <guideline category="Injuries, accidents and wounds" code="CG16" subcategory="">
+        <url>
+          http://www.nice.org.uk/nicemedia/live/10946/29422/29422.pdf
+        </url>
+        <title>
+          Self-harm
+        </title>
+      </guideline>
       <guideline category="Injuries, accidents and wounds" code="CG89" subcategory="">
         <url>
           http://www.nice.org.uk/nicemedia/live/12183/44872/44872.pdf
@@ -752,6 +760,14 @@
           Schizophrenia (update)
         </title>
       </guideline>
+      <guideline category="Mental health and behavioural conditions" code="CG16" subcategory="">
+        <url>
+          http://www.nice.org.uk/nicemedia/live/10946/29422/29422.pdf
+        </url>
+        <title>
+          Self-harm
+        </title>
+      </guideline>
       <guideline category="Mental health and behavioural conditions" code="CG25" subcategory="">
         <url>
           http://www.nice.org.uk/nicemedia/live/10964/29716/29716.pdf
@@ -947,4 +963,3 @@
     </category>
   </provider>
 </guidelines>
-
