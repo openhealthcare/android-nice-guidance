@@ -88,7 +88,7 @@ public class NICEApp extends ListActivity {
 	int lastOpened;
 	boolean firstrun;
     boolean haveConnectedWifi = false;
-    boolean haveConnectedMobile = false;	
+    boolean haveConnectedMobile = false;
     boolean section[];
     boolean keyboardup = false;
 
@@ -96,7 +96,7 @@ public class NICEApp extends ListActivity {
 	ArrayAdapter<String> adapter = null;
 	ListView lv;
 
-  
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
@@ -118,11 +118,11 @@ public class NICEApp extends ListActivity {
 
 		return true;
 	}
-	
+
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 	switch (item.getItemId()) {
-	   case SHARE_ID: 
+	   case SHARE_ID:
 		   LayoutInflater inflater = getLayoutInflater();
 		   View layout = inflater.inflate(R.layout.toast_layout,
 		                                  (ViewGroup) findViewById(R.id.toast_layout_root));
@@ -137,57 +137,58 @@ public class NICEApp extends ListActivity {
 		   toast.show();
 
 	   			return true;
-	   case HELP_ID: Toast.makeText(getApplicationContext(), 
-               "Cached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.", 
+	   case HELP_ID: Toast.makeText(getApplicationContext(),
+               "Cached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.",
                Toast.LENGTH_LONG).show();
 				return true;
-	   case FEEDBACK_ID: Toast.makeText(getApplicationContext(), 
-               "http://openhealthcare.org.uk\n\nCome say hello :)", 
+	   case FEEDBACK_ID: Toast.makeText(getApplicationContext(),
+               "http://openhealthcare.org.uk\n\nCome say hello :)",
                Toast.LENGTH_LONG).show();
-	   
+
 	   DownloadGuideline p = new DownloadGuideline();
 		try {
-			p.DownloadFrom("https://views.scraperwiki.com/run/nice_categories_view/?", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml");
+			p.DownloadFrom("http://openhealthcare.org.uk/guidelines.xml", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml");
+			// TODO: Refresh the GuidelineData...
 		} catch (Exception exc){
-			Toast.makeText(getApplicationContext(), 
-		               "Failed to update the list of guidelines", 
+			Toast.makeText(getApplicationContext(),
+		               "Failed to update the list of guidelines",
 		               Toast.LENGTH_LONG).show();
 		}
-	   
-	   			return true;	
-	   case ABOUT_ID: 
+
+	   			return true;
+	   case ABOUT_ID:
 		   Toast.makeText(getApplicationContext(),
 				   "Developers:\nRoss Jones / Dr VJ Joshi / Neil McPhail",
-				   Toast.LENGTH_LONG).show();	   
+				   Toast.LENGTH_LONG).show();
 		   return true;
-		   
-	   case GETALL_ID: 
-		   
+
+	   case GETALL_ID:
+
 		   StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
 		   double sdAvailSize = (double)stat.getAvailableBlocks() *(double)stat.getBlockSize();
 		   //Check for space first ***ToDo****
-	   
+
 		   if (sdAvailSize<25000000){
-		    	Toast.makeText(getApplicationContext(), 
-		                "Not enough space on SDCard", 
+		    	Toast.makeText(getApplicationContext(),
+		                "Not enough space on SDCard",
 		                Toast.LENGTH_LONG).show();
 		   }else
 		   {
-		   
-	    if (isNetworkAvailable()){ 
-	    	if (haveConnectedWifi){ 
-		    AlertDialog ad = new AlertDialog.Builder(this).create();  
-		    //ad.setCancelable(false); // This blocks the 'BACK' button  
+
+	    if (isNetworkAvailable()){
+	    	if (haveConnectedWifi){
+		    AlertDialog ad = new AlertDialog.Builder(this).create();
+		    //ad.setCancelable(false); // This blocks the 'BACK' button
 		    ad.setTitle("This could be slow...");
-		    ad.setMessage("Phone will download all missing files.  Please let it do its thing\n\nDownload can take approx 3 mins over WiFi (25Mb)\n\nPress BACK to back out");  
-	
-		    ad.setButton("Go", new DialogInterface.OnClickListener() {  
-		        @Override  
-		        public void onClick(DialogInterface dialog, int which) {  
+		    ad.setMessage("Phone will download all missing files.  Please let it do its thing\n\nDownload can take approx 3 mins over WiFi (25Mb)\n\nPress BACK to back out");
+
+		    ad.setButton("Go", new DialogInterface.OnClickListener() {
+		        @Override
+		        public void onClick(DialogInterface dialog, int which) {
 					final Toast ShortToast = Toast.makeText(getApplicationContext(),
 							"Starting downloads",
 							Toast.LENGTH_SHORT);
-					
+
 					Timer timer = new Timer();
 					   TimerTask task = new TimerTask() {
 
@@ -206,33 +207,33 @@ public class NICEApp extends ListActivity {
 
 						 ShortToast.show();
 						 timer.schedule(task, 500);
-						 
+
 					new AsyncDownload().execute(guidelines.GetKeys());
 				   dialog.dismiss();
-		 		   
-		        }  
-		    });  
-		    ad.show();  
+
+		        }
+		    });
+		    ad.show();
 	    }
 	    	else
 		    {
-		    	Toast.makeText(getApplicationContext(), 
-		                "Inadvisable unless over a WiFi connection", 
+		    	Toast.makeText(getApplicationContext(),
+		                "Inadvisable unless over a WiFi connection",
 		                Toast.LENGTH_LONG).show();
 		    }
 	    }
 	    else
 	    {
-	    	Toast.makeText(getApplicationContext(), 
-	                "No Network Connectivity", 
+	    	Toast.makeText(getApplicationContext(),
+	                "No Network Connectivity",
 	                Toast.LENGTH_LONG).show();
 	    }
-		   }   
+		   }
 	    return true;
 
 	    case SEARCH_ID:
 		       return true;
-	
+
 	    case RELOAD_ID:
 	       Object item1 = getListAdapter().getItem(lastOpened);
 		   String key = (String) item1;
@@ -251,29 +252,29 @@ public class NICEApp extends ListActivity {
 
 	     return false;  // don't go ahead and show the search box
 	 }
-	 
+
 	 public void onWindowFocusChanged(boolean hasFocus) {
-		 
+
 		 if (keyboardup){
 		 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		 imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY,0); 
+		 imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY,0);
 		 keyboardup=false;
 		 }
 	 }
-	  
+
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
-	  
+
 	  SharedPreferences settings = getPreferences (0);
-	  
+
 	  firstrun = settings.getBoolean("firstrun", true);
-	  
+
 	  String folderString = pathToStorage(null);
 	  File folder = new File(folderString);
 	  if ( ! folder.exists() ) {
 		  folder.mkdir();
 	  }
-	  
+
 	  String targetFile = pathToStorage("xml/guidelines.xml");
 		boolean exists = (new File(targetFile)).exists();
 		if (exists) {
@@ -284,55 +285,55 @@ public class NICEApp extends ListActivity {
 					sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse
 							("file://"
 							+ Environment.getExternalStorageDirectory())));
-				  firstrun=false;	  
+				  firstrun=false;
 			//}
 		}
-	  
-	  try { 
+
+	  try {
 		  guidelines = new GuidelineData(this);
 	  } catch (Exception elocal) {
-          Toast.makeText(getApplicationContext(), 
-                  "Failed to load guideline list", 
-                  Toast.LENGTH_LONG).show();		  
+          Toast.makeText(getApplicationContext(),
+                  "Failed to load guideline list",
+                  Toast.LENGTH_LONG).show();
 	  }
-	   
+
 	  Object[] c = guidelines.GetKeys();
 	  Arrays.sort(c);
-	  
+
 	  numGuidelines=c.length;
-	  
+
 	  cached = new boolean[numGuidelines];
 	  section = new boolean[numGuidelines];
-	  String lastLetter = "";    
-	  int count =numGuidelines;		
+	  String lastLetter = "";
+	  int count =numGuidelines;
 		for (int i = 0; i < count; i++){
 			cached[i] = settings.getBoolean(Integer.toString(i), false);
 			section[i]=true;
-			GuidelineItem item =guidelines.GetLoc(i); 
+			GuidelineItem item =guidelines.GetLoc(i);
 			String s=item.name.substring(0,1);
 			if(lastLetter.equals(s)){section[i]=false;}
 			lastLetter=s;
 		}
 	  lastOpened = settings.getInt("last", -1);
-	  
+
 //	  if (!canDisplayPdf()){
-//		  AlertDialog ad = new AlertDialog.Builder(this).create();  
+//		  AlertDialog ad = new AlertDialog.Builder(this).create();
 //		    ad.setTitle("**** IMPORTANT ****");
-//		    ad.setMessage("You have NO PDF Reader\n\nYou will not be able to view any of the guidelines\n\nDownload a Reader");  
-//		    ad.setButton("Understood", new DialogInterface.OnClickListener() {  
-//		        @Override  
-//		        public void onClick(DialogInterface dialog, int which) {  
-//		        	if (isNetworkAvailable()){ 
+//		    ad.setMessage("You have NO PDF Reader\n\nYou will not be able to view any of the guidelines\n\nDownload a Reader");
+//		    ad.setButton("Understood", new DialogInterface.OnClickListener() {
+//		        @Override
+//		        public void onClick(DialogInterface dialog, int which) {
+//		        	if (isNetworkAvailable()){
 //		        	Intent intent = new Intent(Intent.ACTION_VIEW);
 //		        	intent.setData(Uri.parse("market://details?id=com.adobe.reader"));
 //		        	startActivity(intent);
 //		        	}
 //		        	dialog.dismiss();
-//		        }  
-//		    });  
-//		    ad.show();  
+//		        }
+//		    });
+//		    ad.show();
 //	  }
-	  
+
 	  new CheckExists().execute(guidelines.GetKeys());
 	  final ArrayAdapter<String> arrad = new ColourArray(this, (String[])c);
 	  setListAdapter(arrad);
@@ -340,39 +341,39 @@ public class NICEApp extends ListActivity {
 	  lv = getListView();
 	  lv.setFastScrollEnabled(true);
 	  lv.setTextFilterEnabled(true);
-	  
-	  
+
+
 	  //handleIntent(getIntent());
 
 	  lv.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 		    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				
+
 					Object item = getListAdapter().getItem(position);
 					String key = (String) item;
 					new AsyncDownload().execute(key);
 					if (cached[position]){
-						Toast.makeText(getApplicationContext(), 
-			                  "Accessing", 
+						Toast.makeText(getApplicationContext(),
+			                  "Accessing",
 			                  Toast.LENGTH_SHORT).show();
 						};
-					if (isNetworkAvailable()){ 
-						GuidelineItem item0 =guidelines.Get((String) item); 
+					if (isNetworkAvailable()){
+						GuidelineItem item0 =guidelines.Get((String) item);
 						item0.cached=true;
 						lastOpened=position;
 						lv.invalidateViews();
-					}	
-			}		     
+					}
+			}
 	  });
 	}
 
 	@Override
     protected void onStop(){
        super.onStop();
-       
+
       SharedPreferences settings = getPreferences(0);
       SharedPreferences.Editor editor = settings.edit();
-      int count =numGuidelines;		
+      int count =numGuidelines;
 		for (int i = 0; i < count; i++){
 			editor.putBoolean(Integer.toString(i), cached[i]);
 		}
@@ -392,13 +393,13 @@ public class NICEApp extends ListActivity {
 	    //if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 	      //String query = intent.getStringExtra(SearchManager.QUERY);
 	      //arrad.getFilter().filter(query);
-	      //lv.setFilterText(query);    
+	      //lv.setFilterText(query);
 	      //lv.invalidateViews();
       //  }
 	//}
 
-	
-	
+
+
 	public String MD5_Hash(String s) {
 		MessageDigest m = null;
 
@@ -441,9 +442,9 @@ public class NICEApp extends ListActivity {
 		protected Boolean doInBackground(String... guidelinelist) {
 			try {
 			int count = guidelinelist.length;
-			Boolean singlesuccess = Boolean.FALSE; // if called on a single file the pdf viewer may be opened		
+			Boolean singlesuccess = Boolean.FALSE; // if called on a single file the pdf viewer may be opened
 			for (int i = 0; i < count; i++){
-				GuidelineItem item =guidelines.Get(guidelinelist[i]); 
+				GuidelineItem item =guidelines.Get(guidelinelist[i]);
 				String url = item.url;
 				String hash = MD5_Hash(url);
 				String targetFile = pathToStorage(hash + ".pdf");
@@ -461,13 +462,13 @@ public class NICEApp extends ListActivity {
 						{
 							publishProgress("Download Progress:\n" + guidelinelist[i]);
 						}
-						
+
 						DownloadPDF p = new DownloadPDF();
 						try {
 							p.DownloadFrom(url, targetFile);
 							singlesuccess = Boolean.TRUE;
 							if (!haveConnectedWifi) publishProgress("Downloaded successfully");
-							
+
 						} catch (Exception exc){
 							publishProgress("Failed to download the PDF " + exc.toString());
 						}
@@ -475,7 +476,7 @@ public class NICEApp extends ListActivity {
 						}
 					else
 						{
-						publishProgress("File not cached\nNo Network Connectivity"); 
+						publishProgress("File not cached\nNo Network Connectivity");
 						}
 				} else {
 					//publishProgress("Accessing");
@@ -483,7 +484,7 @@ public class NICEApp extends ListActivity {
 				}
 			}
 			if (count == 1  && singlesuccess && ! downloadLock ) {
-				GuidelineItem item =guidelines.Get(guidelinelist[0]); 
+				GuidelineItem item =guidelines.Get(guidelinelist[0]);
 				String url = item.url;
 				String hash = MD5_Hash(url);
 				String targetFile = pathToStorage(hash + ".pdf");
@@ -495,7 +496,7 @@ public class NICEApp extends ListActivity {
 
                     		try {
                         		startActivity(intent);
-                    		} 
+                    		}
                     		catch (ActivityNotFoundException e) {
                     			publishProgress("No application available to view PDF files");
                     			// Can't do this in a thread.
@@ -542,7 +543,7 @@ public class NICEApp extends ListActivity {
 			lv.invalidateViews();
 		}
 }
-	
+
 	private static class FilesViewHolder {
         public TextView separator;
         public ImageView imageView;
@@ -550,64 +551,64 @@ public class NICEApp extends ListActivity {
         public TextView textView;
         public TextView subtitleView;
     }
-	
+
 	public class ColourArray extends ArrayAdapter<String>  implements SectionIndexer{
-		
+
 		HashMap<String, Integer> alphaIndexer;
         String[] sections;
-        
+
         private final Activity context;
 		public final String[] names;
-		
+
 		public ColourArray(Activity context, String[] names) {
 			super(context, R.layout.list_item, names);
 			this.context = context;
 			this.names = names;
-			
+
 			alphaIndexer = new HashMap<String, Integer>();
             int size = names.length;
             for (int x = 0; x < size; x++) {alphaIndexer.put(guidelines.GetLoc(x).name.substring(0, 1), x);}
- 
+
 	    // create a list from the set to sort
-            ArrayList<String> sectionList = new ArrayList<String>(alphaIndexer.keySet()); 
+            ArrayList<String> sectionList = new ArrayList<String>(alphaIndexer.keySet());
             Collections.sort(sectionList);
- 
+
             sections = new String[sectionList.size()];
- 
+
             sectionList.toArray(sections);
             }
 
-		
-		
+
+
 		@Override
-		
+
 		public View getView(int position, View convertView, ViewGroup parent) {
 			LayoutInflater inflater = context.getLayoutInflater();
 
 			//View rowView = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
 			View rowView = inflater.inflate(R.layout.list_item, null, true);
-			
+
 			FilesViewHolder holder = new FilesViewHolder();
-			
+
 			holder.textView = (TextView) rowView.findViewById(R.id.label);
 			//holder.imageView = (ImageView) rowView.findViewById(R.id.icon);
 			holder.imageView2 = (ImageView) rowView.findViewById(R.id.icon2);
 			holder.separator = (TextView) rowView.findViewById(R.id.separator);
 			holder.subtitleView = (TextView) rowView.findViewById(R.id.subtitle);
-			
-			
+
+
 			Object itemO = getListAdapter().getItem(position);
-			GuidelineItem item =guidelines.Get((String) itemO); 
+			GuidelineItem item =guidelines.Get((String) itemO);
 			String code = item.code;
 			String category = item.category;
-			
+
 			holder.separator.setText(item.name.substring(0,1));
 			holder.textView.setText(item.name);
 			holder.subtitleView.setText("NICE "+code+String.format("%1$-" + (52-item.subcategory.length()-item.code.length()) + "s", " ")+item.subcategory);
-			
+
 			//imageView.setImageResource(R.drawable.icon);
 			//if (item.name.length()%2==0) {imageView.setImageResource(R.drawable.fox);}
-			
+
 			if (category.equals("Cancer")) {holder.imageView2.setImageResource(R.drawable.cancer);}
 			if (category.equals("Cardiovascular")) {holder.imageView2.setImageResource(R.drawable.cardio);}
 			if (category.equals("Central nervous system")) {holder.imageView2.setImageResource(R.drawable.neuro);}
@@ -624,17 +625,17 @@ public class NICEApp extends ListActivity {
 			if (category.equals("Respiratory")) {holder.imageView2.setImageResource(R.drawable.endocrine);}
 			if (category.equals("Skin")) {holder.imageView2.setImageResource(R.drawable.thermo);}
 			if (category.equals("Urogenital")) {holder.imageView2.setImageResource(R.drawable.ug);}
-			
+
 			if (!section[position]) holder.separator.setVisibility(View.GONE);
-						
+
 			if (item.cached) {
 				holder.textView.setTextColor(Color.rgb(255,255,255));
 			}else {
 				holder.textView.setTextColor(Color.rgb(127,127,127));
-			}	
-			
+			}
+
 			if (position==lastOpened) {
-				holder.textView.setBackgroundColor(Color.rgb(15,15,191)); 
+				holder.textView.setBackgroundColor(Color.rgb(15,15,191));
 			}
 
 			rowView.setTag(holder);
