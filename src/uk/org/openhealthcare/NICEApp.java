@@ -70,6 +70,7 @@ import android.widget.Toast;
 import android.view.Menu;
 import android.view.inputmethod.InputMethodManager;
 import android.os.AsyncTask;
+import android.util.DisplayMetrics;
 
 public class NICEApp extends ListActivity {
 
@@ -91,11 +92,14 @@ public class NICEApp extends ListActivity {
     boolean haveConnectedMobile = false;
     boolean section[];
     boolean keyboardup = false;
-
+    DisplayMetrics dm = new DisplayMetrics();
+    int layout=R.layout.list_item;
+    
 	ArrayAdapter<String> arrad;
 	ArrayAdapter<String> adapter = null;
 	ListView lv;
 
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -265,10 +269,14 @@ public class NICEApp extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
 
+	  getWindowManager().getDefaultDisplay().getMetrics(dm);
+      
+	  if (dm.heightPixels<800){layout=R.layout.list_item_small;}
+	  
 	  SharedPreferences settings = getPreferences (0);
 
 	  firstrun = settings.getBoolean("firstrun", true);
-
+	  
 	  String folderString = pathToStorage(null);
 	  File folder = new File(folderString);
 	  if ( ! folder.exists() ) {
@@ -560,8 +568,10 @@ public class NICEApp extends ListActivity {
         private final Activity context;
 		public final String[] names;
 
-		public ColourArray(Activity context, String[] names) {
-			super(context, R.layout.list_item, names);
+	
+		public ColourArray (Activity context, String[] names) {
+				
+			super(context, layout, names);
 			this.context = context;
 			this.names = names;
 
