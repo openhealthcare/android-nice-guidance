@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:background="#2F2F2F">
+    
+        <TextView
+            android:id="@+id/separator"
+            style="?android:attr/listSeparatorTextViewStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:background="#1F1F1F"
+             />
+
+<LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" 
+    android:background="#000000"
+    android:layout_marginBottom="1dp"
+    >
+        <!--  
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
+            android:src="@android:drawable/ic_menu_save" >
+        </ImageView>
+        <ImageView
+            android:id="@+id/icon2"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
+            android:src="@android:drawable/ic_menu_save" >
+        </ImageView>
+ -->
+
+ <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+             <TextView
+                android:id="@+id/label"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@+id/label"
+                android:textSize="16dp" 
+                android:typeface="sans"
+                />
+            <TextView
+                android:id="@+id/subtitle"
+                android:text="@+id/subtitle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
+                android:textColor="#6F6F6F"
+                android:textSize="10dp"
+                android:typeface="sans"
+                />
+
+</LinearLayout>
+</LinearLayout>
+</LinearLayout>

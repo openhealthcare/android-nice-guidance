@@ -40,6 +40,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.StatFs;
 import android.util.Log;
 import android.view.Gravity;
@@ -111,13 +112,11 @@ public class NICEApp extends ListActivity {
 				android.R.drawable.ic_menu_save);
 		menu.add(PREFERENCES_GROUP_ID, FEEDBACK_ID, 0, "Feedback + update")
 				.setIcon(android.R.drawable.ic_menu_send);
-		// menu.add(PREFERENCES_GROUP_ID, SEARCH_ID, 0, "search")
-		// .setIcon(android.R.drawable.ic_menu_search);
+		menu.add(PREFERENCES_GROUP_ID, SEARCH_ID, 0, "search")
+		 .setIcon(android.R.drawable.ic_menu_search);
 		menu.add(PREFERENCES_GROUP_ID, RELOAD_ID, 0, "Last file").setIcon(
 				android.R.drawable.ic_menu_rotate);
-		menu.add(PREFERENCES_GROUP_ID, HELP_ID, 0, "Help").setIcon(
-				android.R.drawable.ic_menu_help);
-		menu.add(PREFERENCES_GROUP_ID, ABOUT_ID, 0, "About").setIcon(
+		menu.add(PREFERENCES_GROUP_ID, ABOUT_ID, 0, "Help & About").setIcon(
 				android.R.drawable.ic_menu_info_details);
 
 		return true;
@@ -162,7 +161,7 @@ public class NICEApp extends ListActivity {
 	   			return true;
 	   case ABOUT_ID:
 		   Toast.makeText(getApplicationContext(),
-				   "Developers:\nRoss Jones / Dr VJ Joshi / Neil McPhail",
+				   "Developers:\nRoss Jones / Dr VJ Joshi / Neil McPhail\n\nCached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.",
 				   Toast.LENGTH_LONG).show();
 		   return true;
 
@@ -236,6 +235,16 @@ public class NICEApp extends ListActivity {
 	    return true;
 
 	    case SEARCH_ID:
+	    	closeOptionsMenu();
+	    	
+	    	Handler handler = new Handler(); 
+	        handler.postDelayed(new Runnable() { 
+	             public void run() { 
+	            	 onSearchRequested();           
+	             } 
+	        }, 1000); 
+	        
+	        
 		       return true;
 
 	    case RELOAD_ID:
