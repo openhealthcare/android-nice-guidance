@@ -19,11 +19,13 @@
 package uk.org.openhealthcare;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
+import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -147,18 +149,53 @@ public class NICEApp extends ListActivity {
 	   case FEEDBACK_ID: Toast.makeText(getApplicationContext(),
                "http://openhealthcare.org.uk\n\nCome say hello :)",
                Toast.LENGTH_LONG).show();
+		try {
+			InputStream in = new FileInputStream(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml");
+			OutputStream out = new FileOutputStream(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/oldguidelines.xml");
 
+			 
+			byte[] buffer = new byte[1024];
+			int read;
+			while ((read = in.read(buffer)) != -1) {
+				out.write(buffer, 0, read);
+			}
+			in.close();
+			in = null;
+			out.flush();
+			out.close();
+			out = null;
+			
+		} catch (IOException e) {
+			Toast.makeText(getApplicationContext(),
+		               "Failed to copy the list of guidelines",
+		               Toast.LENGTH_LONG).show();
+		} 
+		
 	   DownloadGuideline p = new DownloadGuideline();
 		try {
+
 			p.DownloadFrom("http://openhealthcare.org.uk/guidelines.xml", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml");
-			// TODO: Refresh the GuidelineData...
+			File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml"); 
+		    File cfile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/oldguidelines.xml"); 
+			
+			if(cfile.compareTo(file)==1){
+				Toast.makeText(getApplicationContext(),
+						   "Updated Guidelines found. Refreshing...",
+						   Toast.LENGTH_LONG).show();
+				   //refresh layout
+			} else {
+			Toast.makeText(getApplicationContext(),
+					   "Server contacted.\nGuidelines checked.\nNothing new...",
+					   Toast.LENGTH_LONG).show();
+			}
+				// TODO: Refresh the GuidelineData...
 		} catch (Exception exc){
 			Toast.makeText(getApplicationContext(),
 		               "Failed to update the list of guidelines",
 		               Toast.LENGTH_LONG).show();
 		}
 
-	   			return true;
+			return true;
 	   case ABOUT_ID:
 		   Toast.makeText(getApplicationContext(),
 				   "Developers:\nRoss Jones / Dr VJ Joshi / Neil McPhail\n\nCached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.",
