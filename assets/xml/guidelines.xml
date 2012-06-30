@@ -1,6 +1,16 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <guidelines>
   <provider name="NICE">
+    <category name="">
+      <guideline category="" code="CG127" subcategory="">
+        <url>
+          http://www.nice.org.uk/nicemedia/live/13561/56015/56015.pdf
+        </url>
+        <title>
+          Hypertension
+        </title>
+      </guideline>
+    </category>
     <category name="Cancer">
       <category name="Breast cancer">
         <guideline category="Cancer" code="CG81" subcategory="Breast cancer">

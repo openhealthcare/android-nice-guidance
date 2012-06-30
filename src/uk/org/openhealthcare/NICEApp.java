@@ -36,7 +36,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.lang.Boolean;
 
-
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -50,6 +49,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -299,7 +299,7 @@ public class NICEApp extends ListActivity {
 		 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
 		 keyboardup=true;
-
+		 
 	     return false;  // don't go ahead and show the search box
 	 }
 
@@ -310,11 +310,12 @@ public class NICEApp extends ListActivity {
 		 imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY,0);
 		 keyboardup=false;
 		 }
+		 
 	 }
 
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
-
+	  
 	  getWindowManager().getDefaultDisplay().getMetrics(dm);
       
 	  if (dm.heightPixels<800){layout=R.layout.list_item_small;}
@@ -620,7 +621,7 @@ public class NICEApp extends ListActivity {
 			super(context, layout, names);
 			this.context = context;
 			this.names = names;
-
+			
 			alphaIndexer = new HashMap<String, Integer>();
             int size = names.length;
             for (int x = 0; x < size; x++) {alphaIndexer.put(guidelines.GetLoc(x).name.substring(0, 1), x);}
