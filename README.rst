@@ -15,3 +15,5 @@ Implemented ready for 1.2
 
 Neil McPhail implemented async download.
 
+
+When building you need to git clone git://github.com/johannilsson/android-actionbar.git at the same level as your git repo so that the reference will work.
