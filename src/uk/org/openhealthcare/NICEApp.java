@@ -33,26 +33,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.lang.Boolean;
 
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.StatFs;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
-//import android.app.SearchManager;
+import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -61,17 +46,31 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.StatFs;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.view.Menu;
-import android.view.inputmethod.InputMethodManager;
-import android.os.AsyncTask;
-import android.util.DisplayMetrics;
 
 public class NICEApp extends ListActivity {
 
@@ -169,7 +168,7 @@ public class NICEApp extends ListActivity {
 		               Toast.LENGTH_LONG).show();
 		} 
 		
-	   DownloadGuideline p = new DownloadGuideline();
+	   DownloadFile p = new DownloadFile();
 		try {
 
 			p.DownloadFrom("http://openhealthcare.org.uk/guidelines.xml", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml");
@@ -438,18 +437,18 @@ public class NICEApp extends ListActivity {
 	@Override
 	protected void onNewIntent(Intent intent) {
 		setIntent(intent);
-		//handleIntent(intent);
+		handleIntent(intent);
 	}
 
 
-	//private void handleIntent(Intent intent) {
-	    //if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-	      //String query = intent.getStringExtra(SearchManager.QUERY);
-	      //arrad.getFilter().filter(query);
-	      //lv.setFilterText(query);
-	      //lv.invalidateViews();
-      //  }
-	//}
+	private void handleIntent(Intent intent) {
+	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+	      String query = intent.getStringExtra(SearchManager.QUERY);
+	      arrad.getFilter().filter(query);
+	      lv.setFilterText(query);
+	      lv.invalidateViews();
+        }
+	}
 
 
 
@@ -516,7 +515,7 @@ public class NICEApp extends ListActivity {
 							publishProgress("Download Progress:\n" + guidelinelist[i]);
 						}
 
-						DownloadPDF p = new DownloadPDF();
+						DownloadFile p = new DownloadFile();
 						try {
 							p.DownloadFrom(url, targetFile);
 							singlesuccess = Boolean.TRUE;
