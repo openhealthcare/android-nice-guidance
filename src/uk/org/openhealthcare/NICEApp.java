@@ -37,6 +37,7 @@ import java.util.TimerTask;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -70,7 +71,6 @@ import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 import android.widget.Toast;
-//import android.app.SearchManager;
 
 public class NICEApp extends ListActivity {
 
@@ -437,18 +437,18 @@ public class NICEApp extends ListActivity {
 	@Override
 	protected void onNewIntent(Intent intent) {
 		setIntent(intent);
-		//handleIntent(intent);
+		handleIntent(intent);
 	}
 
 
-	//private void handleIntent(Intent intent) {
-	    //if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-	      //String query = intent.getStringExtra(SearchManager.QUERY);
-	      //arrad.getFilter().filter(query);
-	      //lv.setFilterText(query);
-	      //lv.invalidateViews();
-      //  }
-	//}
+	private void handleIntent(Intent intent) {
+	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+	      String query = intent.getStringExtra(SearchManager.QUERY);
+	      arrad.getFilter().filter(query);
+	      lv.setFilterText(query);
+	      lv.invalidateViews();
+        }
+	}
 
 
 
