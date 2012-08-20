@@ -93,9 +93,7 @@ public class NICEApp extends ListActivity {
     boolean haveConnectedMobile = false;
     boolean section[];
     boolean keyboardup = false;
-    DisplayMetrics dm = new DisplayMetrics();
-    int layout=R.layout.list_item;
-    
+
 	ArrayAdapter<String> arrad;
 	ArrayAdapter<String> adapter = null;
 	ListView lv;
@@ -108,13 +106,13 @@ public class NICEApp extends ListActivity {
 
 		menu.add(PREFERENCES_GROUP_ID, SHARE_ID, 0, "Share").setIcon(
 				android.R.drawable.ic_menu_share);
-		menu.add(PREFERENCES_GROUP_ID, GETALL_ID, 0, "Download all").setIcon(
+		menu.add(PREFERENCES_GROUP_ID, GETALL_ID, 0, "Download All").setIcon(
 				android.R.drawable.ic_menu_save);
-		menu.add(PREFERENCES_GROUP_ID, FEEDBACK_ID, 0, "Feedback + update")
+		menu.add(PREFERENCES_GROUP_ID, FEEDBACK_ID, 0, "Update + Feedback Info")
 				.setIcon(android.R.drawable.ic_menu_send);
-		menu.add(PREFERENCES_GROUP_ID, SEARCH_ID, 0, "search")
+		menu.add(PREFERENCES_GROUP_ID, SEARCH_ID, 0, "Search")
 		 .setIcon(android.R.drawable.ic_menu_search);
-		menu.add(PREFERENCES_GROUP_ID, RELOAD_ID, 0, "Last file").setIcon(
+		menu.add(PREFERENCES_GROUP_ID, RELOAD_ID, 0, "Last File").setIcon(
 				android.R.drawable.ic_menu_rotate);
 		menu.add(PREFERENCES_GROUP_ID, ABOUT_ID, 0, "Help & About").setIcon(
 				android.R.drawable.ic_menu_info_details);
@@ -313,10 +311,6 @@ public class NICEApp extends ListActivity {
 
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
-	  
-	  getWindowManager().getDefaultDisplay().getMetrics(dm);
-      
-	  if (dm.heightPixels<800){layout=R.layout.list_item_small;}
 	  
 	  SharedPreferences settings = getPreferences (0);
 
@@ -616,7 +610,7 @@ public class NICEApp extends ListActivity {
 	
 		public ColourArray (Activity context, String[] names) {
 				
-			super(context, layout, names);
+			super(context, R.layout.list_item, names);
 			this.context = context;
 			this.names = names;
 			
@@ -640,7 +634,6 @@ public class NICEApp extends ListActivity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			LayoutInflater inflater = context.getLayoutInflater();
 
-			//View rowView = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
 			View rowView = inflater.inflate(R.layout.list_item, null, true);
 
 			FilesViewHolder holder = new FilesViewHolder();
