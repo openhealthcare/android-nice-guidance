@@ -139,7 +139,7 @@ public class NICEApp extends ListActivity {
 
 	   			return true;
 	   case HELP_ID: Toast.makeText(getApplicationContext(),
-               "Cached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.",
+               "Version 1.8\n-----------\n\nCached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.",
                Toast.LENGTH_LONG).show();
 				return true;
 	   case FEEDBACK_ID: Toast.makeText(getApplicationContext(),
@@ -169,10 +169,13 @@ public class NICEApp extends ListActivity {
 		
 	   DownloadGuideline p = new DownloadGuideline();
 		try {
-
+			try {
 			p.DownloadFrom("http://openhealthcare.org.uk/guidelines.xml", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml");
+			} catch (Exception exc){Toast.makeText(getApplicationContext(),
+		               "Failed to contact site",
+		               Toast.LENGTH_LONG).show();}
 			File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml"); 
-		    File cfile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/oldguidelines.xml"); 
+			File cfile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/oldguidelines.xml"); 
 			
 			if(cfile.compareTo(file)==1){
 				Toast.makeText(getApplicationContext(),
@@ -194,7 +197,7 @@ public class NICEApp extends ListActivity {
 			return true;
 	   case ABOUT_ID:
 		   Toast.makeText(getApplicationContext(),
-				   "Developers:\nRoss Jones / Dr VJ Joshi / Neil McPhail\n\nCached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.",
+				   "Version 1.8\n-----------\n\nDevelopers:\nRoss Jones / Dr VJ Joshi / Neil McPhail\n\nCached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.",
 				   Toast.LENGTH_LONG).show();
 		   return true;
 
@@ -336,6 +339,56 @@ public class NICEApp extends ListActivity {
 			//}
 		}
 
+		 if (isNetworkAvailable()){
+		    	if (haveConnectedWifi){
+		    		try {
+		    			InputStream in = new FileInputStream(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml");
+		    			OutputStream out = new FileOutputStream(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/oldguidelines.xml");
+
+		    			 
+		    			byte[] buffer = new byte[1024];
+		    			int read;
+		    			while ((read = in.read(buffer)) != -1) {
+		    				out.write(buffer, 0, read);
+		    			}
+		    			in.close();
+		    			in = null;
+		    			out.flush();
+		    			out.close();
+		    			out = null;
+		    			
+		    		} catch (IOException e) {
+		    			Toast.makeText(getApplicationContext(),
+		    		               "Failed to copy the list of guidelines",
+		    		               Toast.LENGTH_LONG).show();
+		    		} 
+		    		
+		    	   DownloadGuideline p = new DownloadGuideline();
+		    		try {
+
+		    			p.DownloadFrom("http://openhealthcare.org.uk/guidelines.xml", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml");
+		    			File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml"); 
+		    		    File cfile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/oldguidelines.xml"); 
+		    			
+		    			if(cfile.compareTo(file)==1){
+		    				Toast.makeText(getApplicationContext(),
+		    						   "Updated Guidelines found. Refreshing...",
+		    						   Toast.LENGTH_LONG).show();
+		    				   //refresh layout
+		    			} else {
+		    			Toast.makeText(getApplicationContext(),
+		    					   "Server contacted.\nGuidelines checked.\nNothing new...",
+		    					   Toast.LENGTH_LONG).show();
+		    			}
+		    				// TODO: Refresh the GuidelineData...
+		    		} catch (Exception exc){
+		    			Toast.makeText(getApplicationContext(),
+		    		               "Failed to update the list of guidelines",
+		    		               Toast.LENGTH_LONG).show();
+		    		}
+}
+		    	}
+		
 	  try {
 		  guidelines = new GuidelineData(this);
 	  } catch (Exception elocal) {
