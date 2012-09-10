@@ -172,7 +172,7 @@ public class NICEApp extends ListActivity {
 			File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml"); 
 			File cfile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/oldguidelines.xml"); 
 			
-			if(cfile.compareTo(file)==1){
+			if(cfile.length()==file.length()){
 				Toast.makeText(getApplicationContext(),
 					"Server contacted.\nGuidelines checked.\nNothing new...",
 					Toast.LENGTH_LONG).show();
@@ -364,8 +364,8 @@ public class NICEApp extends ListActivity {
 		    			downloadXML();
 		    			File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml"); 
 		    		    File cfile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/oldguidelines.xml"); 
-		    			
-		    			if(cfile.compareTo(file)==1){
+    					    		    
+    	        	    if (cfile.length()==file.length()){
 		    				Toast.makeText(getApplicationContext(),
 			    					   "Server contacted.\nGuidelines checked.\nNothing new...",
 			    					   Toast.LENGTH_LONG).show();
