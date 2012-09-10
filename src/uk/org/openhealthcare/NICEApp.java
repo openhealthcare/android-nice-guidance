@@ -139,7 +139,7 @@ public class NICEApp extends ListActivity {
 
 	   			return true;
 	   case HELP_ID: Toast.makeText(getApplicationContext(),
-               "Version 1.8\n-----------\n\nCached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.",
+               "Version 1.91\n-----------\n\nCached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.",
                Toast.LENGTH_LONG).show();
 				return true;
 	   case FEEDBACK_ID: Toast.makeText(getApplicationContext(),
@@ -172,7 +172,7 @@ public class NICEApp extends ListActivity {
 			try {
 			p.DownloadFrom("http://openhealthcare.org.uk/guidelines.xml", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml");
 			} catch (Exception exc){Toast.makeText(getApplicationContext(),
-		               "Failed to contact site",
+		               "Failed to contact site for updates.\nWebsite down?",
 		               Toast.LENGTH_LONG).show();}
 			File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml"); 
 			File cfile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/oldguidelines.xml"); 
@@ -197,7 +197,7 @@ public class NICEApp extends ListActivity {
 			return true;
 	   case ABOUT_ID:
 		   Toast.makeText(getApplicationContext(),
-				   "Version 1.8\n-----------\n\nDevelopers:\nRoss Jones / Dr VJ Joshi / Neil McPhail\n\nCached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.",
+				   "Version 1.91\n-----------\n\nDevelopers:\nRoss Jones / Dr VJ Joshi / Neil McPhail\n\nCached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.",
 				   Toast.LENGTH_LONG).show();
 		   return true;
 
@@ -382,9 +382,9 @@ public class NICEApp extends ListActivity {
 		    			}
 		    				// TODO: Refresh the GuidelineData...
 		    		} catch (Exception exc){
-		    			Toast.makeText(getApplicationContext(),
-		    		               "Failed to update the list of guidelines",
-		    		               Toast.LENGTH_LONG).show();
+//		    			Toast.makeText(getApplicationContext(),
+//		    		               "Failed to update the list of guidelines",
+//		    		               Toast.LENGTH_LONG).show();
 		    		}
 }
 		    	}
@@ -732,7 +732,7 @@ public class NICEApp extends ListActivity {
 			if (item.cached) {
 				holder.textView.setTextColor(Color.rgb(255,255,255));
 			}else {
-				holder.textView.setTextColor(Color.rgb(127,127,127));
+				holder.textView.setTextColor(Color.rgb(181,181,191));
 			}
 
 			if (position==lastOpened) {

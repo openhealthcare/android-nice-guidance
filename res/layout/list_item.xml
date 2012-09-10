@@ -57,16 +57,16 @@
                 android:textSize="16dp" 
                 android:typeface="sans"
                 />
+
             <TextView
                 android:id="@+id/subtitle"
-                android:text="@+id/subtitle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="8dp"
-                android:textColor="#6F6F6F"
+                android:text="@+id/subtitle"
+                android:textColor="#EFEFEF"
                 android:textSize="10dp"
-                android:typeface="sans"
-                />
+                android:typeface="sans" />
 
 </LinearLayout>
 </LinearLayout>
