@@ -22,7 +22,7 @@ public class DownloadGuideline {
 
         InputStream is = connection.getInputStream();
         BufferedInputStream inStream  = new BufferedInputStream(is, 1024 * 5);
-        FileOutputStream 	outStream = new FileOutputStream(target);
+        FileOutputStream 	outStream = new FileOutputStream(target,false);
 
         while ((len = inStream.read(buff)) != -1) {
             outStream.write(buff,0,len);

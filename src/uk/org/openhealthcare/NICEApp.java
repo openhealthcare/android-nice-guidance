@@ -139,7 +139,7 @@ public class NICEApp extends ListActivity {
 
 	   			return true;
 	   case HELP_ID: Toast.makeText(getApplicationContext(),
-               "Version 1.91\n-----------\n\nCached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.",
+               "Version 1.92\n-----------\n\nCached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.",
                Toast.LENGTH_LONG).show();
 				return true;
 	   case FEEDBACK_ID: Toast.makeText(getApplicationContext(),
@@ -167,25 +167,21 @@ public class NICEApp extends ListActivity {
 		               Toast.LENGTH_LONG).show();
 		} 
 		
-	   DownloadGuideline p = new DownloadGuideline();
 		try {
-			try {
-			p.DownloadFrom("http://openhealthcare.org.uk/guidelines.xml", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml");
-			} catch (Exception exc){Toast.makeText(getApplicationContext(),
-		               "Failed to contact site for updates.\nWebsite down?",
-		               Toast.LENGTH_LONG).show();}
+			downloadXML();
 			File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml"); 
 			File cfile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/oldguidelines.xml"); 
 			
 			if(cfile.compareTo(file)==1){
 				Toast.makeText(getApplicationContext(),
-						   "Updated Guidelines found. Refreshing...",
-						   Toast.LENGTH_LONG).show();
+					"Server contacted.\nGuidelines checked.\nNothing new...",
+					Toast.LENGTH_LONG).show();
 				   //refresh layout
 			} else {
 			Toast.makeText(getApplicationContext(),
-					   "Server contacted.\nGuidelines checked.\nNothing new...",
-					   Toast.LENGTH_LONG).show();
+					"Updated Guidelines found. \nRefreshing...\nMUST Restart",
+					Toast.LENGTH_LONG).show();
+					this.finish();   
 			}
 				// TODO: Refresh the GuidelineData...
 		} catch (Exception exc){
@@ -365,20 +361,20 @@ public class NICEApp extends ListActivity {
 		    		
 		    	   DownloadGuideline p = new DownloadGuideline();
 		    		try {
-
-		    			p.DownloadFrom("http://openhealthcare.org.uk/guidelines.xml", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml");
+		    			downloadXML();
 		    			File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml"); 
 		    		    File cfile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/oldguidelines.xml"); 
 		    			
 		    			if(cfile.compareTo(file)==1){
 		    				Toast.makeText(getApplicationContext(),
-		    						   "Updated Guidelines found. Refreshing...",
-		    						   Toast.LENGTH_LONG).show();
+			    					   "Server contacted.\nGuidelines checked.\nNothing new...",
+			    					   Toast.LENGTH_LONG).show();
 		    				   //refresh layout
 		    			} else {
 		    			Toast.makeText(getApplicationContext(),
-		    					   "Server contacted.\nGuidelines checked.\nNothing new...",
-		    					   Toast.LENGTH_LONG).show();
+						   "Updated Guidelines found. \nRefreshing...\nMust Restart",
+						   Toast.LENGTH_LONG).show();
+							this.finish();   
 		    			}
 		    				// TODO: Refresh the GuidelineData...
 		    		} catch (Exception exc){
@@ -545,8 +541,8 @@ public class NICEApp extends ListActivity {
 			Boolean singlesuccess = Boolean.FALSE; // if called on a single file the pdf viewer may be opened
 			for (int i = 0; i < count; i++){
 				GuidelineItem item =guidelines.Get(guidelinelist[i]);
-				String url = item.url;
-				String hash = MD5_Hash(url);
+				String url = item.url; 
+				String hash = MD5_Hash(url);		
 				String targetFile = pathToStorage(hash + ".pdf");
 				File file = new File(targetFile);
 				if (! file.exists() ) {
@@ -862,4 +858,42 @@ public class NICEApp extends ListActivity {
 		}
 	}
 
-}
+	public boolean downloadXML() {
+		// What is public stays public
+		AsyncTask<String, String, Boolean> myDownload = new AsyncDownloadXML().execute();
+		try {
+			Boolean success = (Boolean) myDownload.get();
+			return success.booleanValue();
+		} catch (InterruptedException e) {
+			return false;
+		} catch (java.util.concurrent.ExecutionException f) {
+			return false;
+		}
+
+	}
+
+	private class AsyncDownloadXML extends AsyncTask<String, String, Boolean> {
+
+		protected Boolean doInBackground(String... guidelinelist) {
+			
+				String url = "http://openhealthcare.org.uk/guidelines.xml";			
+				String targetFile = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml";
+//				File file = new File(targetFile);
+				DownloadGuideline p = new DownloadGuideline();
+				try {
+					p.DownloadFrom(url, targetFile);
+					}
+				 	catch (Exception exc){
+				 		publishProgress("Failed to Contact Server");
+					}
+							return false;
+			}
+		}
+
+		protected void onProgressUpdate(String... progress) {
+			   Toast.makeText(getApplicationContext(), progress[0], Toast.LENGTH_SHORT).show();
+		}
+	}
+
+
+
