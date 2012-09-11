@@ -29,6 +29,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Timer;
@@ -88,6 +89,7 @@ public class NICEApp extends ListActivity {
 	boolean cached[];
 	int numGuidelines;
 	int lastOpened;
+	int lastUpdated;
 	boolean firstrun;
     boolean haveConnectedWifi = false;
     boolean haveConnectedMobile = false;
@@ -139,7 +141,7 @@ public class NICEApp extends ListActivity {
 
 	   			return true;
 	   case HELP_ID: Toast.makeText(getApplicationContext(),
-               "Version 1.92\n-----------\n\nCached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.",
+               "Cached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.",
                Toast.LENGTH_LONG).show();
 				return true;
 	   case FEEDBACK_ID: Toast.makeText(getApplicationContext(),
@@ -193,7 +195,7 @@ public class NICEApp extends ListActivity {
 			return true;
 	   case ABOUT_ID:
 		   Toast.makeText(getApplicationContext(),
-				   "Version 1.92\n-----------\n\nDevelopers:\nRoss Jones / Dr VJ Joshi / Neil McPhail\n\nCached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.",
+				   "Version 1.93\n-----------\n\nLead Developers:\nDr VJ Joshi & Ross Jones",
 				   Toast.LENGTH_LONG).show();
 		   return true;
 
@@ -314,6 +316,7 @@ public class NICEApp extends ListActivity {
 	  SharedPreferences settings = getPreferences (0);
 
 	  firstrun = settings.getBoolean("firstrun", true);
+	  lastUpdated = settings.getInt("lastUpdated", 0);
 	  
 	  String folderString = pathToStorage(null);
 	  File folder = new File(folderString);
@@ -338,7 +341,7 @@ public class NICEApp extends ListActivity {
 			//}
 		}
 
-		 if (isNetworkAvailable()){
+		 if (isNetworkAvailable() && (lastUpdated!=Calendar.DATE)){
 		    	if (haveConnectedWifi){
 		    		try {
 		    			InputStream in = new FileInputStream(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml");
@@ -371,6 +374,7 @@ public class NICEApp extends ListActivity {
 		    				Toast.makeText(getApplicationContext(),
 			    					   "Server contacted.\nGuidelines checked.\nNothing new...",
 			    					   Toast.LENGTH_LONG).show();
+		    					lastUpdated = Calendar.DATE;
 		    				   //refresh layout
 		    			} else {
 		    			Toast.makeText(getApplicationContext(),
@@ -476,6 +480,7 @@ public class NICEApp extends ListActivity {
 			editor.putBoolean(Integer.toString(i), cached[i]);
 		}
 		editor.putInt("last", lastOpened);
+		editor.putInt("last", lastUpdated);
 		editor.putBoolean("firstrun", firstrun);
 		editor.commit();
 	}
@@ -730,7 +735,7 @@ public class NICEApp extends ListActivity {
 			if (item.cached) {
 				holder.textView.setTextColor(Color.rgb(255,255,255));
 			}else {
-				holder.textView.setTextColor(Color.rgb(181,181,191));
+				holder.textView.setTextColor(Color.rgb(171,171,191));
 			}
 
 			if (position==lastOpened) {
