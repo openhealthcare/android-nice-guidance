@@ -72,7 +72,6 @@ import android.widget.Toast;
 import android.view.Menu;
 import android.view.inputmethod.InputMethodManager;
 import android.os.AsyncTask;
-import android.util.DisplayMetrics;
 
 public class NICEApp extends ListActivity {
 
@@ -314,6 +313,7 @@ public class NICEApp extends ListActivity {
 	  super.onCreate(savedInstanceState);
 	  
 	  SharedPreferences settings = getPreferences (0);
+	  SharedPreferences.Editor editor = settings.edit();
 
 	  firstrun = settings.getBoolean("firstrun", true);
 	  lastUpdated = settings.getInt("lastUpdated", 0);
@@ -375,6 +375,7 @@ public class NICEApp extends ListActivity {
 			    					   "Server contacted.\nGuidelines checked.\nNothing new...",
 			    					   Toast.LENGTH_LONG).show();
 		    					lastUpdated = Calendar.DATE;
+		    					editor.putInt("last", lastUpdated);
 		    				   //refresh layout
 		    			} else {
 		    			Toast.makeText(getApplicationContext(),
