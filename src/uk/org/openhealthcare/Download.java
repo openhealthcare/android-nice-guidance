@@ -23,7 +23,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class DownloadPDF {
+public class Download {
 	
 	private final int SOCKET_TIMEOUT = 30000;
 	

@@ -193,7 +193,7 @@ public class NICEApp extends ListActivity {
 			return true;
 	   case ABOUT_ID:
 		   Toast.makeText(getApplicationContext(),
-				   "Version 1.91\n-----------\n\nDevelopers:\nRoss Jones / Dr VJ Joshi / Neil McPhail\n\nCached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.",
+				   "Version 1.92\n-----------\n\nDevelopers:\nRoss Jones / Dr VJ Joshi / Neil McPhail\n\nCached items are in bold.\nLast opened file is highlighted.\n\nMake sure you have a PDF Reader installed.",
 				   Toast.LENGTH_LONG).show();
 		   return true;
 
@@ -327,7 +327,10 @@ public class NICEApp extends ListActivity {
 			//do nothing
 		} else {
 			//if (firstrun){
-				  CopyAssets("");
+			Toast.makeText(getApplicationContext(),
+					"First run\nInitialising...",
+					Toast.LENGTH_LONG).show();  
+				CopyAssets("");
 					sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse
 							("file://"
 							+ Environment.getExternalStorageDirectory())));
@@ -359,7 +362,6 @@ public class NICEApp extends ListActivity {
 		    		               Toast.LENGTH_LONG).show();
 		    		} 
 		    		
-		    	   DownloadGuideline p = new DownloadGuideline();
 		    		try {
 		    			downloadXML();
 		    			File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml"); 
@@ -559,7 +561,7 @@ public class NICEApp extends ListActivity {
 							publishProgress("Download Progress:\n" + guidelinelist[i]);
 						}
 
-						DownloadPDF p = new DownloadPDF();
+						Download p = new Download();
 						try {
 							p.DownloadFrom(url, targetFile);
 							singlesuccess = Boolean.TRUE;
@@ -879,7 +881,7 @@ public class NICEApp extends ListActivity {
 				String url = "http://openhealthcare.org.uk/guidelines.xml";			
 				String targetFile = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml";
 //				File file = new File(targetFile);
-				DownloadGuideline p = new DownloadGuideline();
+				Download p = new Download();
 				try {
 					p.DownloadFrom(url, targetFile);
 					}
