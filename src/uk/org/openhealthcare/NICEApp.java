@@ -88,7 +88,7 @@ public class NICEApp extends ListActivity {
 	boolean cached[];
 	int numGuidelines;
 	int lastOpened;
-	int lastUpdated;
+	int lastSuccessfulCheck;
 	boolean firstrun;
     boolean haveConnectedWifi = false;
     boolean haveConnectedMobile = false;
@@ -316,7 +316,7 @@ public class NICEApp extends ListActivity {
 	  SharedPreferences.Editor editor = settings.edit();
 
 	  firstrun = settings.getBoolean("firstrun", true);
-	  lastUpdated = settings.getInt("lastUpdated", 0);
+	  lastSuccessfulCheck = settings.getInt("lastSuccessfulCheck", 0);
 	  
 	  String folderString = pathToStorage(null);
 	  File folder = new File(folderString);
@@ -341,7 +341,7 @@ public class NICEApp extends ListActivity {
 			//}
 		}
 
-		 if (isNetworkAvailable() && (lastUpdated!=Calendar.DATE)){
+		 if (isNetworkAvailable() && (lastSuccessfulCheck!=Calendar.DATE)){
 		    	if (haveConnectedWifi){
 		    		try {
 		    			InputStream in = new FileInputStream(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml");
@@ -374,13 +374,15 @@ public class NICEApp extends ListActivity {
 		    				Toast.makeText(getApplicationContext(),
 			    					   "Server contacted.\nGuidelines checked.\nNothing new...",
 			    					   Toast.LENGTH_LONG).show();
-		    					lastUpdated = Calendar.DATE;
-		    					editor.putInt("last", lastUpdated);
+		    					lastSuccessfulCheck = Calendar.DATE;
+		    					editor.putInt("last", lastSuccessfulCheck);
 		    				   //refresh layout
 		    			} else {
 		    			Toast.makeText(getApplicationContext(),
 						   "Updated Guidelines found. \nRefreshing...\nMust Restart",
 						   Toast.LENGTH_LONG).show();
+		    				lastSuccessfulCheck = Calendar.DATE;
+	    					editor.putInt("last", lastSuccessfulCheck);
 							this.finish();   
 		    			}
 		    				// TODO: Refresh the GuidelineData...
@@ -481,7 +483,7 @@ public class NICEApp extends ListActivity {
 			editor.putBoolean(Integer.toString(i), cached[i]);
 		}
 		editor.putInt("last", lastOpened);
-		editor.putInt("last", lastUpdated);
+		editor.putInt("last", lastSuccessfulCheck);
 		editor.putBoolean("firstrun", firstrun);
 		editor.commit();
 	}
