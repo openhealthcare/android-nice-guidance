@@ -32,9 +32,12 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.lang.Boolean;
+
+import uk.org.openhealthcare.NICEApp.ColourArray;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -44,9 +47,13 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.StatFs;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -63,6 +70,7 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -89,18 +97,27 @@ public class NICEApp extends ListActivity {
 	int numGuidelines;
 	int lastOpened;
 	int lastSuccessfulCheck;
-	boolean firstrun;
+	boolean firstrunlast;
     boolean haveConnectedWifi = false;
     boolean haveConnectedMobile = false;
     boolean section[];
     boolean keyboardup = false;
+    String[] gnames;
 
-	ArrayAdapter<String> arrad;
 	ArrayAdapter<String> adapter = null;
 	ListView lv;
 
-	
-
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+	        ContextMenuInfo menuInfo) {
+	    super.onCreateContextMenu(menu, v, menuInfo);
+	    AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+    	GuidelineItem itemC =guidelines.Get((String) getListAdapter().getItem(info.position));
+	    menu.setHeaderTitle(itemC.category);
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.layout.item_menu, menu);
+	}
+	  
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
@@ -194,7 +211,7 @@ public class NICEApp extends ListActivity {
 			return true;
 	   case ABOUT_ID:
 		   Toast.makeText(getApplicationContext(),
-				   "Version 1.93\n-----------\n\nLead Developers:\nDr VJ Joshi & Ross Jones",
+				   "Version 1.93\n-------------\n\nLead Developers:\nDr VJ Joshi & Ross Jones",
 				   Toast.LENGTH_LONG).show();
 		   return true;
 
@@ -311,11 +328,10 @@ public class NICEApp extends ListActivity {
 
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
-	  
+	  	  
 	  SharedPreferences settings = getPreferences (0);
-	  SharedPreferences.Editor editor = settings.edit();
 
-	  firstrun = settings.getBoolean("firstrun", true);
+	  firstrunlast = settings.getBoolean("firstrunlast", true);
 	  lastSuccessfulCheck = settings.getInt("lastSuccessfulCheck", 0);
 	  
 	  String folderString = pathToStorage(null);
@@ -329,7 +345,7 @@ public class NICEApp extends ListActivity {
 		if (exists) {
 			//do nothing
 		} else {
-			//if (firstrun){
+			//if (firstrunlast){
 			Toast.makeText(getApplicationContext(),
 					"First run\nInitialising...",
 					Toast.LENGTH_LONG).show();  
@@ -337,7 +353,7 @@ public class NICEApp extends ListActivity {
 					sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse
 							("file://"
 							+ Environment.getExternalStorageDirectory())));
-				  firstrun=false;
+				  firstrunlast=false;
 			//}
 		}
 
@@ -375,14 +391,18 @@ public class NICEApp extends ListActivity {
 			    					   "Server contacted.\nGuidelines checked.\nNothing new...",
 			    					   Toast.LENGTH_LONG).show();
 		    					lastSuccessfulCheck = Calendar.DATE;
+		    					SharedPreferences.Editor editor = settings.edit();
 		    					editor.putInt("last", lastSuccessfulCheck);
+		    					editor.commit();
 		    				   //refresh layout
 		    			} else {
 		    			Toast.makeText(getApplicationContext(),
 						   "Updated Guidelines found. \nRefreshing...\nMust Restart",
 						   Toast.LENGTH_LONG).show();
 		    				lastSuccessfulCheck = Calendar.DATE;
-	    					editor.putInt("last", lastSuccessfulCheck);
+		    				SharedPreferences.Editor editor = settings.edit();
+		    				editor.putInt("last", lastSuccessfulCheck);
+	    					editor.commit();
 							this.finish();   
 		    			}
 		    				// TODO: Refresh the GuidelineData...
@@ -404,7 +424,7 @@ public class NICEApp extends ListActivity {
 
 	  Object[] c = guidelines.GetKeys();
 	  Arrays.sort(c);
-
+	  
 	  numGuidelines=c.length;
 
 	  cached = new boolean[numGuidelines];
@@ -419,7 +439,7 @@ public class NICEApp extends ListActivity {
 			if(lastLetter.equals(s)){section[i]=false;}
 			lastLetter=s;
 		}
-	  lastOpened = settings.getInt("last", -1);
+	  lastOpened = settings.getInt("last", -1);	  
 
 //	  if (!canDisplayPdf()){
 //		  AlertDialog ad = new AlertDialog.Builder(this).create();
@@ -440,36 +460,83 @@ public class NICEApp extends ListActivity {
 //	  }
 
 	  new CheckExists().execute(guidelines.GetKeys());
-	  final ArrayAdapter<String> arrad = new ColourArray(this, (String[])c);
+	  gnames = (String[])c;
+	  final ColourArray arrad = new ColourArray(this, gnames);
 	  setListAdapter(arrad);
 
 	  lv = getListView();
 	  lv.setFastScrollEnabled(true);
 	  lv.setTextFilterEnabled(true);
-
-
+	  registerForContextMenu(getListView());
+	  
 	  //handleIntent(getIntent());
 
 	  lv.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 		    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-					Object item = getListAdapter().getItem(position);
-					String key = (String) item;
-					new AsyncDownload().execute(key);
-					if (cached[position]){
-						Toast.makeText(getApplicationContext(),
-			                  "Accessing",
-			                  Toast.LENGTH_SHORT).show();
-						};
-					if (isNetworkAvailable()){
-						GuidelineItem item0 =guidelines.Get((String) item);
-						item0.cached=true;
-						lastOpened=position;
-						lv.invalidateViews();
-					}
+				GuidelineItem itemC =guidelines.Get((String) getListAdapter().getItem(position));
+				int count =numGuidelines;
+				for (int i = 60; i > 0; i--){
+					GuidelineItem itemX =guidelines.Get((String) getListAdapter().getItem(i));
+					if(itemX.category!=itemC.category) {
+						arrad.hide(i);
+						}
+					
+				}
+
+				
+//				Object item = getListAdapter().getItem(position);
+//					String key = (String) item;
+//					new AsyncDownload().execute(key);
+//					if (cached[position]){
+//						Toast.makeText(getApplicationContext(),
+//			                  "Accessing",
+//			                  Toast.LENGTH_SHORT).show();
+//						};
+//					if (isNetworkAvailable()){
+//						GuidelineItem item0 =guidelines.Get((String) item);
+//						item0.cached=true;
+//						lastOpened=position;
+//						lv.invalidateViews();
+//					}
+					
 			}
-	  });
+	  
+	  
+		public boolean onContextItemSelected(MenuItem item) {
+		    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+		            .getMenuInfo();
+		 
+			switch (item.getItemId()) {
+		    case R.id.restrict:
+		    	GuidelineItem itemC =guidelines.Get((String) getListAdapter().getItem(info.position));	    	
+		    	Toast.makeText(getApplicationContext(),itemC.category, Toast.LENGTH_LONG).show();
+		    	
+		    	int count =numGuidelines;
+		    	for (int i = 0; i < count; i++){
+					GuidelineItem itemX =guidelines.Get((String) getListAdapter().getItem(i));
+					if(itemX.category!=itemC.category) {
+						arrad.hide(i);
+						}
+					
+				}
+		    	return true;
+		    }
+			
+			switch (item.getItemId()) {
+		    case R.id.release:
+		    	GuidelineItem itemC =guidelines.Get((String) getListAdapter().getItem(info.position));	    	
+		    	Toast.makeText(getApplicationContext(),itemC.subcategory, Toast.LENGTH_LONG).show();
+		        return true;
+		    }
+			
+		    return false;
+		}	  
+	  }	  
+			  );
+	  
+
 	}
 
 	@Override
@@ -484,7 +551,7 @@ public class NICEApp extends ListActivity {
 		}
 		editor.putInt("last", lastOpened);
 		editor.putInt("last", lastSuccessfulCheck);
-		editor.putBoolean("firstrun", firstrun);
+		editor.putBoolean("firstrunlast", firstrunlast);
 		editor.commit();
 	}
 
@@ -619,7 +686,29 @@ public class NICEApp extends ListActivity {
 		}
 
 		protected void onProgressUpdate(String... progress) {
-			   Toast.makeText(getApplicationContext(), progress[0], Toast.LENGTH_SHORT).show();
+			   			   final Toast ShortToast = Toast.makeText(getApplicationContext(),
+					   progress[0],
+						Toast.LENGTH_SHORT);
+
+				Timer timer = new Timer();
+				   TimerTask task = new TimerTask() {
+
+					   @Override
+					   public void run() {
+					     // make sure to cancel the Toast in UI thread
+					     runOnUiThread(new Runnable() {
+
+					       @Override
+					       public void run() {
+					    	   ShortToast.cancel();
+					       }
+					     });
+					   }
+					 };
+
+					 ShortToast.show();
+					 timer.schedule(task, 30);
+			   //shorten me more if WiFi
 		}
 	}
 
@@ -662,16 +751,65 @@ public class NICEApp extends ListActivity {
 
 		HashMap<String, Integer> alphaIndexer;
         String[] sections;
-
+        String[] items = null;
+        boolean[] hidden = null;
+        
         private final Activity context;
 		public final String[] names;
 
-	
+		public void hide(int position) {
+			hidden[getRealPosition(position)] = true;
+			notifyDataSetChanged();
+			notifyDataSetInvalidated();
+		}
+		public void unHide(int position) {
+			hidden[getRealPosition(position)] = false;
+			notifyDataSetChanged();
+			notifyDataSetInvalidated();
+		}
+		
+		private int getRealPosition(int position) {
+			int hElements = getHiddenCountUpTo(position);
+			int diff = 0;
+			for(int i=0;i<hElements;i++) {
+				diff++;
+				if(hidden[position+diff])
+					i--;
+			}
+			return (position + diff);
+		}
+		private int getHiddenCount() {
+			int count = 0;
+			for(int i=0;i<items.length;i++)
+				if(hidden[i])
+					count++;
+			return count;
+		}
+		private int getHiddenCountUpTo(int location) {
+			int count = 0;
+			for(int i=0;i<=location;i++) {
+				if(hidden[i])
+					count++;
+			}
+			return count;
+		}
+
+		@Override
+		public int getCount() {
+			return (items.length - getHiddenCount());
+		}
+		
 		public ColourArray (Activity context, String[] names) {
 				
 			super(context, R.layout.list_item, names);
 			this.context = context;
 			this.names = names;
+			
+			items = names;
+			  hidden = new boolean[names.length];
+			  for (int i = 0; i < names.length; i++){
+			   hidden[i] = false;
+			 }
 			
 			alphaIndexer = new HashMap<String, Integer>();
             int size = names.length;
@@ -687,35 +825,36 @@ public class NICEApp extends ListActivity {
             }
 
 
+		public View getView(int index, View convertView, ViewGroup parent) {
 
-		@Override
-
-		public View getView(int position, View convertView, ViewGroup parent) {
-			LayoutInflater inflater = context.getLayoutInflater();
-
-			View rowView = inflater.inflate(R.layout.list_item, null, true);
+			 int position = getRealPosition(index);
+			 if(convertView == null) {
+			  LayoutInflater vi = (LayoutInflater) getContext().getSystemService(
+			    Context.LAYOUT_INFLATER_SERVICE);
+			  convertView = vi.inflate(R.layout.list_item, null);
+			 }
 
 			FilesViewHolder holder = new FilesViewHolder();
-
-			holder.textView = (TextView) rowView.findViewById(R.id.label);
+		 
+			holder.textView = (TextView) convertView.findViewById(R.id.label);
 			//holder.imageView = (ImageView) rowView.findViewById(R.id.icon);
-			holder.imageView2 = (ImageView) rowView.findViewById(R.id.icon2);
-			holder.separator = (TextView) rowView.findViewById(R.id.separator);
-			holder.subtitleView = (TextView) rowView.findViewById(R.id.subtitle);
-
+			holder.imageView2 = (ImageView) convertView.findViewById(R.id.icon2);
+			holder.subtitleView = (TextView) convertView.findViewById(R.id.subtitle);
 
 			Object itemO = getListAdapter().getItem(position);
 			GuidelineItem item =guidelines.Get((String) itemO);
 			String code = item.code;
 			String category = item.category;
 
-			holder.separator.setText(item.name.substring(0,1));
 			holder.textView.setText(item.name);
 			holder.subtitleView.setText("NICE "+code+String.format("%1$-" + (52-item.subcategory.length()-item.code.length()) + "s", " ")+item.subcategory);
 
 			//imageView.setImageResource(R.drawable.icon);
 			//if (item.name.length()%2==0) {imageView.setImageResource(R.drawable.fox);}
 
+			holder.imageView2.setImageResource(R.drawable.id);//default image
+			
+			if (category.equals("Blood and immune system")) {holder.imageView2.setImageResource(R.drawable.id);}
 			if (category.equals("Cancer")) {holder.imageView2.setImageResource(R.drawable.cancer);}
 			if (category.equals("Cardiovascular")) {holder.imageView2.setImageResource(R.drawable.cardio);}
 			if (category.equals("Central nervous system")) {holder.imageView2.setImageResource(R.drawable.neuro);}
@@ -733,20 +872,14 @@ public class NICEApp extends ListActivity {
 			if (category.equals("Skin")) {holder.imageView2.setImageResource(R.drawable.thermo);}
 			if (category.equals("Urogenital")) {holder.imageView2.setImageResource(R.drawable.ug);}
 
-			if (!section[position]) holder.separator.setVisibility(View.GONE);
-
 			if (item.cached) {
 				holder.textView.setTextColor(Color.rgb(255,255,255));
 			}else {
 				holder.textView.setTextColor(Color.rgb(171,171,191));
 			}
 
-			if (position==lastOpened) {
-				holder.textView.setBackgroundColor(Color.rgb(15,15,191));
-			}
-
-			rowView.setTag(holder);
-			return rowView;
+			convertView.setTag(holder);
+			return convertView;
 		}
 
 		public int getPositionForSection(int section) {
@@ -763,6 +896,7 @@ public class NICEApp extends ListActivity {
 		public Object[] getSections() {
 			return sections;
 		}
+
 	}
 
 	// private boolean isNetworkAvailable() {
@@ -772,6 +906,8 @@ public class NICEApp extends ListActivity {
 	// connectivityManager.getActiveNetworkInfo();
 	// return activeNetworkInfo != null;
 	// }
+	
+	
 
 	private boolean isNetworkAvailable() {
 
