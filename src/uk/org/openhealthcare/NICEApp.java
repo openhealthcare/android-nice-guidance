@@ -1,5 +1,5 @@
 /*
- *    Copyright (C) 2011  Open Health Care, R.Jones, Dr. VJ Joshi
+ *    Copyright (C) 2013  Open Health Care, R.Jones, Dr. VJ Joshi
  *    Additions Copyright (C) 2011 Neil McPhail
  *
  *    This program is free software: you can redistribute it and/or modify
@@ -185,28 +185,28 @@ public class NICEApp extends ListActivity {
 		               Toast.LENGTH_LONG).show();
 		} 
 		
-		try {
-			downloadXML();
-			File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml"); 
-			File cfile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/oldguidelines.xml"); 
-			
-			if(cfile.length()==file.length()){
-				Toast.makeText(getApplicationContext(),
-					"Server contacted.\nGuidelines checked.\nNothing new...",
-					Toast.LENGTH_LONG).show();
-				   //refresh layout
-			} else {
-			Toast.makeText(getApplicationContext(),
-					"Updated Guidelines found. \nRefreshing...\nMUST Restart",
-					Toast.LENGTH_LONG).show();
-					this.finish();   
-			}
-				// TODO: Refresh the GuidelineData...
-		} catch (Exception exc){
-			Toast.makeText(getApplicationContext(),
-		               "Failed to update the list of guidelines",
-		               Toast.LENGTH_LONG).show();
-		}
+//		try {
+//			downloadXML();
+//			File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml"); 
+//			File cfile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/oldguidelines.xml"); 
+//			
+//			if(cfile.length()==file.length()){
+//				Toast.makeText(getApplicationContext(),
+//					"Server contacted.\nGuidelines checked.\nNothing new...",
+//					Toast.LENGTH_LONG).show();
+//				   //refresh layout
+//			} else {
+//			Toast.makeText(getApplicationContext(),
+//					"Updated Guidelines found. \nRefreshing...\nMUST Restart",
+//					Toast.LENGTH_LONG).show();
+//					this.finish();   
+//			}
+//				// TODO: Refresh the GuidelineData...
+//		} catch (Exception exc){
+//			Toast.makeText(getApplicationContext(),
+//		               "Failed to update the list of guidelines",
+//		               Toast.LENGTH_LONG).show();
+//		}
 
 			return true;
 	   case ABOUT_ID:
@@ -357,7 +357,7 @@ public class NICEApp extends ListActivity {
 			//}
 		}
 
-		 if (isNetworkAvailable() && (lastSuccessfulCheck!=Calendar.DATE)){
+		/* if (isNetworkAvailable() && (lastSuccessfulCheck!=Calendar.DATE)){
 		    	if (haveConnectedWifi){
 		    		try {
 		    			InputStream in = new FileInputStream(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+ "nice_guidance" + File.separator + "xml/guidelines.xml");
@@ -412,7 +412,7 @@ public class NICEApp extends ListActivity {
 //		    		               Toast.LENGTH_LONG).show();
 		    		}
 }
-		    	}
+		    	}*/
 		
 	  try {
 		  guidelines = new GuidelineData(this);
@@ -476,30 +476,30 @@ public class NICEApp extends ListActivity {
 		    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 				GuidelineItem itemC =guidelines.Get((String) getListAdapter().getItem(position));
-				int count =numGuidelines;
-				for (int i = 60; i > 0; i--){
-					GuidelineItem itemX =guidelines.Get((String) getListAdapter().getItem(i));
-					if(itemX.category!=itemC.category) {
-						arrad.hide(i);
-						}
+				//int count =numGuidelines;
+				//for (int i = 60; i > 0; i--){
+				//	GuidelineItem itemX =guidelines.Get((String) getListAdapter().getItem(i));
+//					if(itemX.category!=itemC.category) {
+//						arrad.hide(i);
+//						}
 					
-				}
+				//}
 
 				
-//				Object item = getListAdapter().getItem(position);
-//					String key = (String) item;
-//					new AsyncDownload().execute(key);
-//					if (cached[position]){
-//						Toast.makeText(getApplicationContext(),
-//			                  "Accessing",
-//			                  Toast.LENGTH_SHORT).show();
-//						};
-//					if (isNetworkAvailable()){
-//						GuidelineItem item0 =guidelines.Get((String) item);
-//						item0.cached=true;
-//						lastOpened=position;
-//						lv.invalidateViews();
-//					}
+				Object item = getListAdapter().getItem(position);
+					String key = (String) item;
+					new AsyncDownload().execute(key);
+					if (cached[position]){
+						Toast.makeText(getApplicationContext(),
+			                  "Accessing",
+			                  Toast.LENGTH_SHORT).show();
+						};
+					if (isNetworkAvailable()){
+						GuidelineItem item0 =guidelines.Get((String) item);
+						item0.cached=true;
+						lastOpened=position;
+						lv.invalidateViews();
+					}
 					
 			}
 	  
@@ -837,7 +837,7 @@ public class NICEApp extends ListActivity {
 			FilesViewHolder holder = new FilesViewHolder();
 		 
 			holder.textView = (TextView) convertView.findViewById(R.id.label);
-			//holder.imageView = (ImageView) rowView.findViewById(R.id.icon);
+			// holder.imageView = (ImageView) rowView.findViewById(R.id.icon);
 			holder.imageView2 = (ImageView) convertView.findViewById(R.id.icon2);
 			holder.subtitleView = (TextView) convertView.findViewById(R.id.subtitle);
 
